@@ -1,9 +1,9 @@
-import { Navbar } from "./components";
+import { Layout } from "./components";
 
 export const App = () => {
   return (
-    <div className="">
-      <Navbar />
-    </div>
+    <>
+      <Layout />
+    </>
   );
 };
