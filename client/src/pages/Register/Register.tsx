@@ -19,7 +19,9 @@ export const Register = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const handleRegister: SubmitHandler<RegisterFormValues> = (data) => {
+  const handleRegister: SubmitHandler<RegisterFormValues> = (
+    data: RegisterFormValues
+  ) => {
     console.log(data);
   };
 
