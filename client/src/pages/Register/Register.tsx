@@ -1,28 +1,41 @@
 import { Link } from "react-router-dom";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "./Register.schema";
+import axios from "axios";
 
-type RegisterFormValues = {
+export type TFormValues = {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 };
+
+axios.defaults.baseURL = "http://localhost:4000";
 
 export const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormValues>({
+  } = useForm<TFormValues>({
     resolver: yupResolver(registerSchema),
   });
 
-  const handleRegister: SubmitHandler<RegisterFormValues> = (
-    data: RegisterFormValues
-  ) => {
-    console.log(data);
+  // const handleRegister: SubmitHandler<TFormValues> = (data: TFormValues) => {
+  //   console.log(data);
+  // };
+  const handleRegister = async ({ name, email, password }: TFormValues) => {
+    try {
+      await axios.post("/register", {
+        name,
+        email,
+        password,
+      });
+      console.log(name, email, password);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

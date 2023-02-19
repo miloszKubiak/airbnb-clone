@@ -2,7 +2,8 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import mongoose from "mongoose";
-import { connectDB } from "../db/connectDB";
+import { connectDB } from "./db/connectDB";
+import authRouter from "./routes/authRouter";
 
 config();
 const PORT = process.env.PORT || 3000;
@@ -17,11 +18,13 @@ app.use(
   })
 );
 
-mongoose.set("strictQuery", false);
-
 app.get("/test", (req: Request, res: Response) => {
   res.json("test ok");
 });
+
+app.use("/register", authRouter);
+
+mongoose.set("strictQuery", false);
 
 const start = async () => {
   try {
