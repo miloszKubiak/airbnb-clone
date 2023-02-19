@@ -9,14 +9,17 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
   return (
     <header className="flex items-center justify-between">
-      <a href="" className="flex justify-start items-center gap-1">
-        <div className="rotate-180 text-4xl text-indigo-500">
-          <FaAirbnb />
+      <Link to={"/"}>
+        <div className="flex justify-start items-center gap-1">
+          <div className="rotate-180 text-4xl text-indigo-500">
+            <FaAirbnb />
+          </div>
+          <span className="font-black tracking-wide text-indigo-500 text-xl">
+            airdnd
+          </span>
         </div>
-        <span className="font-black tracking-wide text-indigo-500 text-xl">
-          airdnd
-        </span>
-      </a>
+      </Link>
+
       <div
         className="flex items-center justify-around gap-2
       border border-gray-300 rounded-full py-2 px-4 shadow-md"
