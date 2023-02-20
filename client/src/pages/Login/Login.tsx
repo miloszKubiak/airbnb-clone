@@ -4,8 +4,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TFormValues } from "../Register/Register";
 import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
-axios.defaults.baseURL = "http://127.0.0.1:4000";
+axios.defaults.baseURL = "http://127.0.0.1:4000"; // to do - add to env file.
 axios.defaults.withCredentials = true;
 
 export const Login = () => {
@@ -15,10 +17,12 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<TFormValues>({ resolver: yupResolver(loginSchema) });
+  const { setUser } = useContext(UserContext);
 
   const handleLogin = async ({ email, password }: TFormValues) => {
     try {
-      await axios.post("/auth/login", { email, password });
+      const { data } = await axios.post("/auth/login", { email, password });
+      setUser(data);
       alert("Login successful");
       navigate("/");
     } catch (error) {

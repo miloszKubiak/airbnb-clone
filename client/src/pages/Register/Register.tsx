@@ -4,14 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "./Register.schema";
 import axios from "axios";
 
+axios.defaults.baseURL = "http://127.0.0.1:4000"; // to do - add to env file.
+
 export type TFormValues = {
   name?: string;
   email: string;
   password: string;
   confirmPassword?: string;
 };
-
-axios.defaults.baseURL = "http://localhost:4000";
 
 export const Register = () => {
   const navigate = useNavigate();

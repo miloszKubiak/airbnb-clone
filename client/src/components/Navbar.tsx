@@ -5,8 +5,12 @@ import {
   IoSearchCircle,
 } from "react-icons/all";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 export const Navbar = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <header className="flex items-center justify-between">
       <Link to={"/"}>
@@ -39,6 +43,7 @@ export const Navbar = () => {
         >
           <GiHamburgerMenu />
           <FaUserCircle />
+          {!!user && <div>{user.name}</div>}
         </div>
       </Link>
     </header>
