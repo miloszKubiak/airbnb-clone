@@ -18,11 +18,7 @@ app.use(
   })
 );
 
-app.get("/test", (req: Request, res: Response) => {
-  res.json("test ok");
-});
-
-app.use("/register", authRouter);
+app.use("/auth", authRouter);
 
 mongoose.set("strictQuery", false);
 

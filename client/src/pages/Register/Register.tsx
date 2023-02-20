@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "./Register.schema";
 import axios from "axios";
 
 export type TFormValues = {
-  name: string;
+  name?: string;
   email: string;
   password: string;
   confirmPassword?: string;
@@ -14,6 +14,7 @@ export type TFormValues = {
 axios.defaults.baseURL = "http://localhost:4000";
 
 export const Register = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,19 +23,17 @@ export const Register = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  // const handleRegister: SubmitHandler<TFormValues> = (data: TFormValues) => {
-  //   console.log(data);
-  // };
   const handleRegister = async ({ name, email, password }: TFormValues) => {
     try {
-      await axios.post("/register", {
+      await axios.post("/auth/register", {
         name,
         email,
         password,
       });
-      console.log(name, email, password);
+      alert("Registration successful. Redirecting to the login page.");
+      navigate("/login");
     } catch (error) {
-      console.log(error);
+      alert("Registration failed. Please try again later.");
     }
   };
 
@@ -67,7 +66,9 @@ export const Register = () => {
             {...register("confirmPassword")}
           />
           <p className="error">{errors.confirmPassword?.message}</p>
-          <button className="primary">Register</button>
+          <button type="submit" className="primary">
+            Register
+          </button>
           <div className="text-center py-3">
             Have an account?{" "}
             <Link className="font-bold text-indigo-500 underline" to={"/login"}>

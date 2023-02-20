@@ -1,22 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginSchema } from "./Login.schema";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { TFormValues } from "../Register/Register";
+import axios from "axios";
 
-type LoginFormValues = {
-  email: string;
-  password: string;
-};
+axios.defaults.baseURL = "http://127.0.0.1:4000";
+axios.defaults.withCredentials = true;
 
 export const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormValues>({ resolver: yupResolver(loginSchema) });
+  } = useForm<TFormValues>({ resolver: yupResolver(loginSchema) });
 
-  const handleLogin: SubmitHandler<LoginFormValues> = (data) => {
-    console.log(data);
+  const handleLogin = async ({ email, password }: TFormValues) => {
+    try {
+      await axios.post("/auth/login", { email, password });
+      alert("Login successful");
+      navigate("/");
+    } catch (error) {
+      alert("Login failed");
+    }
   };
 
   return (
@@ -36,7 +43,9 @@ export const Login = () => {
             {...register("password")}
           />
           <p className="error">{errors.password?.message}</p>
-          <button className="primary">Login</button>
+          <button type="submit" className="primary">
+            Login
+          </button>
           <div className="text-center py-3">
             Don't have an account?{" "}
             <Link
