@@ -62,3 +62,7 @@ export const getUser = (req: Request, res: Response) => {
     res.json(null);
   }
 };
+
+export const logoutUser = (req: Request, res: Response) => {
+  res.cookie("token", "").json(true);
+};
