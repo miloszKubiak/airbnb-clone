@@ -29,8 +29,8 @@ export const loginUser = async (req: Request, res: Response) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    const passwordOk = bcrypt.compareSync(password, user.password!);
-    if (passwordOk) {
+    const isMatch = bcrypt.compareSync(password, user.password!);
+    if (isMatch) {
       jwt.sign(
         { email: user.email, id: user._id },
         jwtSecret,
@@ -44,6 +44,21 @@ export const loginUser = async (req: Request, res: Response) => {
       res.status(422).json("Wrong password");
     }
   } else {
-    res.json("User not found");
+    res.status(404).json("User not found");
+  }
+};
+
+//jwt userData any - do poprawy
+export const getUser = (req: Request, res: Response) => {
+  const { token } = req.cookies;
+
+  if (token) {
+    jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
+      if (error) throw error;
+      const user = await User.findById(userData.id);
+      res.json(user);
+    });
+  } else {
+    res.json(null);
   }
 };

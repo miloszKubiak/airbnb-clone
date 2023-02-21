@@ -4,6 +4,7 @@ import { config } from "dotenv";
 import mongoose from "mongoose";
 import { connectDB } from "./db/connectDB";
 import authRouter from "./routes/authRouter";
+import cookieParser from "cookie-parser";
 
 config();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
@@ -32,10 +34,5 @@ const start = async () => {
     console.log(error);
   }
 };
-
-app.post("/register", (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-  res.json({ name, email, password });
-});
 
 start();

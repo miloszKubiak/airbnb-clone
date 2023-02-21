@@ -35,11 +35,11 @@ export const Navbar = () => {
           <IoSearchCircle />
         </button>
       </div>
-      <Link to={"/login"}>
+      <Link to={user ? "/account" : "/login"}>
         <div
           className="flex items-center justify-around gap-2
       border border-gray-300 rounded-full py-3 px-4 shadow-md
-      text-3xl text-gray-500"
+      text-xl text-gray-500"
         >
           <GiHamburgerMenu />
           <FaUserCircle />

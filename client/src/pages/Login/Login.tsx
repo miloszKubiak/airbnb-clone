@@ -26,7 +26,7 @@ export const Login = () => {
       alert("Login successful");
       navigate("/");
     } catch (error) {
-      alert("Login failed");
+      alert("Wrong credentials");
     }
   };
 
