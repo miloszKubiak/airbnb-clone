@@ -1,3 +1,10 @@
+import { AccountNavbar } from "../components";
+
 export const Accommodations = () => {
-  return <div>accommodations</div>;
+  return (
+    <div>
+      <AccountNavbar />
+      <p>accommodations</p>
+    </div>
+  );
 };
