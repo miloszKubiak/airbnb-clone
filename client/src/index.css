@@ -15,8 +15,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-input[type="text"],input[type="email"],input[type="password"] {
-    @apply w-full border my-1 py-3 px-4 mb-4 rounded-full
+input[type="text"],input[type="email"],input[type="password"],textarea {
+    @apply w-full border my-1 py-3 px-4 mb-2 rounded-xl
 }
 
 p.error {
@@ -27,6 +27,6 @@ button.primary {
     @apply w-full text-xl mt-2 p-2 rounded-full text-white bg-indigo-500
 }
 
-.primary {
+.link-primary {
     @apply inline-flex items-center gap-2 py-2 px-6 text-white bg-indigo-500 rounded-full
 }

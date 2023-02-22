@@ -7,10 +7,7 @@ export const Accommodations = () => {
     <div>
       <AccountNavbar />
       <div className="text-center mt-10">
-        <Link
-          className="inline-flex items-center gap-2 py-2 px-6 text-white bg-indigo-500 rounded-full"
-          to={"/account/accommodations/new"}
-        >
+        <Link className="link-primary" to={"/account/accommodations/new"}>
           <GoPlus />
           Add new
         </Link>
