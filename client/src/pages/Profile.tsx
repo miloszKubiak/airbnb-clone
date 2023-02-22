@@ -3,21 +3,22 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { Accommodations } from "./Accommodation/Accommodations";
 
 export const Profile = () => {
   const { ready, user, setUser } = useContext(UserContext);
   let { subpage } = useParams();
   const navigate = useNavigate();
 
+  if (subpage === undefined) {
+    subpage = "profile";
+  }
+
   const logout = async () => {
     await axios.post("/auth/logout");
     navigate("/");
     setUser(null);
   };
-
-  if (subpage === undefined) {
-    subpage = "profile";
-  }
 
   if (!ready) return <div>"Loading..."</div>;
   if (ready && !user) return <Navigate to={"/login"} />;
@@ -34,6 +35,7 @@ export const Profile = () => {
           Logout
         </button>
       </div>
+      {subpage === "accommodations" && <Accommodations />}
     </div>
   );
 };

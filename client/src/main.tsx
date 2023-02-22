@@ -2,10 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Homepage, Login, Register, Bookings, Accommodations } from "./pages";
+import {
+  Homepage,
+  Login,
+  Register,
+  Bookings,
+  Accommodations,
+  NewAccommodation,
+} from "./pages";
 import { Layout } from "./components";
 import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
+import { SingleAccommodation } from "./pages/Accommodation/SingleAccommodation";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +43,14 @@ const router = createBrowserRouter([
       {
         path: "/account/accommodations",
         element: <Accommodations />,
+      },
+      {
+        path: "/account/accommodations/new",
+        element: <NewAccommodation />,
+      },
+      {
+        path: "/account/accommodations/:id",
+        element: <SingleAccommodation />,
       },
     ],
   },

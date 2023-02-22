@@ -27,6 +27,6 @@ button.primary {
     @apply w-full text-xl mt-2 p-2 rounded-full text-white bg-indigo-500
 }
 
-.active-link {
-    @apply text-white bg-indigo-500 rounded-full
+.primary {
+    @apply inline-flex items-center gap-2 py-2 px-6 text-white bg-indigo-500 rounded-full
 }
