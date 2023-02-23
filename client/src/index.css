@@ -30,3 +30,8 @@ button.primary {
 .link-primary {
     @apply inline-flex items-center gap-2 py-2 px-6 text-white bg-indigo-500 rounded-full
 }
+
+textarea{
+    min-height: 80px;
+    max-height: 200px;
+}
