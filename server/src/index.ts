@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import mongoose from "mongoose";
@@ -15,12 +15,17 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(
+  "/uploads",
+  express.static(
+    "D:\\UdemyReactCourseProjects\\airbnb-clone\\server\\src\\uploads"
+  )
+);
+app.use(
   cors({
     credentials: true,
     origin: "http://127.0.0.1:5173",
   })
 );
-console.log(__dirname);
 
 app.use("/auth", authRouter);
 app.use("/upload-by-link", uploadsRouter);

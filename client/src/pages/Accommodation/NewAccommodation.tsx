@@ -104,14 +104,23 @@ export const NewAccommodation = () => {
           </div>
           <p className="error">{errors.photos?.message}</p>
         </div>
-        <div className="grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {addedPhotos.length > 0 &&
-            addedPhotos.map((link) => <div>{link}</div>)}
-          <button className="flex justify-center border border-black bg-transparent rounded-2xl text-2xl p-6">
+            addedPhotos.map((link) => (
+              <div>
+                <img
+                  className="rounded-2xl"
+                  src={"http://localhost:4000/uploads/" + link}
+                  alt=""
+                />
+              </div>
+            ))}
+          <label className="flex justify-center items-center border border-black bg-transparent rounded-2xl text-4xl p-2 cursor-pointer">
+            <input type="file" className="hidden" />
             <span>
               <GoCloudUpload />
             </span>
-          </button>
+          </label>
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>

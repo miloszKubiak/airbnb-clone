@@ -6,7 +6,9 @@ export const uploadByLink = async (req: Request, res: Response) => {
   const newName = "photo" + Date.now() + ".jpg";
   await imageDownloader.image({
     url: link,
-    dest: __dirname + "/uploads" + newName,
+    dest:
+      "D:\\UdemyReactCourseProjects\\airbnb-clone\\server\\src\\uploads/" +
+      newName,
   });
   res.json(newName);
 };
