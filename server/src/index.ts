@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { connectDB } from "./db/connectDB";
 import authRouter from "./routes/authRouter";
 import cookieParser from "cookie-parser";
+import uploadsRouter from "./routes/uploadsRouter";
 
 config();
 const PORT = process.env.PORT || 3000;
@@ -19,8 +20,10 @@ app.use(
     origin: "http://127.0.0.1:5173",
   })
 );
+console.log(__dirname);
 
 app.use("/auth", authRouter);
+app.use("/upload-by-link", uploadsRouter);
 
 mongoose.set("strictQuery", false);
 

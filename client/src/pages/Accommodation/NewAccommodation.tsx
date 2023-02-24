@@ -12,6 +12,8 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { accommodationSchema } from "./Accommodation.schema";
+import axios from "axios";
+import { FormEvent, useState } from "react";
 
 export type TAccommodationFormValues = {
   title: string;
@@ -27,6 +29,8 @@ export type TAccommodationFormValues = {
 };
 
 export const NewAccommodation = () => {
+  const [photoLink, setPhotoLink] = useState("");
+  const [addedPhotos, setAddedPhotos] = useState<string[]>([]);
   const {
     register,
     handleSubmit,
@@ -37,6 +41,17 @@ export const NewAccommodation = () => {
 
   const handleAddAccommodation = () => {
     console.log("added");
+  };
+
+  const addPhotoByLink = async (e: FormEvent) => {
+    e.preventDefault();
+    const { data: filename } = await axios.post("/upload-by-link", {
+      link: photoLink,
+    });
+    setAddedPhotos((prev) => {
+      return [...prev, filename];
+    });
+    setPhotoLink("");
   };
 
   return (
@@ -75,14 +90,23 @@ export const NewAccommodation = () => {
           <div className="flex items-center gap-2">
             <input
               type="text"
+              value={photoLink}
+              onChange={(e) => setPhotoLink(e.target.value)}
               placeholder="Add photo using a link to the picture..."
-              {...register("photos")}
             />
-            <button className="bg-gray-200 rounded-full px-4">Add photo</button>
+            <button
+              className="bg-gray-200 rounded-full px-4"
+              onClick={addPhotoByLink}
+              disabled={!photoLink}
+            >
+              Add photo
+            </button>
           </div>
           <p className="error">{errors.photos?.message}</p>
         </div>
         <div className="grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          {addedPhotos.length > 0 &&
+            addedPhotos.map((link) => <div>{link}</div>)}
           <button className="flex justify-center border border-black bg-transparent rounded-2xl text-2xl p-6">
             <span>
               <GoCloudUpload />
