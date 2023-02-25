@@ -37,3 +37,17 @@ export const addNewAccommodation = (req: Request, res: Response) => {
     res.json(newAccommodation);
   });
 };
+
+// type TokenData = {
+//   email: string;
+//   id: string;
+//   iat: number;
+// }; // do sprawdzenia!
+
+export const getAllAccommodations = (req: Request, res: Response) => {
+  const { token } = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
+    const { id } = userData;
+    res.json(await Accommodation.find({ owner: id }));
+  });
+};

@@ -1,4 +1,4 @@
-import { AccountNavbar, PhotosUploader } from "../../components";
+import { AccountNavbar, PhotosUploader } from "../../../components";
 import { Link, useNavigate } from "react-router-dom";
 import {
   BsDoorClosed,
