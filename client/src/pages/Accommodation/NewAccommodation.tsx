@@ -45,7 +45,7 @@ export const NewAccommodation = () => {
 
   const addPhotoByLink = async (e: FormEvent) => {
     e.preventDefault();
-    const { data: filename } = await axios.post("/upload-by-link", {
+    const { data: filename } = await axios.post("/uploads/upload-by-link", {
       link: photoLink,
     });
     setAddedPhotos((prev) => {
@@ -57,9 +57,13 @@ export const NewAccommodation = () => {
   const uploadPhoto = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files!;
     const data = new FormData();
-    data.set("photos", files as any);
+
+    for (let i = 0; i < files.length; i++) {
+      data.append("photos", files[i]);
+    }
+
     axios
-      .post("/upload-from-device", data, {
+      .post("/uploads/upload-from-device", data, {
         headers: { "Content-type": "multipart/form-data" },
       })
       .then((response) => {

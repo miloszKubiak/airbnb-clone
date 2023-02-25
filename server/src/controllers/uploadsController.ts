@@ -12,3 +12,7 @@ export const uploadByLink = async (req: Request, res: Response) => {
   });
   res.json(newName);
 };
+
+export const uploadFromDevice = (req: Request, res: Response) => {
+  res.json(req.files);
+};

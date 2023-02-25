@@ -28,7 +28,7 @@ app.use(
 );
 
 app.use("/auth", authRouter);
-app.use("/upload-by-link", uploadsRouter);
+app.use("/uploads", uploadsRouter);
 
 mongoose.set("strictQuery", false);
 

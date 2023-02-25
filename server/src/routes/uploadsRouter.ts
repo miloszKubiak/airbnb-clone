@@ -1,8 +1,18 @@
 import express from "express";
-import { uploadByLink } from "../controllers/uploadsController";
+import {
+  uploadByLink,
+  uploadFromDevice,
+} from "../controllers/uploadsController";
+import multer from "multer";
 
 const router = express.Router();
 
-router.route("/").post(uploadByLink);
+const multerMiddleware = multer({
+  dest: "D:\\UdemyReactCourseProjects\\airbnb-clone\\server\\src\\uploads/",
+});
+const photosMiddleware = multerMiddleware.array("photos", 100);
+
+router.route("/upload-by-link").post(uploadByLink);
+router.route("/upload-from-device").post(photosMiddleware, uploadFromDevice);
 
 export default router;
