@@ -1,19 +1,17 @@
-import { AccountNavbar } from "../../components";
-import { Form, Link } from "react-router-dom";
+import { AccountNavbar, PhotosUploader } from "../../components";
+import { Link } from "react-router-dom";
 import {
   BsDoorClosed,
   CgScreen,
   FaParking,
   FaWifi,
-  GoCloudUpload,
   MdPets,
   TbToolsKitchen2,
 } from "react-icons/all";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { accommodationSchema } from "./Accommodation.schema";
-import axios from "axios";
-import { ChangeEvent, ChangeEventHandler, FormEvent, useState } from "react";
+import { useState } from "react";
 
 export type TAccommodationFormValues = {
   title: string;
@@ -29,7 +27,6 @@ export type TAccommodationFormValues = {
 };
 
 export const NewAccommodation = () => {
-  const [photoLink, setPhotoLink] = useState("");
   const [addedPhotos, setAddedPhotos] = useState<string[]>([]);
   const {
     register,
@@ -41,36 +38,6 @@ export const NewAccommodation = () => {
 
   const handleAddAccommodation = () => {
     console.log("added");
-  };
-
-  const addPhotoByLink = async (e: FormEvent) => {
-    e.preventDefault();
-    const { data: filename } = await axios.post("/uploads/upload-by-link", {
-      link: photoLink,
-    });
-    setAddedPhotos((prev) => {
-      return [...prev, filename];
-    });
-    setPhotoLink("");
-  };
-
-  const uploadPhoto = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files!;
-    const data = new FormData();
-
-    for (let i = 0; i < files.length; i++) {
-      data.append("photos", files[i]);
-    }
-    axios
-      .post("/uploads/upload-from-device", data, {
-        headers: { "Content-type": "multipart/form-data" },
-      })
-      .then((response) => {
-        const { data: filenames } = response;
-        setAddedPhotos((prev) => {
-          return [...prev, ...filenames];
-        });
-      });
   };
 
   return (
@@ -106,48 +73,10 @@ export const NewAccommodation = () => {
           <p className="text-zinc-500">
             Add photos using link or upload from your device
           </p>
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              value={photoLink}
-              onChange={(e) => setPhotoLink(e.target.value)}
-              placeholder="Add photo using a link to the picture..."
-            />
-            <button
-              className="bg-gray-200 rounded-full px-4"
-              onClick={addPhotoByLink}
-              disabled={!photoLink}
-            >
-              Add photo
-            </button>
-          </div>
-          <p className="error">{errors.photos?.message}</p>
-        </div>
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
-          {addedPhotos.length > 0 &&
-            addedPhotos.map((link) => (
-              <div key={link}>
-                <img
-                  className="rounded-2xl"
-                  src={"http://localhost:4000/uploads/" + link}
-                  alt=""
-                />
-              </div>
-            ))}
-          <label
-            className="flex justify-center items-center border border-black bg-transparent
-          rounded-2xl text-4xl p-2 cursor-pointer"
-          >
-            <input
-              type="file"
-              multiple
-              className="hidden"
-              onChange={uploadPhoto}
-            />
-            <span>
-              <GoCloudUpload />
-            </span>
-          </label>
+          <PhotosUploader
+            addedPhotos={addedPhotos}
+            handleChangePhotos={setAddedPhotos}
+          />
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>
