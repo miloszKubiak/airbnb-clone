@@ -5,7 +5,7 @@ export const accommodationSchema = yup.object().shape({
   address: yup.string().required("Address is required."),
   description: yup.string().required("Description is required."),
   // photos: yup.array().of(yup.string()),
-  photos: yup.string().required("Add link to the photo."),
+  photos: yup.string(),
   perks: yup.string(),
   extraInfo: yup.string(),
   checkIn: yup.string().required("Check in field is required."),

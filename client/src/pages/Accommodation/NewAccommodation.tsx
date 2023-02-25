@@ -1,5 +1,5 @@
 import { AccountNavbar } from "../../components";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import {
   BsDoorClosed,
   CgScreen,
@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { accommodationSchema } from "./Accommodation.schema";
 import axios from "axios";
-import { FormEvent, useState } from "react";
+import { ChangeEvent, ChangeEventHandler, FormEvent, useState } from "react";
 
 export type TAccommodationFormValues = {
   title: string;
@@ -52,6 +52,22 @@ export const NewAccommodation = () => {
       return [...prev, filename];
     });
     setPhotoLink("");
+  };
+
+  const uploadPhoto = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files!;
+    const data = new FormData();
+    data.set("photos", files as any);
+    axios
+      .post("/upload-from-device", data, {
+        headers: { "Content-type": "multipart/form-data" },
+      })
+      .then((response) => {
+        const { data: filename } = response;
+        setAddedPhotos((prev) => {
+          return [...prev, filename];
+        });
+      });
   };
 
   return (
@@ -107,7 +123,7 @@ export const NewAccommodation = () => {
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {addedPhotos.length > 0 &&
             addedPhotos.map((link) => (
-              <div>
+              <div key={link}>
                 <img
                   className="rounded-2xl"
                   src={"http://localhost:4000/uploads/" + link}
@@ -115,8 +131,11 @@ export const NewAccommodation = () => {
                 />
               </div>
             ))}
-          <label className="flex justify-center items-center border border-black bg-transparent rounded-2xl text-4xl p-2 cursor-pointer">
-            <input type="file" className="hidden" />
+          <label
+            className="flex justify-center items-center border border-black bg-transparent
+          rounded-2xl text-4xl p-2 cursor-pointer"
+          >
+            <input type="file" className="hidden" onChange={uploadPhoto} />
             <span>
               <GoCloudUpload />
             </span>
