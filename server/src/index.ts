@@ -6,6 +6,7 @@ import { connectDB } from "./db/connectDB";
 import authRouter from "./routes/authRouter";
 import cookieParser from "cookie-parser";
 import uploadsRouter from "./routes/uploadsRouter";
+import accommodationRouter from "./routes/accommodationRouter";
 
 config();
 const PORT = process.env.PORT || 3000;
@@ -29,6 +30,7 @@ app.use(
 
 app.use("/auth", authRouter);
 app.use("/uploads", uploadsRouter);
+app.use("/accommodations", accommodationRouter);
 
 mongoose.set("strictQuery", false);
 

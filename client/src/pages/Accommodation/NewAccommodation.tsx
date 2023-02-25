@@ -1,5 +1,5 @@
 import { AccountNavbar, PhotosUploader } from "../../components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   BsDoorClosed,
   CgScreen,
@@ -12,13 +12,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { accommodationSchema } from "./Accommodation.schema";
 import { useState } from "react";
+import axios from "axios";
 
 export type TAccommodationFormValues = {
   title: string;
   address: string;
   description: string;
-  photos: string[];
-  perks: string[];
+  photos?: string[]; ////// do poprawy
+  addedPhotos: string[]; /////do poprawy
+  perks?: string[];
   extraInfo: string;
   checkIn: string;
   checkOut: string;
@@ -28,17 +30,60 @@ export type TAccommodationFormValues = {
 
 export const NewAccommodation = () => {
   const [addedPhotos, setAddedPhotos] = useState<string[]>([]);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TAccommodationFormValues>({
     resolver: yupResolver(accommodationSchema),
+    defaultValues: {
+      title: "",
+      address: "",
+      description: "",
+      photos: [""],
+      perks: [""],
+      extraInfo: "",
+      checkIn: "",
+      checkOut: "",
+      maxGuests: 1,
+      price: 1,
+    },
   });
 
-  const handleAddAccommodation = () => {
-    console.log("added");
+  const handleAddAccommodation = async ({
+    title,
+    address,
+    description,
+    addedPhotos,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+    price,
+  }: TAccommodationFormValues) => {
+    try {
+      await axios.post("/accommodations", {
+        title,
+        address,
+        description,
+        addedPhotos,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+        price,
+      });
+      alert("Added new place!");
+      navigate("/account/accommodations");
+    } catch (error) {
+      alert("Something went wrong!");
+    }
   };
+
+  console.log(addedPhotos);
 
   return (
     <div>
@@ -119,7 +164,6 @@ export const NewAccommodation = () => {
               <span>Pets</span>
             </label>
           </div>
-          <p className="error">{errors.perks?.message}</p>
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Extra info</h2>
