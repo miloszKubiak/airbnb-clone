@@ -61,15 +61,14 @@ export const NewAccommodation = () => {
     for (let i = 0; i < files.length; i++) {
       data.append("photos", files[i]);
     }
-
     axios
       .post("/uploads/upload-from-device", data, {
         headers: { "Content-type": "multipart/form-data" },
       })
       .then((response) => {
-        const { data: filename } = response;
+        const { data: filenames } = response;
         setAddedPhotos((prev) => {
-          return [...prev, filename];
+          return [...prev, ...filenames];
         });
       });
   };
@@ -139,7 +138,12 @@ export const NewAccommodation = () => {
             className="flex justify-center items-center border border-black bg-transparent
           rounded-2xl text-4xl p-2 cursor-pointer"
           >
-            <input type="file" className="hidden" onChange={uploadPhoto} />
+            <input
+              type="file"
+              multiple
+              className="hidden"
+              onChange={uploadPhoto}
+            />
             <span>
               <GoCloudUpload />
             </span>
