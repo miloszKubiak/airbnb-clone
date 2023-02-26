@@ -1,5 +1,5 @@
 import { AccountNavbar, PhotosUploader } from "../../../components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BsDoorClosed,
   CgScreen,
@@ -11,7 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { accommodationSchema } from "./Accommodation.schema";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 export type TAccommodationFormValues = {
@@ -28,9 +28,19 @@ export type TAccommodationFormValues = {
   price: number;
 };
 
-export const NewAccommodation = () => {
+export const AccommodationForm = () => {
   const [addedPhotos, setAddedPhotos] = useState<string[]>([]);
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (!id) return;
+    axios.get(`/accommodations/${id}`).then((response) => {
+      const { data } = response;
+      console.log(data);
+    });
+  }, [id]);
+
   const {
     register,
     handleSubmit,

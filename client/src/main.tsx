@@ -8,7 +8,7 @@ import {
   Register,
   Bookings,
   Accommodations,
-  NewAccommodation,
+  AccommodationForm,
 } from "./pages";
 import { Layout } from "./components";
 import { UserContextProvider } from "./context/UserContext";
@@ -46,7 +46,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/accommodations/new",
-        element: <NewAccommodation />,
+        element: <AccommodationForm />,
+      },
+      {
+        path: "/account/accommodations/edit/:id",
+        element: <AccommodationForm />,
       },
       {
         path: "/account/accommodations/:id",

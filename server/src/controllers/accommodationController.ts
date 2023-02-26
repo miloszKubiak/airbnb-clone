@@ -51,3 +51,8 @@ export const getAllAccommodations = (req: Request, res: Response) => {
     res.json(await Accommodation.find({ owner: id }));
   });
 };
+
+export const getSingleAccommodation = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  res.json(await Accommodation.findById(id));
+};
