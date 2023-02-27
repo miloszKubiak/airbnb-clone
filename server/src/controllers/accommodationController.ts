@@ -56,3 +56,40 @@ export const getSingleAccommodation = async (req: Request, res: Response) => {
   const { id } = req.params;
   res.json(await Accommodation.findById(id));
 };
+
+export const updateAccommodation = async (req: Request, res: Response) => {
+  const { token } = req.cookies;
+  const {
+    id,
+    title,
+    address,
+    description,
+    photos,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+    price,
+  } = req.body;
+  jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
+    if (error) throw error;
+    const accommodation = await Accommodation.findById(id);
+    if (userData.id === accommodation!.owner?.toString()) {
+      accommodation!.set({
+        title,
+        address,
+        description,
+        photos,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+        price,
+      });
+      await accommodation!.save();
+      res.json("Update success!");
+    }
+  });
+};

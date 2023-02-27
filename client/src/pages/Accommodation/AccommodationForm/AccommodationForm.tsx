@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export type TAccommodationFormValues = {
+  id?: string;
   title: string;
   address: string;
   description: string;
@@ -37,13 +38,14 @@ export const AccommodationForm = () => {
     if (!id) return;
     axios.get(`/accommodations/${id}`).then((response) => {
       const { data } = response;
-      console.log(data);
+      Object.keys(data).forEach((field: any) => setValue(field, data[field]));
     });
   }, [id]);
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<TAccommodationFormValues>({
     resolver: yupResolver(accommodationSchema),
@@ -61,7 +63,7 @@ export const AccommodationForm = () => {
     },
   });
 
-  const handleAddAccommodation = async ({
+  const handleSaveAccommodation = async ({
     title,
     address,
     description,
@@ -73,35 +75,57 @@ export const AccommodationForm = () => {
     maxGuests,
     price,
   }: TAccommodationFormValues) => {
-    try {
-      await axios.post("/accommodations", {
-        title,
-        address,
-        description,
-        addedPhotos,
-        perks,
-        extraInfo,
-        checkIn,
-        checkOut,
-        maxGuests,
-        price,
-      });
-      alert("Added new place!");
-      navigate("/account/accommodations");
-    } catch (error) {
-      alert("Something went wrong!");
+    const accommodationData = {
+      title,
+      address,
+      description,
+      addedPhotos,
+      perks,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+      price,
+    };
+    if (id) {
+      try {
+        await axios.put("/accommodations", { id, ...accommodationData });
+        alert("Edit place successful!");
+        navigate("/account/accommodations");
+      } catch (error) {
+        alert("Something went wrong!");
+      }
+    } else {
+      try {
+        await axios.post("/accommodations", {
+          title,
+          address,
+          description,
+          addedPhotos,
+          perks,
+          extraInfo,
+          checkIn,
+          checkOut,
+          maxGuests,
+          price,
+        });
+        alert("Added new place!");
+        navigate("/account/accommodations");
+      } catch (error) {
+        alert("Something went wrong!");
+      }
     }
   };
-
-  console.log(addedPhotos);
 
   return (
     <div>
       <AccountNavbar />
-      <h1 className="text-center text-xl mt-4">Add new accommodation</h1>
+      <h1 className="text-center text-xl mt-4">
+        {id ? "Edit accommodation" : "Add new accommodation"}
+      </h1>
       <form
         className="p-3 mt-2"
-        onSubmit={handleSubmit(handleAddAccommodation)}
+        onSubmit={handleSubmit(handleSaveAccommodation)}
       >
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Title</h2>
