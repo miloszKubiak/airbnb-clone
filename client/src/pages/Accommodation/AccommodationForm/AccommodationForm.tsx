@@ -1,4 +1,8 @@
-import { AccountNavbar, PhotosUploader } from "../../../components";
+import {
+  AccountNavbar,
+  PhotosUploader,
+  UploadPhotos,
+} from "../../../components";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BsDoorClosed,
@@ -19,8 +23,8 @@ export type TAccommodationFormValues = {
   title: string;
   address: string;
   description: string;
-  photos?: string[]; ////// do poprawy
-  addedPhotos: string[]; /////do poprawy
+  photos?: string[];
+  addedPhotos?: string[]; /////do poprawy
   perks?: string[];
   extraInfo: string;
   checkIn: string;
@@ -39,6 +43,7 @@ export const AccommodationForm = () => {
     axios.get(`/accommodations/${id}`).then((response) => {
       const { data } = response;
       Object.keys(data).forEach((field: any) => setValue(field, data[field]));
+      console.log(data);
     });
   }, [id]);
 
@@ -46,6 +51,7 @@ export const AccommodationForm = () => {
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
   } = useForm<TAccommodationFormValues>({
     resolver: yupResolver(accommodationSchema),
@@ -53,8 +59,9 @@ export const AccommodationForm = () => {
       title: "",
       address: "",
       description: "",
-      photos: [""],
-      perks: [""],
+      photos: [],
+      // addedPhotos: [],
+      perks: [],
       extraInfo: "",
       checkIn: "",
       checkOut: "",
@@ -62,6 +69,8 @@ export const AccommodationForm = () => {
       price: 1,
     },
   });
+
+  console.log("******Added photos: " + addedPhotos);
 
   const handleSaveAccommodation = async ({
     title,
@@ -87,6 +96,7 @@ export const AccommodationForm = () => {
       maxGuests,
       price,
     };
+
     if (id) {
       try {
         await axios.put("/accommodations", { id, ...accommodationData });
@@ -149,13 +159,11 @@ export const AccommodationForm = () => {
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Photos</h2>
-          <p className="text-zinc-500">
-            Add photos using link or upload from your device
-          </p>
-          <PhotosUploader
-            addedPhotos={addedPhotos}
-            handleChangePhotos={setAddedPhotos}
-          />
+          <p className="text-zinc-500">Upload any photos from your device</p>
+          {/*<PhotosUploader*/}
+          {/*  addedPhotos={addedPhotos}*/}
+          {/*  handleChangePhotos={setAddedPhotos}*/}
+          {/*/>*/}
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>
