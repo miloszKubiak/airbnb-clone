@@ -1,14 +1,11 @@
-import {
-  AccountNavbar,
-  PhotosUploader,
-  UploadPhotos,
-} from "../../../components";
+import { AccountNavbar, PhotosUploader } from "../../../components";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BsDoorClosed,
   CgScreen,
   FaParking,
   FaWifi,
+  GoCloudUpload,
   MdPets,
   TbToolsKitchen2,
 } from "react-icons/all";
@@ -51,7 +48,6 @@ export const AccommodationForm = () => {
     register,
     handleSubmit,
     setValue,
-    control,
     formState: { errors },
   } = useForm<TAccommodationFormValues>({
     resolver: yupResolver(accommodationSchema),
@@ -70,13 +66,11 @@ export const AccommodationForm = () => {
     },
   });
 
-  console.log("******Added photos: " + addedPhotos);
-
   const handleSaveAccommodation = async ({
     title,
     address,
     description,
-    addedPhotos,
+    photos,
     perks,
     extraInfo,
     checkIn,
@@ -88,7 +82,7 @@ export const AccommodationForm = () => {
       title,
       address,
       description,
-      addedPhotos,
+      photos,
       perks,
       extraInfo,
       checkIn,
@@ -96,7 +90,7 @@ export const AccommodationForm = () => {
       maxGuests,
       price,
     };
-
+    console.log(accommodationData);
     if (id) {
       try {
         await axios.put("/accommodations", { id, ...accommodationData });
@@ -111,7 +105,7 @@ export const AccommodationForm = () => {
           title,
           address,
           description,
-          addedPhotos,
+          photos,
           perks,
           extraInfo,
           checkIn,
@@ -160,10 +154,10 @@ export const AccommodationForm = () => {
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Photos</h2>
           <p className="text-zinc-500">Upload any photos from your device</p>
-          {/*<PhotosUploader*/}
-          {/*  addedPhotos={addedPhotos}*/}
-          {/*  handleChangePhotos={setAddedPhotos}*/}
-          {/*/>*/}
+          <PhotosUploader
+            addedPhotos={addedPhotos}
+            handleChangePhotos={setAddedPhotos}
+          />
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>

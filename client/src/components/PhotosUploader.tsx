@@ -1,6 +1,7 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, forwardRef, useState } from "react";
 import axios from "axios";
 import { GoCloudUpload } from "react-icons/all";
+import { useForm } from "react-hook-form";
 
 export type PhotosUploaderProps = {
   addedPhotos: string[];
@@ -12,19 +13,6 @@ export const PhotosUploader = ({
   addedPhotos,
   handleChangePhotos,
 }: PhotosUploaderProps) => {
-  const [photoLink, setPhotoLink] = useState("");
-
-  const addPhotoByLink = async (e: FormEvent) => {
-    e.preventDefault();
-    const { data: filename } = await axios.post("/uploads/upload-by-link", {
-      link: photoLink,
-    });
-    handleChangePhotos((prev: any) => {
-      return [...prev, filename];
-    });
-    setPhotoLink("");
-  };
-
   const uploadPhoto = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files!;
     const data = new FormData();
@@ -45,21 +33,6 @@ export const PhotosUploader = ({
   };
   return (
     <>
-      <div className="flex items-center gap-2">
-        <input
-          type="text"
-          value={photoLink}
-          onChange={(e) => setPhotoLink(e.target.value)}
-          placeholder="Add photo using a link to the picture..."
-        />
-        <button
-          className="bg-gray-200 rounded-full px-4"
-          onClick={addPhotoByLink}
-          disabled={!photoLink}
-        >
-          Add photo
-        </button>
-      </div>
       <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
         {addedPhotos.length > 0 &&
           addedPhotos.map((link) => (
@@ -89,3 +62,16 @@ export const PhotosUploader = ({
     </>
   );
 };
+
+// const [photoLink, setPhotoLink] = useState("");
+//
+// const addPhotoByLink = async (e: FormEvent) => {
+//   e.preventDefault();
+//   const { data: filename } = await axios.post("/uploads/upload-by-link", {
+//     link: photoLink,
+//   });
+//   handleChangePhotos((prev: any) => {
+//     return [...prev, filename];
+//   });
+//   setPhotoLink("");
+// };

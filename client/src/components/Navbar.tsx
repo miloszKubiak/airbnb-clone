@@ -25,12 +25,14 @@ export const Navbar = () => {
       </Link>
 
       <div
-        className="flex items-center justify-around gap-2
-      border border-gray-300 rounded-full py-2 px-4 shadow-md"
+        className="flex items-center justify-end gap-2 w-1/2
+      border border-gray-300 rounded-full px-4 shadow-md"
       >
-        <div className="border-r border-gray-400 px-3">Anywhere</div>
-        <div className="border-r border-gray-400 px-3">Any week</div>
-        <div className="text-gray-400">Add guests</div>
+        <input
+          type="text"
+          placeholder="Search place..."
+          className="border-none outline-0"
+        />
         <button className="text-4xl text-indigo-500">
           <IoSearchCircle />
         </button>
