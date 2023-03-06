@@ -1,4 +1,4 @@
-import { AccountNavbar, PhotosUploader } from "../../../components";
+import { AccountNavbar, FileInput, PhotosUploader } from "../../../components";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BsDoorClosed,
@@ -48,6 +48,7 @@ export const AccommodationForm = () => {
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
   } = useForm<TAccommodationFormValues>({
     resolver: yupResolver(accommodationSchema),
@@ -154,10 +155,11 @@ export const AccommodationForm = () => {
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Photos</h2>
           <p className="text-zinc-500">Upload any photos from your device</p>
-          <PhotosUploader
-            addedPhotos={addedPhotos}
-            handleChangePhotos={setAddedPhotos}
-          />
+          {/*<PhotosUploader*/}
+          {/*  addedPhotos={addedPhotos}*/}
+          {/*  onPhotosChange={(filenames) => setValue("photos", filenames)}*/}
+          {/*/>*/}
+          <FileInput name="files" control={control} />
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>

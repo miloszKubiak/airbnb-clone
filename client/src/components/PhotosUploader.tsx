@@ -1,17 +1,16 @@
 import { ChangeEvent, FormEvent, forwardRef, useState } from "react";
 import axios from "axios";
 import { GoCloudUpload } from "react-icons/all";
-import { useForm } from "react-hook-form";
 
 export type PhotosUploaderProps = {
   addedPhotos: string[];
-  handleChangePhotos: (prev: any) => void;
+  onPhotosChange: (prev: any) => void;
   //Dispatch<SetStateAction<string | null>>
 };
 
 export const PhotosUploader = ({
   addedPhotos,
-  handleChangePhotos,
+  onPhotosChange,
 }: PhotosUploaderProps) => {
   const uploadPhoto = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files!;
@@ -26,9 +25,7 @@ export const PhotosUploader = ({
       })
       .then((response) => {
         const { data: filenames } = response;
-        handleChangePhotos((prev: any) => {
-          return [...prev, ...filenames];
-        });
+        onPhotosChange(filenames);
       });
   };
   return (
@@ -51,6 +48,7 @@ export const PhotosUploader = ({
           <input
             type="file"
             multiple
+            name="photos"
             className="hidden"
             onChange={uploadPhoto}
           />

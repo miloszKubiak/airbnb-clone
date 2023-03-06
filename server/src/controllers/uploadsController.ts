@@ -28,3 +28,5 @@ export const uploadFromDevice = (req: Request, res: Response) => {
   }
   res.json(uploadedFiles);
 };
+
+// export const uploadPhotos = async (req: Request, res: Response) => {};
