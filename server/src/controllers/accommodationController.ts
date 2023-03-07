@@ -6,12 +6,12 @@ const jwtSecret = process.env.JWT_SECRET!;
 
 export const addNewAccommodation = (req: Request, res: Response) => {
   const { token } = req.cookies;
+
   const {
     title,
     address,
     description,
-    // photos,
-    addedPhotos,
+    photos,
     perks,
     extraInfo,
     checkIn,
@@ -27,7 +27,7 @@ export const addNewAccommodation = (req: Request, res: Response) => {
       title,
       address,
       description,
-      photos: addedPhotos,
+      photos,
       perks,
       extraInfo,
       checkIn,
@@ -47,6 +47,7 @@ export const addNewAccommodation = (req: Request, res: Response) => {
 
 export const getAllAccommodations = (req: Request, res: Response) => {
   const { token } = req.cookies;
+
   jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
     const { id } = userData;
     res.json(await Accommodation.find({ owner: id }));

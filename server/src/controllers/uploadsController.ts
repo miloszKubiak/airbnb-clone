@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import imageDownloader from "image-downloader";
 import fs from "fs";
 
-const PATH =
+export const PATH =
   "D:\\UdemyReactCourseProjects\\airbnb-clone\\server\\src\\uploads\\";
 
 export const uploadByLink = async (req: Request, res: Response) => {
@@ -28,5 +28,3 @@ export const uploadFromDevice = (req: Request, res: Response) => {
   }
   res.json(uploadedFiles);
 };
-
-// export const uploadPhotos = async (req: Request, res: Response) => {};

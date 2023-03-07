@@ -1,11 +1,10 @@
-import { AccountNavbar, FileInput, PhotosUploader } from "../../../components";
+import { AccountNavbar, FileInput } from "../../../components";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BsDoorClosed,
   CgScreen,
   FaParking,
   FaWifi,
-  GoCloudUpload,
   MdPets,
   TbToolsKitchen2,
 } from "react-icons/all";
@@ -20,8 +19,7 @@ export type TAccommodationFormValues = {
   title: string;
   address: string;
   description: string;
-  addedPhotos?: string[];
-  photos?: string[];
+  photos?: any[];
   perks?: string[];
   extraInfo: string;
   checkIn: string;
@@ -30,8 +28,7 @@ export type TAccommodationFormValues = {
   price: number;
 };
 
-export const AccommodationForm = () => {
-  const [addedPhotos, setAddedPhotos] = useState<any[]>([]);
+export const FormTest = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -40,7 +37,6 @@ export const AccommodationForm = () => {
     axios.get(`/accommodations/${id}`).then((response) => {
       const { data } = response;
       Object.keys(data).forEach((field: any) => setValue(field, data[field]));
-      console.log(data);
     });
   }, [id]);
 
@@ -56,7 +52,6 @@ export const AccommodationForm = () => {
       title: "",
       address: "",
       description: "",
-      addedPhotos: [],
       photos: [],
       perks: [],
       extraInfo: "",
@@ -67,11 +62,11 @@ export const AccommodationForm = () => {
     },
   });
 
-  const handleSaveAccommodation = async ({
+  const onSubmit = async ({
     title,
     address,
     description,
-    addedPhotos,
+    photos,
     perks,
     extraInfo,
     checkIn,
@@ -79,11 +74,11 @@ export const AccommodationForm = () => {
     maxGuests,
     price,
   }: TAccommodationFormValues) => {
-    const accommodationData = {
+    const formData = {
       title,
       address,
       description,
-      addedPhotos,
+      photos,
       perks,
       extraInfo,
       checkIn,
@@ -91,35 +86,14 @@ export const AccommodationForm = () => {
       maxGuests,
       price,
     };
-    console.log(accommodationData);
-    if (id) {
-      try {
-        await axios.put("/accommodations", { id, ...accommodationData });
-        alert("Edit place successful!");
-        navigate("/account/accommodations");
-      } catch (error) {
-        alert("Something went wrong!");
-      }
-    } else {
-      try {
-        await axios.post("/accommodations", {
-          title,
-          address,
-          description,
-          addedPhotos,
-          perks,
-          extraInfo,
-          checkIn,
-          checkOut,
-          maxGuests,
-          price,
-        });
-        alert("Added new place!");
 
-        navigate("/account/accommodations");
-      } catch (error) {
-        alert("Something went wrong!");
-      }
+    try {
+      await axios.post("/accommodations", formData);
+      alert("Added new place!");
+      console.log(formData);
+      navigate("/account/accommodations");
+    } catch (error) {
+      alert("Something went wrong!");
     }
   };
 
@@ -129,10 +103,7 @@ export const AccommodationForm = () => {
       <h1 className="text-center text-xl mt-4">
         {id ? "Edit accommodation" : "Add new accommodation"}
       </h1>
-      <form
-        className="p-3 mt-2"
-        onSubmit={handleSubmit(handleSaveAccommodation)}
-      >
+      <form className="p-3 mt-2" onSubmit={handleSubmit(onSubmit)}>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Title</h2>
           <p className="text-zinc-500">
@@ -156,11 +127,7 @@ export const AccommodationForm = () => {
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Photos</h2>
           <p className="text-zinc-500">Upload any photos from your device</p>
-          <PhotosUploader
-            addedPhotos={addedPhotos}
-            onPhotosChange={setAddedPhotos}
-          />
-          {/*<FileInput name="files" control={control} />*/}
+          <FileInput name="photos" control={control} />
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>

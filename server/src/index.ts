@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import mongoose from "mongoose";
@@ -7,11 +7,19 @@ import authRouter from "./routes/authRouter";
 import cookieParser from "cookie-parser";
 import uploadsRouter from "./routes/uploadsRouter";
 import accommodationRouter from "./routes/accommodationRouter";
+import fileUpload from "express-fileupload";
 
 config();
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+app.use(
+  fileUpload({
+    createParentPath: true,
+  })
+);
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 app.use(cookieParser());

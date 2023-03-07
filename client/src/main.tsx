@@ -14,6 +14,7 @@ import { Layout } from "./components";
 import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
 import { SingleAccommodation } from "./pages/Accommodation/SingleAccommodation";
+import { FormTest } from "./pages/Accommodation/AccommodationForm/FormTest";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/accommodations/new",
-        element: <AccommodationForm />,
+        element: <FormTest />,
       },
       {
         path: "/account/accommodations/edit/:id",

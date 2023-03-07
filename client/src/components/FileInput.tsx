@@ -18,12 +18,7 @@ export const FileInput = ({ control, name }: any) => {
           rounded-2xl text-4xl p-2 my-2 cursor-pointer"
               >
                 <GoCloudUpload />
-                <input
-                  {...getInputProps()}
-                  name={name}
-                  onBlur={onBlur}
-                  multiple
-                />
+                <input {...getInputProps()} name={name} onBlur={onBlur} />
               </div>
             )}
           </Dropzone>
