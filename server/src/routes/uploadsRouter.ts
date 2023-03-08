@@ -12,7 +12,7 @@ const multerMiddleware = multer({
 });
 const photosMiddleware = multerMiddleware.array("photos", 100);
 
+router.route("/").post(photosMiddleware, uploadFromDevice);
 router.route("/upload-by-link").post(uploadByLink);
-router.route("/upload-from-device").post(photosMiddleware, uploadFromDevice);
 
 export default router;

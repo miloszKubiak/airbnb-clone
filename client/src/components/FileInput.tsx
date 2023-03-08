@@ -1,6 +1,7 @@
 import { Controller } from "react-hook-form";
 import Dropzone from "react-dropzone";
 import { GoCloudUpload, MdInsertDriveFile } from "react-icons/all";
+import axios from "axios";
 
 export const FileInput = ({ control, name }: any) => {
   return (
@@ -10,7 +11,17 @@ export const FileInput = ({ control, name }: any) => {
       defaultValue={[]}
       render={({ field: { onChange, onBlur, value, name } }) => (
         <div>
-          <Dropzone onDrop={onChange}>
+          <Dropzone
+            // onDrop={(acceptedFiles) =>
+            //   console.log("acceptedFiles", acceptedFiles)
+            // }
+            onDrop={(acceptedFiles) => {
+              axios.post("/uploads", acceptedFiles).then((response) => {
+                const { data: filenames } = response;
+                onChange(filenames);
+              });
+            }}
+          >
             {({ getRootProps, getInputProps }) => (
               <div
                 {...getRootProps()}

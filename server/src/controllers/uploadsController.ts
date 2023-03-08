@@ -18,7 +18,7 @@ export const uploadByLink = async (req: Request, res: Response) => {
 export const uploadFromDevice = (req: Request, res: Response) => {
   const uploadedFiles = [];
 
-  for (let i = 0; i < req.files!.length; i++) {
+  for (let i = 0; i < req.files!.length!; i++) {
     const { path, originalname } = (req.files as any)[i];
     const parts = originalname.split(".");
     const fileExtension = parts[parts.length - 1];
