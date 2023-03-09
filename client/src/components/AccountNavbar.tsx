@@ -31,7 +31,7 @@ export const AccountNavbar = () => {
           My bookings
         </Link>
         <Link
-          to={"/account/accommodations"}
+          to={"/account/my-accommodations"}
           className={linkClasses("accommodations")}
         >
           <FaHome />

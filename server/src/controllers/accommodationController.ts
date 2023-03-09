@@ -45,7 +45,7 @@ export const addNewAccommodation = (req: Request, res: Response) => {
 //   iat: number;
 // }; // do sprawdzenia!
 
-export const getAllAccommodations = (req: Request, res: Response) => {
+export const getUserAccommodations = (req: Request, res: Response) => {
   const { token } = req.cookies;
 
   jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {

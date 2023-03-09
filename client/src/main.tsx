@@ -42,7 +42,7 @@ const router = createBrowserRouter([
         element: <Bookings />,
       },
       {
-        path: "/account/accommodations",
+        path: "/account/my-accommodations",
         element: <Accommodations />,
       },
       {

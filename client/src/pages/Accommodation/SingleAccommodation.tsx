@@ -6,7 +6,7 @@ export const SingleAccommodation = () => {
     <div>
       <AccountNavbar />
       <p>single accommodation</p>
-      <Link className="link-primary" to={"/account/accommodations"}>
+      <Link className="link-primary" to={"/account/my-accommodations"}>
         back
       </Link>
     </div>

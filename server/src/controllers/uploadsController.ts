@@ -5,15 +5,15 @@ import fs from "fs";
 export const PATH =
   "D:\\UdemyReactCourseProjects\\airbnb-clone\\server\\src\\uploads\\";
 
-export const uploadByLink = async (req: Request, res: Response) => {
-  const { link } = req.body;
-  const newName = "photo" + Date.now() + ".jpg";
-  await imageDownloader.image({
-    url: link,
-    dest: PATH + newName,
-  });
-  res.json(newName);
-};
+// export const uploadByLink = async (req: Request, res: Response) => {
+//   const { link } = req.body;
+//   const newName = "photo" + Date.now() + ".jpg";
+//   await imageDownloader.image({
+//     url: link,
+//     dest: PATH + newName,
+//   });
+//   res.json(newName);
+// };
 
 export const uploadFromDevice = (req: Request, res: Response) => {
   const uploadedFiles = [];

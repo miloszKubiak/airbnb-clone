@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  uploadByLink,
+  // uploadByLink,
   uploadFromDevice,
 } from "../controllers/uploadsController";
 import multer from "multer";
@@ -13,6 +13,6 @@ const multerMiddleware = multer({
 const photosMiddleware = multerMiddleware.array("photos", 100);
 
 router.route("/").post(photosMiddleware, uploadFromDevice);
-router.route("/upload-by-link").post(uploadByLink);
+// router.route("/upload-by-link").post(uploadByLink);
 
 export default router;

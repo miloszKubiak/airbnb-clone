@@ -24,7 +24,9 @@ export const Accommodations = () => {
   );
 
   useEffect(() => {
-    axios.get("/accommodations").then(({ data }) => setAccommodations(data));
+    axios
+      .get("/accommodations/user-accommodations")
+      .then(({ data }) => setAccommodations(data));
   }, []);
 
   return (

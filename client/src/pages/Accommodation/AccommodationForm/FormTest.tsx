@@ -91,7 +91,7 @@ export const FormTest = () => {
       await axios.post("/accommodations", formData);
       alert("Added new place!");
       console.log(formData);
-      navigate("/account/accommodations");
+      navigate("/account/my-accommodations");
     } catch (error) {
       alert("Something went wrong!");
     }
