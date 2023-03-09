@@ -11,7 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { accommodationSchema } from "./Accommodation.schema";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 export type TAccommodationFormValues = {
@@ -62,7 +62,7 @@ export const FormTest = () => {
     },
   });
 
-  const onSubmit = async ({
+  const handleSaveAccommodation = async ({
     title,
     address,
     description,
@@ -87,13 +87,24 @@ export const FormTest = () => {
       price,
     };
 
-    try {
-      await axios.post("/accommodations", formData);
-      alert("Added new place!");
-      console.log(formData);
-      navigate("/account/my-accommodations");
-    } catch (error) {
-      alert("Something went wrong!");
+    if (id) {
+      //edit
+      try {
+        await axios.put("/accommodations", { id, ...formData });
+        alert("Edit place successful!");
+        navigate("/account/my-accommodations");
+      } catch (error) {
+        alert("Something went wrong!");
+      }
+    } else {
+      //add
+      try {
+        await axios.post("/accommodations", formData);
+        alert("Added new place!");
+        navigate("/account/my-accommodations");
+      } catch (error) {
+        alert("Something went wrong!");
+      }
     }
   };
 
@@ -103,7 +114,10 @@ export const FormTest = () => {
       <h1 className="text-center text-xl mt-4">
         {id ? "Edit accommodation" : "Add new accommodation"}
       </h1>
-      <form className="p-3 mt-2" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="p-3 mt-2"
+        onSubmit={handleSubmit(handleSaveAccommodation)}
+      >
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Title</h2>
           <p className="text-zinc-500">
@@ -229,7 +243,7 @@ export const FormTest = () => {
         </div>
       </form>
       <div className="flex justify-center mt-8">
-        <Link className="link-primary" to={"/account/accommodations"}>
+        <Link className="link-primary" to={"/account/my-accommodations"}>
           Back
         </Link>
       </div>

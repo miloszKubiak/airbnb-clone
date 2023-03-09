@@ -51,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/accommodations/edit/:id",
-        element: <AccommodationForm />,
+        element: <FormTest />,
       },
       {
         path: "/account/accommodations/:id",

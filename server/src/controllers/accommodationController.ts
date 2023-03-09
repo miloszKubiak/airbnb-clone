@@ -59,6 +59,10 @@ export const getSingleAccommodation = async (req: Request, res: Response) => {
   res.json(await Accommodation.findById(id));
 };
 
+export const getAllAccommodations = async (req: Request, res: Response) => {
+  res.json(await Accommodation.find());
+};
+
 export const updateAccommodation = async (req: Request, res: Response) => {
   const { token } = req.cookies;
   const {
@@ -78,6 +82,8 @@ export const updateAccommodation = async (req: Request, res: Response) => {
   jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
     if (error) throw error;
     const accommodation = await Accommodation.findById(id);
+    console.log(userData.id);
+    console.log(accommodation?.owner!.toString());
     if (userData.id === accommodation!.owner?.toString()) {
       accommodation!.set({
         title,
