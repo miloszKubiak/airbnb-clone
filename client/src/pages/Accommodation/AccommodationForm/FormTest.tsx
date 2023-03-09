@@ -141,7 +141,13 @@ export const FormTest = () => {
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Photos</h2>
           <p className="text-zinc-500">Upload any photos from your device</p>
-          <FileInput name="photos" control={control} />
+          {/*<FileInput name="photos" control={control} />*/}
+          <input
+            type="text"
+            placeholder="add link to the photo..."
+            {...register("photos")}
+          />
+          <p className="error">{errors.address?.message}</p>
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>
@@ -200,16 +206,12 @@ export const FormTest = () => {
           <div className="mt-2 grid gap-2 sm:grid-cols-3 items-center">
             <div>
               <h3 className="text-sm">Check in time</h3>
-              <input type="text" placeholder="10:00" {...register("checkIn")} />
+              <input type="text" {...register("checkIn")} />
               <p className="error">{errors.checkIn?.message}</p>
             </div>
             <div>
               <h3 className="text-sm">Check out time</h3>
-              <input
-                type="text"
-                placeholder="14:00"
-                {...register("checkOut")}
-              />
+              <input type="text" {...register("checkOut")} />
               <p className="error">{errors.checkOut?.message}</p>
             </div>
             <div>

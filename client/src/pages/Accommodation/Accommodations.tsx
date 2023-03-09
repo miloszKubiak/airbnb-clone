@@ -45,12 +45,13 @@ export const Accommodations = () => {
                 key={accommodation._id}
               >
                 <Link
-                  to={`/account/accommodations/${accommodation._id}`}
-                  className="p-4 flex gap-4 bg-gray-100cursor-pointer"
+                  to={`/accommodations/${accommodation._id}`}
+                  className="p-4 flex gap-4 bg-gray-100 cursor-pointer"
                 >
                   <div className="w-32 h-32 bg-gray-300 grow shrink-0">
                     {accommodation.photos!.length > 0 && (
                       <img
+                        className="object-cover h-full"
                         src={accommodation.photos![0]}
                         alt="main photo of the accommodation"
                       />

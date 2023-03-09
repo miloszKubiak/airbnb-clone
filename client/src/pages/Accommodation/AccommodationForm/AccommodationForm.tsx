@@ -262,7 +262,7 @@ export const AccommodationForm = () => {
         </div>
       </form>
       <div className="flex justify-center mt-8">
-        <Link className="link-primary" to={"/account/accommodations"}>
+        <Link className="link-primary" to={"/"}>
           Back
         </Link>
       </div>
