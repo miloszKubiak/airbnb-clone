@@ -85,6 +85,42 @@ export const SingleAccommodation = () => {
         </div>
       )}
 
+      <div className="flex justify-between gap-4">
+        <div className="flex flex-col justify-between gap-4">
+          <div>{accommodation.description}</div>
+          <div>
+            <div>Check-in hour: {accommodation.checkIn}</div>
+            <div>Checkout hour: {accommodation.checkOut}</div>
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-center p-8 bg-white mr-4">
+          <p className="text-center">
+            Price: {accommodation.price} € / per night
+          </p>
+          <div className="flex justify-between gap-2">
+            <input type="date" />
+            <input type="date" />
+          </div>
+          <div>
+            <p className="text-center">Number of guests</p>
+            <input type="number" min="1" max={accommodation.maxGuests} />
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Perks:</h2>
+        <div>
+          {accommodation.perks.map((perk) => (
+            <p>{perk}</p>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p>{accommodation.extraInfo}</p>
+      </div>
+
       <Link className="link-primary" to={"/"}>
         back
       </Link>
