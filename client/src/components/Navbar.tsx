@@ -12,7 +12,7 @@ export const Navbar = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <header className="flex items-center justify-between pb-4  max-h-full border-b-[1px] border-zinc-300">
+    <header className="flex items-center justify-between pb-4 max-h-full border-b-[1px] border-zinc-300">
       <Link to={"/"}>
         <div className="flex justify-start items-center gap-1">
           <div className="rotate-180 text-4xl text-indigo-500">
