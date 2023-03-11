@@ -1,4 +1,4 @@
-import { AccountNavbar } from "../../components";
+import { AccountNavbar, ReserveWidget } from "../../components";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { TAccommodation } from "./Accommodations";
@@ -88,7 +88,7 @@ export const SingleAccommodation = () => {
               </div>
               <button
                 onClick={() => setShowPhotos(true)}
-                className="flex gap-2 items-center absolute bottom-4 right-4 py-2 px-4 bg-zinc-200 rounded-2xl
+                className="flex gap-2 items-center absolute bottom-4 right-4 py-2 px-4 bg-white rounded-xl
               text-xs lg:text-sm md:text-sm"
               >
                 <p>
@@ -107,32 +107,10 @@ export const SingleAccommodation = () => {
               <h2>Check-in hour: {accommodation.checkIn}</h2>
               <h2>Checkout hour: {accommodation.checkOut}</h2>
             </div>
-
-            <div className="flex flex-none flex-col justify-center p-4 bg-white border-2 border-zinc-300 rounded-2xl">
-              <p className="text-left">
-                Price: {accommodation.price} € / per night
-              </p>
-              <div className="flex justify-between gap-4 my-4">
-                <input
-                  className="p-1 border-2 border-zinc-300 rounded-md"
-                  type="date"
-                />
-                <input
-                  className="p-1 border-2 border-zinc-300 rounded-md"
-                  type="date"
-                />
-              </div>
-              <div>
-                <p className="text-center">Number of guests</p>
-                <input
-                  type="number"
-                  value={1}
-                  min="1"
-                  max={accommodation.maxGuests}
-                />
-                <button className="primary">Reserve</button>
-              </div>
-            </div>
+            <ReserveWidget
+              price={accommodation.price}
+              maxGuests={accommodation.maxGuests}
+            />
           </div>
         </div>
         <div className="mt-6">
