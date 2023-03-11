@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { TAccommodation } from "./Accommodations";
 import axios from "axios";
-import { BsChevronLeft, GoLocation } from "react-icons/all";
+import { BsChevronLeft, GoLocation, GrGallery } from "react-icons/all";
 import { perks } from "../../utils/perks";
 
 export const SingleAccommodation = () => {
@@ -85,8 +85,17 @@ export const SingleAccommodation = () => {
                   src={accommodation.photos![0]}
                   alt="photo of the place"
                 />
-                <button className="absolute">Show all photos</button>
               </div>
+              <button
+                onClick={() => setShowPhotos(true)}
+                className="flex gap-2 items-center absolute bottom-4 right-4 py-2 px-4 bg-zinc-200 rounded-2xl
+              text-xs lg:text-sm md:text-sm"
+              >
+                <p>
+                  <GrGallery />
+                </p>
+                Show all photos
+              </button>
             </div>
           </div>
         )}
@@ -130,9 +139,7 @@ export const SingleAccommodation = () => {
           <h2>Perks:</h2>
           <div className="flex flex-col md:flex-row lg:flex-row gap-2">
             {accommodation.perks.map((perk) => (
-              <div>
-                <p>{perk}</p>
-              </div>
+              <p>{perk}</p>
             ))}
           </div>
         </div>

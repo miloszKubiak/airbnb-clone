@@ -14,27 +14,27 @@ type TPerks = {
 
 export const perks: TPerks[] = [
   {
-    title: "Wifi",
+    title: "wifi",
     icon: <FaWifi />,
   },
   {
-    title: "TV",
+    title: "tv",
     icon: <CgScreen />,
   },
   {
-    title: "Kitchen",
+    title: "kitchen",
     icon: <TbToolsKitchen2 />,
   },
   {
-    title: "Free parking spot",
+    title: "parking",
     icon: <FaParking />,
   },
   {
-    title: "Private entrance",
+    title: "entrance",
     icon: <BsDoorClosed />,
   },
   {
-    title: "Pets",
+    title: "pets",
     icon: <MdPets />,
   },
 ];
