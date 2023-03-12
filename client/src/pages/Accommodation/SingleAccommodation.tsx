@@ -1,17 +1,20 @@
-import { AccountNavbar, ReserveWidget } from "../../components";
+import {
+  Description,
+  Perks,
+  PhotosGallery,
+  ReservationWidget,
+} from "../../components";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { TAccommodation } from "./Accommodations";
 import axios from "axios";
-import { BsChevronLeft, GoLocation, GrGallery } from "react-icons/all";
-import { perks } from "../../utils/perks";
+import { GoLocation } from "react-icons/all";
 
 export const SingleAccommodation = () => {
   const { id } = useParams();
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
   );
-  const [showPhotos, setShowPhotos] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -38,90 +41,23 @@ export const SingleAccommodation = () => {
             </a>
           </div>
         </div>
-
-        {showPhotos ? (
-          <div className="absolute inset-0 bg-white text-white min-h-screen">
-            <div className="fixed bg-white w-full py-4">
-              <button
-                className="text-center text-black p-2 ml-4 rounded-full text-xl hover:bg-zinc-300 duration-300"
-                onClick={() => setShowPhotos(false)}
-              >
-                <BsChevronLeft />
-              </button>
-            </div>
-
-            <div className="bg-white w-full mt-10 p-10 flex flex-col justify-center items-center gap-4">
-              {/********in the future place gallery here********/}
-              <div className="bg-white">
-                <img src={accommodation.photos![0]} alt="photo" />
-              </div>
-              <div className="bg-white">
-                <img src={accommodation.photos![0]} alt="photo" />
-              </div>
-              <div className="bg-white">
-                <img src={accommodation.photos![0]} alt="photo" />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="relative">
-            <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-3xl overflow-hidden">
-              <img
-                onClick={() => setShowPhotos(true)}
-                className="cursor-pointer h-full"
-                src={accommodation.photos![0]}
-                alt="photo of the place"
-              />
-              <div className="grid gap-2">
-                <img
-                  onClick={() => setShowPhotos(true)}
-                  className="cursor-pointer"
-                  src={accommodation.photos![0]}
-                  alt="photo of the place"
-                />
-                <img
-                  onClick={() => setShowPhotos(true)}
-                  className="cursor-pointer"
-                  src={accommodation.photos![0]}
-                  alt="photo of the place"
-                />
-              </div>
-              <button
-                onClick={() => setShowPhotos(true)}
-                className="flex gap-2 items-center absolute bottom-4 right-4 py-2 px-4 bg-white rounded-xl
-              text-xs lg:text-sm md:text-sm"
-              >
-                <p>
-                  <GrGallery />
-                </p>
-                Show all photos
-              </button>
-            </div>
-          </div>
-        )}
-
+        <PhotosGallery photos={accommodation.photos} />
         <div className="flex justify-between gap-4 mt-8">
-          <div className="flex flex-1 flex-col md:flex-row justify-between gap-4">
-            <div className="flex flex-col justify-between">
-              <p className="mb-2">{accommodation.description}</p>
-              <h2>Check-in hour: {accommodation.checkIn}</h2>
-              <h2>Checkout hour: {accommodation.checkOut}</h2>
-            </div>
-            <ReserveWidget
-              price={accommodation.price}
-              maxGuests={accommodation.maxGuests}
+          <div className="flex flex-col md:flex-row justify-between gap-4">
+            <Description
+              description={accommodation.description}
+              checkOut={accommodation.checkOut}
+              checkIn={accommodation.checkIn}
             />
+            <div className="flex justify-center">
+              <ReservationWidget
+                price={accommodation.price}
+                maxGuests={accommodation.maxGuests}
+              />
+            </div>
           </div>
         </div>
-        <div className="mt-6">
-          <h2>Perks:</h2>
-          <div className="flex flex-col md:flex-row lg:flex-row gap-2">
-            {accommodation.perks.map((perk) => (
-              <p>{perk}</p>
-            ))}
-          </div>
-        </div>
-
+        <Perks perks={accommodation.perks} />
         <div className="mt-4">
           <p>{accommodation.extraInfo}</p>
         </div>

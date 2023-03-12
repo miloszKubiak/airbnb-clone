@@ -4,4 +4,6 @@ export { AccountNavbar } from "./AccountNavbar";
 export { PhotosUploader } from "./PhotosUploader";
 export { FileInput } from "./FileInput";
 export { PhotosGallery } from "./PhotosGallery";
-export { ReserveWidget } from "./ReserveWidget";
+export { ReservationWidget } from "./ReservationWidget";
+export { Description } from "./Description";
+export { Perks } from "./Perks";

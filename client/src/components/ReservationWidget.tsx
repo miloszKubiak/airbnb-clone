@@ -3,9 +3,9 @@ type ReserveWidgetProps = {
   maxGuests: number;
 };
 
-export const ReserveWidget = ({ price, maxGuests }: ReserveWidgetProps) => {
+export const ReservationWidget = ({ price, maxGuests }: ReserveWidgetProps) => {
   return (
-    <div className="flex flex-none flex-col justify-center p-4 bg-white border-2 border-zinc-300 rounded-2xl">
+    <div className="flex max-w-[80%] flex-col justify-center p-4 bg-white border-2 border-zinc-300 rounded-2xl">
       <p className="text-left">Price: {price} € / per night</p>
       <div className="flex justify-between gap-4 my-4">
         <input
