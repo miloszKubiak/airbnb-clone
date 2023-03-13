@@ -35,3 +35,7 @@ textarea{
     min-height: 80px;
     max-height: 200px;
 }
+
+.disabled {
+    @apply bg-zinc-300
+}

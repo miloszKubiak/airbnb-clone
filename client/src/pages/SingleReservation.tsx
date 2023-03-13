@@ -1,10 +1,10 @@
 import { AccountNavbar } from "../components";
 
-export const Bookings = () => {
+export const SingleReservation = () => {
   return (
     <div>
       <AccountNavbar />
-      <p>bookings</p>
+      <p>single reservation</p>
     </div>
   );
 };

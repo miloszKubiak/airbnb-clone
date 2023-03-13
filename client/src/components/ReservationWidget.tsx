@@ -20,7 +20,7 @@ export const ReservationWidget = ({
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const tax = 50;
-  const cleaningPrice = 200;
+  const cleaningPrice = 100;
 
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -48,8 +48,8 @@ export const ReservationWidget = ({
         userName: user?.name,
       });
       const reservationId = response.data._id;
-      alert("Success!");
-      navigate("/");
+      alert("The reservation was successful!");
+      navigate(`/account/reservations/${reservationId}`);
     } catch (error) {
       alert("Something went wrong!");
     }
@@ -81,7 +81,9 @@ export const ReservationWidget = ({
         </div>
       </div>
       <div>
-        <label className="text-center">Number of guests</label>
+        <label className="text-center">
+          Number of guests (max. {maxGuests})
+        </label>
         <input
           type="number"
           min="1"
@@ -89,31 +91,39 @@ export const ReservationWidget = ({
           value={numberOfGuests}
           onChange={(event: any) => setNumberOfGuests(event.target.value)}
         />
-        <button className="primary" onClick={handleReserve}>
+        <button
+          className="primary disabled:bg-zinc-300"
+          onClick={handleReserve}
+          disabled={numberOfNights <= 0}
+        >
           Reserve
         </button>
         <p className="text-sm text-center my-2">You won't be charged yet</p>
       </div>
-      <div>
-        <div className="flex justify-between">
-          <p>price x nights</p>
-          <p>{numberOfNights > 0 && price * numberOfNights} €</p>
+      {numberOfNights > 0 && (
+        <div>
+          <div className="flex justify-between">
+            <p>
+              {price} € x {numberOfNights}
+            </p>
+            <p>{numberOfNights > 0 && price * numberOfNights} €</p>
+          </div>
+          <div className="flex justify-between">
+            <p>cleaning price</p>
+            <p>{cleaningPrice} €</p>
+          </div>
+          <div className="flex justify-between">
+            <p>tax</p>
+            <p>{tax} €</p>
+          </div>
+          <div className="flex justify-between border-t-[1px] border-zinc-300 mt-4 font-bold">
+            <p className="mt-4">Total</p>
+            <p className="mt-4">
+              {price * numberOfNights + cleaningPrice + tax} €
+            </p>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <p>cleaning price</p>
-          <p>{cleaningPrice} €</p>
-        </div>
-        <div className="flex justify-between">
-          <p>tax</p>
-          <p>{tax} €</p>
-        </div>
-        <div className="flex justify-between border-t-[1px] border-zinc-300 mt-4">
-          <p className="mt-4">sum</p>
-          <p className="mt-4">
-            {price * numberOfNights + cleaningPrice + tax} €
-          </p>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

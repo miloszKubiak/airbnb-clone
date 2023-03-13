@@ -23,7 +23,12 @@ export const SingleAccommodation = () => {
       .then((response) => setAccommodation(response.data));
   }, [id]);
 
-  if (!accommodation) return "nothing to display";
+  if (!accommodation)
+    return (
+      <div>
+        <h2>"nothing to display"</h2>
+      </div>
+    );
 
   console.log(accommodation);
   return (
