@@ -45,7 +45,7 @@ export const Navbar = () => {
         >
           <GiHamburgerMenu />
           <FaUserCircle />
-          {!!user && <div>{user.name}</div>}
+          {!!user && <div>{user.name[0]}</div>}
         </div>
       </Link>
     </header>

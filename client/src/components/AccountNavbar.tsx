@@ -26,13 +26,16 @@ export const AccountNavbar = () => {
           <FaUser />
           My profile
         </Link>
-        <Link to={"/account/bookings"} className={linkClasses("bookings")}>
+        <Link
+          to={"/account/reservations"}
+          className={linkClasses("reservations")}
+        >
           <MdPlace />
           My reservations
         </Link>
         <Link
           to={"/account/my-accommodations"}
-          className={linkClasses("accommodations")}
+          className={linkClasses("my-accommodations")}
         >
           <FaHome />
           My accommodations
