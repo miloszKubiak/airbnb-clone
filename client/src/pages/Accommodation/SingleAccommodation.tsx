@@ -53,6 +53,8 @@ export const SingleAccommodation = () => {
               <ReservationWidget
                 price={accommodation.price}
                 maxGuests={accommodation.maxGuests}
+                id={accommodation._id!}
+                title={accommodation.title}
               />
             </div>
           </div>
