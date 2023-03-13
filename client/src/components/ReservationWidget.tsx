@@ -46,7 +46,7 @@ export const ReservationWidget = ({ price, maxGuests }: ReserveWidgetProps) => {
         </div>
         <div className="flex justify-between border-t-[1px] border-zinc-300 mt-4">
           <p className="mt-4">sum</p>
-          <p className="mt-4">value</p>
+          <p className="mt-4">{price * maxGuests}</p>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import authRouter from "./routes/authRouter";
 import cookieParser from "cookie-parser";
 import uploadsRouter from "./routes/uploadsRouter";
 import accommodationRouter from "./routes/accommodationRouter";
+import reservationRouter from "./routes/reservationRouter";
 import fileUpload from "express-fileupload";
 
 config();
@@ -39,6 +40,7 @@ app.use(
 app.use("/auth", authRouter);
 app.use("/uploads", uploadsRouter);
 app.use("/accommodations", accommodationRouter);
+app.use("/reservations", reservationRouter);
 
 mongoose.set("strictQuery", false);
 
