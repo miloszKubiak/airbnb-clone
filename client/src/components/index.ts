@@ -7,3 +7,4 @@ export { PhotosGallery } from "./PhotosGallery";
 export { ReservationWidget } from "./ReservationWidget";
 export { Description } from "./Description";
 export { Perks } from "./Perks";
+export { AddressLink } from "./AddressLink";

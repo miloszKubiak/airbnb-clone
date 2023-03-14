@@ -1,4 +1,5 @@
 import {
+  AddressLink,
   Description,
   Perks,
   PhotosGallery,
@@ -36,15 +37,7 @@ export const SingleAccommodation = () => {
       <div className="flex flex-col justify-between mt-10 bg-zinc-100 p-4">
         <div>
           <h1>{accommodation.title}</h1>
-          <div className="flex items-center gap-2 font-bold text-sm underline my-2">
-            <GoLocation />
-            <a
-              target="_blank"
-              href={"https://maps.google.com/?q=" + accommodation.address}
-            >
-              {accommodation.address}
-            </a>
-          </div>
+          <AddressLink address={accommodation.address} />
         </div>
         <PhotosGallery photos={accommodation.photos} />
         <div className="flex justify-between gap-4 mt-8">
@@ -53,6 +46,7 @@ export const SingleAccommodation = () => {
               description={accommodation.description}
               checkOut={accommodation.checkOut}
               checkIn={accommodation.checkIn}
+              extraInfo={accommodation.extraInfo}
             />
             <div className="flex justify-center">
               <ReservationWidget
@@ -65,9 +59,6 @@ export const SingleAccommodation = () => {
           </div>
         </div>
         <Perks perks={accommodation.perks} />
-        <div className="mt-4">
-          <p>{accommodation.extraInfo}</p>
-        </div>
       </div>
       <Link to={"/"} className="link-primary my-6">
         Back

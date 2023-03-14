@@ -5,12 +5,14 @@ type DescriptionProps = {
   description: string;
   checkIn: string;
   checkOut: string;
+  extraInfo: string;
 };
 
 export const Description = ({
   description,
   checkIn,
   checkOut,
+  extraInfo,
 }: DescriptionProps) => {
   const { user } = useContext(UserContext);
   return (
@@ -23,6 +25,7 @@ export const Description = ({
         <h2>Check-in hour: {checkIn}</h2>
         <h2>Checkout hour: {checkOut}</h2>
       </div>
+      <p>{extraInfo}</p>
     </div>
   );
 };
