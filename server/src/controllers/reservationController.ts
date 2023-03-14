@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import Reservation from "../models/Reservation";
 
@@ -31,5 +31,15 @@ export const addNewReservation = async (req: Request, res: Response) => {
       price,
     });
     res.json(newReservation);
+  });
+};
+
+export const getMyReservations = async (req: Request, res: Response) => {
+  const { token } = req.cookies;
+
+  jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
+    if (error) throw error;
+    const { id } = userData;
+    res.json(await Reservation.find({ userId: userData.id }));
   });
 };
