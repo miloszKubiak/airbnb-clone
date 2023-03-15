@@ -4,4 +4,4 @@ export { Login } from "./Login/Login";
 export { Accommodations } from "./Accommodation/Accommodations";
 export { AccommodationForm } from "./Accommodation/AccommodationForm/AccommodationForm";
 export { SingleReservation } from "./SingleReservation";
-export { Reservations } from "./Reservations";
+export { MyReservations } from "./MyReservations";

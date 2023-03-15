@@ -7,23 +7,19 @@ const jwtSecret = process.env.JWT_SECRET!;
 export const addNewReservation = async (req: Request, res: Response) => {
   const { token } = req.cookies;
   const {
-    accommodationId,
-    accommodationName,
+    accommodation,
     checkIn,
     numberOfGuests,
     checkOut,
     numberOfNights,
     price,
-    userName,
   } = req.body;
 
   jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
     if (error) throw error;
     const newReservation = await Reservation.create({
-      userId: userData?.id,
-      userName,
-      accommodationId,
-      accommodationName,
+      user: userData?.id,
+      accommodation,
       checkIn,
       checkOut,
       numberOfGuests,
@@ -40,6 +36,6 @@ export const getMyReservations = async (req: Request, res: Response) => {
   jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
     if (error) throw error;
     const { id } = userData;
-    res.json(await Reservation.find({ userId: userData.id }));
+    res.json(await Reservation.find({ user: id }).populate("accommodation"));
   });
 };

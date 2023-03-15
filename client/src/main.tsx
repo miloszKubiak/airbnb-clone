@@ -15,7 +15,7 @@ import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
 import { SingleAccommodation } from "./pages/Accommodation/SingleAccommodation";
 import { FormTest } from "./pages/Accommodation/AccommodationForm/FormTest";
-import { Reservations } from "./pages/Reservations";
+import { MyReservations } from "./pages/MyReservations";
 
 const router = createBrowserRouter([
   {
@@ -63,8 +63,8 @@ const router = createBrowserRouter([
         element: <SingleReservation />,
       },
       {
-        path: "/account/reservations",
-        element: <Reservations />,
+        path: "/account/my-reservations",
+        element: <MyReservations />,
       },
     ],
   },

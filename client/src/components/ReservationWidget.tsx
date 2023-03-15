@@ -7,8 +7,8 @@ import axios from "axios";
 type ReserveWidgetProps = {
   price: number;
   maxGuests: number;
-  id: string;
-  title: string;
+  id?: string;
+  title?: string;
 };
 
 export const ReservationWidget = ({
@@ -41,11 +41,9 @@ export const ReservationWidget = ({
         checkOut,
         numberOfGuests,
         numberOfNights,
-        accommodationId: id,
-        accommodationName: title,
+        accommodation: id,
         price: numberOfNights * price + tax + cleaningPrice,
-        userId: user?._id,
-        userName: user?.name,
+        user: user?._id,
       });
       const reservationId = response.data._id;
       alert("The reservation was successful!");

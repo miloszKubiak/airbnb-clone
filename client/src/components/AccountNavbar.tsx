@@ -27,8 +27,8 @@ export const AccountNavbar = () => {
           My profile
         </Link>
         <Link
-          to={"/account/reservations"}
-          className={linkClasses("reservations")}
+          to={"/account/my-reservations"}
+          className={linkClasses("my-reservations")}
         >
           <MdPlace />
           My reservations
