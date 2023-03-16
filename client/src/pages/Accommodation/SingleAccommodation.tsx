@@ -31,7 +31,6 @@ export const SingleAccommodation = () => {
       </div>
     );
 
-  console.log(accommodation);
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col justify-between mt-10 bg-zinc-100 p-4">
@@ -47,6 +46,7 @@ export const SingleAccommodation = () => {
               checkOut={accommodation.checkOut}
               checkIn={accommodation.checkIn}
               extraInfo={accommodation.extraInfo}
+              owner={accommodation.owner!}
             />
             <div className="flex justify-center">
               <ReservationWidget

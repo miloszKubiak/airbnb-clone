@@ -1,4 +1,4 @@
-import { AccountNavbar } from "../components";
+import { AccountNavbar } from "../../components";
 
 export const SingleReservation = () => {
   return (

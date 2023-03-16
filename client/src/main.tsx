@@ -15,7 +15,7 @@ import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
 import { SingleAccommodation } from "./pages/Accommodation/SingleAccommodation";
 import { FormTest } from "./pages/Accommodation/AccommodationForm/FormTest";
-import { MyReservations } from "./pages/MyReservations";
+import { MyReservations } from "./pages/Reservation/MyReservations";
 
 const router = createBrowserRouter([
   {

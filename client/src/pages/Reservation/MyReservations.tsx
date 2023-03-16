@@ -1,7 +1,7 @@
-import { AccountNavbar } from "../components";
+import { AccountNavbar } from "../../components";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { TAccommodation } from "./Accommodation/Accommodations";
+import { TAccommodation } from "../Accommodation/Accommodations";
 
 type TReservation = {
   _id: string;

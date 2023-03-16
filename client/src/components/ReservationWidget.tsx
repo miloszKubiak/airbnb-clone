@@ -15,7 +15,6 @@ export const ReservationWidget = ({
   price,
   maxGuests,
   id,
-  title,
 }: ReserveWidgetProps) => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
@@ -92,7 +91,7 @@ export const ReservationWidget = ({
         <button
           className="primary disabled:bg-zinc-300"
           onClick={handleReserve}
-          disabled={numberOfNights <= 0}
+          disabled={numberOfNights <= 0 || !user}
         >
           Reserve
         </button>
