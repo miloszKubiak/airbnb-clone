@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import mongoose from "mongoose";
@@ -6,9 +6,10 @@ import { connectDB } from "./db/connectDB";
 import authRouter from "./routes/authRouter";
 import cookieParser from "cookie-parser";
 import uploadsRouter from "./routes/uploadsRouter";
-import accommodationRouter from "./routes/accommodationRouter";
-import reservationRouter from "./routes/reservationRouter";
+import accommodationsRouter from "./routes/accommodationsRouter";
+import reservationsRouter from "./routes/reservationsRouter";
 import fileUpload from "express-fileupload";
+import usersRouter from "./routes/usersRouter";
 
 config();
 const PORT = process.env.PORT || 3000;
@@ -39,8 +40,9 @@ app.use(
 
 app.use("/auth", authRouter);
 app.use("/uploads", uploadsRouter);
-app.use("/accommodations", accommodationRouter);
-app.use("/reservations", reservationRouter);
+app.use("/accommodations", accommodationsRouter);
+app.use("/reservations", reservationsRouter);
+app.use("/users", usersRouter);
 
 mongoose.set("strictQuery", false);
 
