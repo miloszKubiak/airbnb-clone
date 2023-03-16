@@ -12,15 +12,13 @@ type TUser = {
   _id: string;
   name: string;
   email: string;
-  password?: string;
+  password: string;
 };
 
 type UserContextType = {
   user: TUser | null;
   setUser: Dispatch<SetStateAction<TUser | null>>;
   ready: boolean;
-  usernames: TUser[] | null;
-  setUsernames: Dispatch<SetStateAction<TUser[] | null>>;
 };
 
 type UserContextProviderProps = {
@@ -34,13 +32,6 @@ export const UserContext = createContext<UserContextType>(
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [user, setUser] = useState<TUser | null>(null);
   const [ready, setReady] = useState(false);
-  const [usernames, setUsernames] = useState<TUser[] | null>(null);
-
-  useEffect(() => {
-    axios.get("/users").then(({ data }) => setUsernames(data));
-  }, []);
-
-  console.log(usernames);
 
   useEffect(() => {
     if (!user) {
@@ -52,9 +43,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   }, []);
 
   return (
-    <UserContext.Provider
-      value={{ user, setUser, usernames, setUsernames, ready }}
-    >
+    <UserContext.Provider value={{ user, setUser, ready }}>
       {children}
     </UserContext.Provider>
   );

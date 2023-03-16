@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const AccommodationSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  ownerName: String,
   title: String,
   address: String,
   description: String,

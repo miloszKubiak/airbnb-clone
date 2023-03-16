@@ -7,6 +7,7 @@ import axios from "axios";
 export type TAccommodation = {
   _id?: string;
   owner?: string;
+  ownerName?: string;
   title: string;
   address: string;
   description: string;

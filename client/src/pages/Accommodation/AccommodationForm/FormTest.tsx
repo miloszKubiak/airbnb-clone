@@ -11,10 +11,12 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { accommodationSchema } from "./Accommodation.schema";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
+import { UserContext } from "../../../context/UserContext";
 
 export type TAccommodationFormValues = {
+  ownerName?: string;
   id?: string;
   title: string;
   address: string;
@@ -31,6 +33,7 @@ export type TAccommodationFormValues = {
 export const FormTest = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (!id) return;
@@ -75,6 +78,7 @@ export const FormTest = () => {
     price,
   }: TAccommodationFormValues) => {
     const formData = {
+      ownerName: user?.name,
       title,
       address,
       description,

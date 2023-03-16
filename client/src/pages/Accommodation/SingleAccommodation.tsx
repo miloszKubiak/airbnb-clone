@@ -46,7 +46,7 @@ export const SingleAccommodation = () => {
               checkOut={accommodation.checkOut}
               checkIn={accommodation.checkIn}
               extraInfo={accommodation.extraInfo}
-              owner={accommodation.owner!}
+              ownerName={accommodation.ownerName!}
             />
             <div className="flex justify-center">
               <ReservationWidget
