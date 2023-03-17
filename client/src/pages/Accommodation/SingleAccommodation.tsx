@@ -6,16 +6,18 @@ import {
   ReservationWidget,
 } from "../../components";
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TAccommodation } from "./Accommodations";
 import axios from "axios";
 import { GoLocation } from "react-icons/all";
+import { UserContext } from "../../context/UserContext";
 
 export const SingleAccommodation = () => {
   const { id } = useParams();
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
   );
+  // const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (!id) return;
@@ -47,6 +49,11 @@ export const SingleAccommodation = () => {
               checkIn={accommodation.checkIn}
               extraInfo={accommodation.extraInfo}
               ownerName={accommodation.ownerName!}
+              // ownerName={
+              //   accommodation.owner === user?._id
+              //     ? "You"
+              //     : accommodation.ownerName!
+              // }
             />
             <div className="flex justify-center">
               <ReservationWidget
