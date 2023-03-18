@@ -7,12 +7,12 @@ import {
 } from "../../components";
 import { Link, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { TAccommodation } from "./Accommodations";
+import { TAccommodation } from "./MyAccommodationsPage";
 import axios from "axios";
 import { GoLocation } from "react-icons/all";
 import { UserContext } from "../../context/UserContext";
 
-export const SingleAccommodation = () => {
+export const SingleAccommodationPage = () => {
   const { id } = useParams();
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
