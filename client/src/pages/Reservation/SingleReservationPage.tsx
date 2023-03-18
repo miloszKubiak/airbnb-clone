@@ -1,6 +1,6 @@
 import { AccountNavbar } from "../../components";
 
-export const SingleReservation = () => {
+export const SingleReservationPage = () => {
   return (
     <div>
       <AccountNavbar />

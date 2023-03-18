@@ -6,7 +6,7 @@ import {
   Homepage,
   Login,
   Register,
-  SingleReservation,
+  SingleReservationPage,
   Accommodations,
   AccommodationForm,
 } from "./pages";
@@ -15,7 +15,7 @@ import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
 import { SingleAccommodation } from "./pages/Accommodation/SingleAccommodation";
 import { FormTest } from "./pages/Accommodation/AccommodationForm/FormTest";
-import { MyReservations } from "./pages/Reservation/MyReservations";
+import { MyReservationsPage } from "./pages/Reservation/MyReservationsPage";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/bookings",
-        element: <SingleReservation />,
+        element: <SingleReservationPage />,
       },
       {
         path: "/account/my-accommodations",
@@ -60,11 +60,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/reservations/:id",
-        element: <SingleReservation />,
+        element: <SingleReservationPage />,
       },
       {
         path: "/account/my-reservations",
-        element: <MyReservations />,
+        element: <MyReservationsPage />,
       },
     ],
   },
