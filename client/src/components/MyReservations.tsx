@@ -15,6 +15,7 @@ export const MyReservations = () => {
     <div>
       {myReservations?.map((reservation) => (
         <Reservation
+          key={reservation._id}
           _id={reservation._id}
           checkIn={reservation.checkIn}
           checkOut={reservation.checkOut}

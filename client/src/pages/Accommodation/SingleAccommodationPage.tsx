@@ -6,11 +6,9 @@ import {
   ReservationWidget,
 } from "../../components";
 import { Link, useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { TAccommodation } from "./MyAccommodationsPage";
+import { useEffect, useState } from "react";
+import { TAccommodation } from "../../components/Accommodation";
 import axios from "axios";
-import { GoLocation } from "react-icons/all";
-import { UserContext } from "../../context/UserContext";
 
 export const SingleAccommodationPage = () => {
   const { id } = useParams();

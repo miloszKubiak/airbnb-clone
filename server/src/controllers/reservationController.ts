@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import Reservation from "../models/Reservation";
+import Accommodation from "../models/Accommodation";
 
 const jwtSecret = process.env.JWT_SECRET!;
 
@@ -38,4 +39,9 @@ export const getMyReservations = async (req: Request, res: Response) => {
     const { id } = userData;
     res.json(await Reservation.find({ user: id }).populate("accommodation"));
   });
+};
+
+export const getSingleReservation = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  res.json(await Reservation.findById(id).populate("accommodation"));
 };
