@@ -46,7 +46,7 @@ export const Accommodation = ({
         </div>
         <div className="grow-0 shrink">
           <h2 className="text-xl font-bold">{title}</h2>
-          <p>{description}</p>
+          <p className="text-xs text-left mt-4 md:text-sm">{description}</p>
         </div>
       </Link>
       <div>

@@ -35,16 +35,16 @@ export const Reservation = ({
     <Link
       to={`/account/reservations/${_id}`}
       key={_id}
-      className="mt-10 flex gap-4 bg-zinc-100 rounded-xl overflow-hidden"
+      className="mt-10 h-32 px-2 flex gap-4 bg-zinc-100 rounded-xl overflow-hidden w-[80%] md:w-[60%]"
     >
-      <div className="w-48">
+      <div className="w-40 -ml-2">
         <img
-          className="object-cover"
+          className="object-cover h-full"
           src={accommodation?.photos![0]}
           alt="main photo of the place"
         />
       </div>
-      <div>
+      <div className="flex flex-col justify-center text-xs sm:text-sm">
         <h2>{accommodation.title}</h2>
         <p>
           {numberOfNights} night
@@ -54,9 +54,9 @@ export const Reservation = ({
           {numberOfGuests} guest
           {Number(numberOfGuests) > 1 ? "s" : ""}
         </p>
-        <div className="flex gap-2">
+        <div className="flex gap-1">
           <p>{format(new Date(checkIn), "dd-MM-yyyy")}</p>
-          <p>to</p>
+          <span>to</span>
           <p>{format(new Date(checkOut), "dd-MM-yyyy")}</p>
         </div>
         <div>

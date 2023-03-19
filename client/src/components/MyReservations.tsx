@@ -12,7 +12,7 @@ export const MyReservations = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center gap-2">
       {myReservations?.map((reservation) => (
         <Reservation
           key={reservation._id}
