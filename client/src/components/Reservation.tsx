@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-import { TAccommodation } from "../pages/Accommodation/MyAccommodationsPage";
+import { TAccommodation } from "./Accommodation";
 
 export type TReservation = {
   _id: string;

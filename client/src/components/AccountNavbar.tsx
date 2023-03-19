@@ -21,7 +21,7 @@ export const AccountNavbar = () => {
 
   return (
     <div>
-      <nav className="mt-10 w-full flex justify-center items-center gap-4">
+      <nav className="mt-10 w-full flex flex-col sm:flex-row justify-center items-center gap-4">
         <Link to={"/account"} className={linkClasses("profile")}>
           <FaUser />
           My profile
