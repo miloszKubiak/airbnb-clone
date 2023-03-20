@@ -1,4 +1,10 @@
-import { AccountNavbar, AddressLink, ReservationDates } from "../../components";
+import {
+  AccountNavbar,
+  AddressLink,
+  Modal,
+  ModalContent,
+  ReservationDates,
+} from "../../components";
 import { useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
@@ -7,6 +13,7 @@ import axios from "axios";
 export const SingleReservationPage = () => {
   const { id } = useParams();
   const [reservation, setReservation] = useState<TReservation | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleDeleteReservation = () => {
     console.log("delete");
@@ -29,6 +36,12 @@ export const SingleReservationPage = () => {
   return (
     <div>
       <AccountNavbar />
+      <Modal isOpen={modalOpen}>
+        <ModalContent
+          onClose={() => setModalOpen(false)}
+          onSubmit={handleDeleteReservation}
+        />
+      </Modal>
       <div className="mt-10 p-6 bg-zinc-100 flex gap-4 justify-around">
         <div className="flex flex-col justify-center">
           <h1 className="text-2xl font-bold">
@@ -48,7 +61,8 @@ export const SingleReservationPage = () => {
           </h1>
           <button
             className="px-3 py-2 bg-rose-400 text-white rounded-xl text-xs sm:text-sm"
-            onClick={handleDeleteReservation}
+            onClick={() => setModalOpen(true)}
+            disabled={modalOpen}
           >
             Cancel reservation
           </button>
