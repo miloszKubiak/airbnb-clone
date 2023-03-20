@@ -1,9 +1,8 @@
-import { AccountNavbar, AddressLink } from "../../components";
+import { AccountNavbar, AddressLink, ReservationDates } from "../../components";
 import { useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { format } from "date-fns";
 
 export const SingleReservationPage = () => {
   const { id } = useParams();
@@ -36,19 +35,12 @@ export const SingleReservationPage = () => {
             {reservation.accommodation?.title}
           </h1>
           <AddressLink address={reservation.accommodation?.address} />
-          <p>
-            {reservation.numberOfGuests} guest
-            {Number(reservation.numberOfGuests) > 1 ? "s" : ""}
-          </p>
-          <p>
-            {reservation.numberOfNights} night
-            {reservation.numberOfNights > 1 ? "s" : ""}
-          </p>
-          <div className="flex gap-2">
-            <p>{format(new Date(reservation.checkIn), "dd-MM-yyyy")}</p>
-            <p>to</p>
-            <p>{format(new Date(reservation.checkOut), "dd-MM-yyyy")}</p>
-          </div>
+          <ReservationDates
+            numberOfNights={reservation.numberOfNights}
+            numberOfGuests={reservation.numberOfGuests}
+            checkIn={reservation.checkIn}
+            checkOut={reservation.checkOut}
+          />
         </div>
         <div className="flex flex-col justify-center items-center gap-4">
           <h1 className="font-bold text-xl">

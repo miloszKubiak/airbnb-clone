@@ -11,3 +11,4 @@ export { AddressLink } from "./AddressLink";
 export { Reservation } from "./Reservation";
 export { MyReservations } from "./MyReservations";
 export { Accommodation } from "./Accommodation";
+export { ReservationDates } from "./ReservationDates";

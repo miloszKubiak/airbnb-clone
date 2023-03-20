@@ -1,6 +1,7 @@
-import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { TAccommodation } from "./Accommodation";
+import { ReservationDates } from "./ReservationDates";
+import { FaMoneyBillWave } from "react-icons/all";
 
 export type TReservation = {
   _id: string;
@@ -44,22 +45,18 @@ export const Reservation = ({
           alt="main photo of the place"
         />
       </div>
-      <div className="flex flex-col justify-center text-xs sm:text-sm">
-        <h2>{accommodation.title}</h2>
-        <p>
-          {numberOfNights} night
-          {numberOfNights > 1 ? "s" : ""}
-        </p>
-        <p>
-          {numberOfGuests} guest
-          {Number(numberOfGuests) > 1 ? "s" : ""}
-        </p>
-        <div className="flex gap-1">
-          <p>{format(new Date(checkIn), "dd-MM-yyyy")}</p>
-          <span>to</span>
-          <p>{format(new Date(checkOut), "dd-MM-yyyy")}</p>
-        </div>
-        <div>
+      <div className="flex flex-col gap-1 justify-center text-xs sm:text-sm">
+        <h2 className="font-bold">{accommodation.title}</h2>
+        <ReservationDates
+          numberOfNights={numberOfNights}
+          numberOfGuests={numberOfGuests}
+          checkIn={checkIn}
+          checkOut={checkOut}
+        />
+        <div className="flex items-center gap-1">
+          <p>
+            <FaMoneyBillWave />
+          </p>
           <p>Total price: {price} €</p>
         </div>
       </div>
