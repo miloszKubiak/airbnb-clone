@@ -12,3 +12,5 @@ export { Reservation } from "./Reservation";
 export { MyReservations } from "./MyReservations";
 export { Accommodation } from "./Accommodation";
 export { ReservationDates } from "./ReservationDates";
+export { Modal } from "./Modal";
+export { ModalContent } from "./ModalContent";
