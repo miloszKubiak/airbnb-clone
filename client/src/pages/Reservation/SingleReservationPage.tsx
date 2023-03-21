@@ -42,7 +42,7 @@ export const SingleReservationPage = () => {
           onSubmit={handleDeleteReservation}
         />
       </Modal>
-      <div className="mt-10 p-6 bg-zinc-100 flex gap-4 justify-around">
+      <div className="mt-10 p-6 flex gap-4 justify-around">
         <div className="flex flex-col justify-center">
           <h1 className="text-2xl font-bold">
             {reservation.accommodation?.title}
