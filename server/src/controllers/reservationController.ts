@@ -44,3 +44,19 @@ export const getSingleReservation = async (req: Request, res: Response) => {
   const { id } = req.params;
   res.json(await Reservation.findById(id).populate("accommodation"));
 };
+
+export const deleteReservation = async (req: Request, res: Response) => {
+  const { id: reservationId } = req.params;
+
+  const reservation = await Reservation.findOne({ _id: reservationId });
+
+  if (!reservation)
+    return res.status(400).send("No reservation of this id exists.");
+
+  await reservation.remove();
+
+  res.status(200).json("Reservation deleted");
+  // const { id } = req.params;
+  // const reservation = await Reservation.findByIdAndDelete(id);
+  // res.json(reservation);
+};
