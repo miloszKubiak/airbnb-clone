@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+
 type ModalContentProps = {
   onClose: () => void;
   onSubmit: () => void;

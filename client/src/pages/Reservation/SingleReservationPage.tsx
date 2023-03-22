@@ -11,20 +11,28 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export const SingleReservationPage = () => {
-  const { id } = useParams();
+  const { id: reservationId } = useParams();
   const [reservation, setReservation] = useState<TReservation | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleDeleteReservation = () => {
-    console.log("delete");
+  const handleUpdateReservation = async () => {
+    try {
+      await axios.patch(`/reservations/${reservationId}`, {
+        status: "canceled",
+      });
+      setModalOpen(false);
+      alert("Reservation canceled successful");
+    } catch (error) {
+      alert("Something went wrong.");
+    }
   };
 
   useEffect(() => {
-    if (!id) return;
+    if (!reservationId) return;
     axios
-      .get(`/reservations/${id}`)
+      .get(`/reservations/${reservationId}`)
       .then((response) => setReservation(response.data));
-  }, [id]);
+  }, [reservationId, modalOpen]);
 
   if (!reservation)
     return (
@@ -39,7 +47,7 @@ export const SingleReservationPage = () => {
       <Modal isOpen={modalOpen}>
         <ModalContent
           onClose={() => setModalOpen(false)}
-          onSubmit={handleDeleteReservation}
+          onSubmit={handleUpdateReservation}
         />
       </Modal>
       <div className="mt-10 p-6 flex gap-4 justify-around">
@@ -59,13 +67,20 @@ export const SingleReservationPage = () => {
           <h1 className="font-bold text-xl">
             Total price: {reservation.price} €
           </h1>
-          <button
-            className="px-3 py-2 bg-rose-400 text-white rounded-xl text-xs sm:text-sm"
-            onClick={() => setModalOpen(true)}
-            disabled={modalOpen}
-          >
-            Cancel reservation
-          </button>
+          {(reservation.status === "waiting" ||
+            reservation.status === "paid") && (
+            <button
+              className="px-3 py-2 bg-rose-400 text-white rounded-xl text-xs sm:text-sm"
+              onClick={() => setModalOpen(true)}
+              disabled={modalOpen}
+            >
+              Cancel reservation
+            </button>
+          )}
+
+          <h2 className={`status status-${reservation.status}`}>
+            Status: {reservation.status.toUpperCase()}
+          </h2>
         </div>
       </div>
       <div className="grid gap-2 grid-cols-[2fr_1fr] overflow-hidden">

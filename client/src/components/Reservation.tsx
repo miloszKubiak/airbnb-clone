@@ -11,6 +11,7 @@ export type TReservation = {
   numberOfNights: number;
   price: number;
   accommodation: TAccommodation;
+  status: string;
 };
 
 type ReservationProps = {
