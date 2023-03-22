@@ -16,6 +16,11 @@ const ReservationSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   numberOfNights: { type: Number, required: true },
   numberOfGuests: { type: String, required: true },
+  status: {
+    type: String,
+    enum: ["waiting", "paid", "canceled"],
+    default: "waiting",
+  },
 });
 
 const ReservationModel = mongoose.model("Reservation", ReservationSchema);
