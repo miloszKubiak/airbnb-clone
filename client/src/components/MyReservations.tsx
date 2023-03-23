@@ -23,6 +23,7 @@ export const MyReservations = () => {
           numberOfNights={reservation.numberOfNights}
           price={reservation.price}
           accommodation={reservation.accommodation}
+          status={reservation.status}
         />
       ))}
     </div>

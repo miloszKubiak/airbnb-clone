@@ -22,6 +22,7 @@ type ReservationProps = {
   numberOfNights: number;
   price: number;
   accommodation: TAccommodation;
+  status: string;
 };
 
 export const Reservation = ({
@@ -32,34 +33,40 @@ export const Reservation = ({
   checkIn,
   checkOut,
   price,
+  status,
 }: ReservationProps) => {
   return (
     <Link
       to={`/account/reservations/${_id}`}
       key={_id}
-      className="mt-10 h-32 px-2 flex gap-4 bg-zinc-100 rounded-xl overflow-hidden w-[80%] md:w-[60%]"
+      className="mt-10 h-32 px-2 flex justify-between gap-4 bg-zinc-100 rounded-xl overflow-hidden w-[80%] md:w-[60%]"
     >
-      <div className="w-40 -ml-2">
-        <img
-          className="object-cover h-full"
-          src={accommodation?.photos![0]}
-          alt="main photo of the place"
-        />
-      </div>
-      <div className="flex flex-col gap-1 justify-center text-xs sm:text-sm">
-        <h2 className="font-bold">{accommodation.title}</h2>
-        <ReservationDates
-          numberOfNights={numberOfNights}
-          numberOfGuests={numberOfGuests}
-          checkIn={checkIn}
-          checkOut={checkOut}
-        />
-        <div className="flex items-center gap-1">
-          <p>
-            <FaMoneyBillWave />
-          </p>
-          <p>Total price: {price} €</p>
+      <div className="flex gap-2">
+        <div className="w-40 -ml-2">
+          <img
+            className="object-cover h-full"
+            src={accommodation?.photos![0]}
+            alt="main photo of the place"
+          />
         </div>
+        <div className="flex flex-col gap-1 justify-center text-xs sm:text-sm">
+          <h2 className="font-bold">{accommodation.title}</h2>
+          <ReservationDates
+            numberOfNights={numberOfNights}
+            numberOfGuests={numberOfGuests}
+            checkIn={checkIn}
+            checkOut={checkOut}
+          />
+          <div className="flex items-center gap-1">
+            <p>
+              <FaMoneyBillWave />
+            </p>
+            <p>Total price: {price} €</p>
+          </div>
+        </div>
+      </div>
+      <div className="mr-4 flex items-center justify-between">
+        <h2 className={`status status-${status}`}>Status: {status}</h2>
       </div>
     </Link>
   );

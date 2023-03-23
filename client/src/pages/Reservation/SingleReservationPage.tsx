@@ -70,7 +70,7 @@ export const SingleReservationPage = () => {
           {(reservation.status === "waiting" ||
             reservation.status === "paid") && (
             <button
-              className="px-3 py-2 bg-rose-400 text-white rounded-xl text-xs sm:text-sm"
+              className="px-3 py-2 bg-rose-500 text-white font-bold rounded-xl text-xs sm:text-sm"
               onClick={() => setModalOpen(true)}
               disabled={modalOpen}
             >
