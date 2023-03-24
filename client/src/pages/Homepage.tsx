@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { TAccommodation } from "./Accommodation/MyAccommodationsPage";
+import { TAccommodation } from "../components/Accommodation";
 import { Link } from "react-router-dom";
 
 export const Homepage = () => {
@@ -13,7 +13,7 @@ export const Homepage = () => {
   }, []);
 
   return (
-    <div className="mt-10 gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="mt-10 gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
       {accommodations.length > 0 &&
         accommodations.map((accommodation) => (
           <Link

@@ -12,21 +12,19 @@ export const Navbar = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <header className="flex items-center justify-between pb-4 max-h-full border-b-[1px] border-zinc-300">
-      <Link to={"/"}>
-        <div className="flex justify-start items-center gap-1">
-          <div className="rotate-180 text-4xl text-indigo-500">
-            <FaAirbnb />
-          </div>
-          <span className="font-black tracking-wide text-indigo-500 text-2xl">
-            airdnd
-          </span>
+    <header className="flex items-center justify-between gap-2 pb-4 max-h-full border-b-[1px] border-zinc-300">
+      <Link to={"/"} className="flex justify-start items-center gap-1 grow-0">
+        <div className="rotate-180 text-4xl text-indigo-500">
+          <FaAirbnb />
         </div>
+        <span className="font-black tracking-wide text-indigo-500 text-2xl sm:visible invisible">
+          airdnd
+        </span>
       </Link>
 
       <div
         className="flex items-center justify-end gap-2 w-1/3
-      border border-gray-300 rounded-full px-2 shadow-md"
+      border border-gray-300 rounded-full px-2 shadow-md grow"
       >
         <input
           type="text"
@@ -37,16 +35,15 @@ export const Navbar = () => {
           <IoSearchCircle />
         </button>
       </div>
-      <Link to={user ? "/account" : "/login"}>
-        <div
-          className="flex items-center justify-around gap-2
+      <Link
+        to={user ? "/account" : "/login"}
+        className="flex items-center justify-around gap-2
       border border-zinc-300 rounded-full px-6 py-2 shadow-md
-      text-2xl text-zinc-500"
-        >
-          <GiHamburgerMenu />
-          <FaUserCircle />
-          {!!user && <div>{user.name[0]}</div>}
-        </div>
+      text-2xl text-zinc-500 grow-0"
+      >
+        <GiHamburgerMenu />
+        <FaUserCircle />
+        {!!user && <div>{user.name[0]}</div>}
       </Link>
     </header>
   );
