@@ -17,7 +17,7 @@ export const Navbar = () => {
         <div className="rotate-180 text-4xl text-indigo-500">
           <FaAirbnb />
         </div>
-        <span className="font-black tracking-wide text-indigo-500 text-2xl sm:visible invisible">
+        <span className="font-black tracking-wide text-indigo-500 text-2xl hidden sm:flex">
           airdnd
         </span>
       </Link>
