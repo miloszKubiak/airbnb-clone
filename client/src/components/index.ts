@@ -14,3 +14,5 @@ export { Accommodation } from "./Accommodation";
 export { ReservationDates } from "./ReservationDates";
 export { Modal } from "./Modal";
 export { ModalContent } from "./ModalContent";
+export { Status } from "./Status";
+export { Price } from "./Price";
