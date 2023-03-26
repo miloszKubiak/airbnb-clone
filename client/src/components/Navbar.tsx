@@ -12,39 +12,43 @@ export const Navbar = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <header className="flex items-center justify-between gap-2 pb-4 max-h-full border-b-[1px] border-zinc-300">
+    <div className="flex items-center justify-between gap-4 pb-8 h-24 max-h-full border-b-2 border-zinc-200">
       <Link to={"/"} className="flex justify-start items-center gap-1 grow-0">
-        <div className="rotate-180 text-4xl text-indigo-500">
+        <div className="rotate-180 text-5xl text-indigo-500">
           <FaAirbnb />
         </div>
         <span className="font-black tracking-wide text-indigo-500 text-2xl hidden sm:flex">
           airdnd
         </span>
       </Link>
-
-      <div
-        className="flex items-center justify-end gap-2 w-1/3
-      border border-gray-300 rounded-full px-2 shadow-md grow"
-      >
+      <div className="flex justify-between items-center mx-4 px-4 border-zinc-200 border-2 rounded-full grow">
         <input
           type="text"
-          placeholder="Search place..."
-          className="border-none outline-0 h-full"
+          placeholder="Search..."
+          className="border-none outline-zinc-100"
         />
-        <button className="text-4xl text-indigo-500">
+        <button className="text-5xl text-indigo-500">
           <IoSearchCircle />
         </button>
       </div>
       <Link
         to={user ? "/account" : "/login"}
-        className="flex items-center justify-around gap-2
-      border border-zinc-300 rounded-full px-6 py-2 shadow-md
-      text-2xl text-zinc-500 grow-0"
+        className="flex justify-between items-center gap-1 text-5xl text-zinc-200"
       >
-        <GiHamburgerMenu />
-        <FaUserCircle />
-        {!!user && <div>{user.name[0]}</div>}
+        {user ? (
+          <div>
+            <FaUserCircle />
+          </div>
+        ) : (
+          <GiHamburgerMenu />
+        )}
+        {/*<GiHamburgerMenu />*/}
+        {/*{!!user && (*/}
+        {/*  <div>*/}
+        {/*    <FaUserCircle />*/}
+        {/*  </div>*/}
+        {/*)}*/}
       </Link>
-    </header>
+    </div>
   );
 };
