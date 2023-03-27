@@ -41,7 +41,7 @@ textarea{
 }
 
 .status {
-    @apply px-3 py-2 font-bold rounded-xl text-[10px] sm:text-sm
+    @apply px-3 py-2 font-bold rounded-md
 }
 
 .status-waiting {
@@ -50,4 +50,8 @@ textarea{
 
 .status-canceled {
     @apply bg-rose-200 text-rose-700
+}
+
+.status-paid {
+    @apply bg-emerald-200 text-emerald-700
 }

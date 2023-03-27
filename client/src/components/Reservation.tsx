@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { TAccommodation } from "./Accommodation";
 import { ReservationDates } from "./ReservationDates";
-import { FaMoneyBillWave } from "react-icons/all";
 import { Price } from "./Price";
 import { Status } from "./Status";
 
@@ -51,7 +50,7 @@ export const Reservation = ({
           alt="main photo of the place"
         />
       </div>
-      <div className="ml-2 py-2 flex flex-col justify-between h-full text-[10px] sm:text-sm basis-1/2">
+      <div className="ml-2 py-2 flex flex-col justify-between h-full text-[8px] sm:text-sm basis-1/2">
         <h2 className="font-bold">{accommodation.title}</h2>
         <ReservationDates
           numberOfNights={numberOfNights}

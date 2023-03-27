@@ -5,7 +5,7 @@ import {
   ModalContent,
   ReservationDates,
 } from "../../components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -14,8 +14,9 @@ export const SingleReservationPage = () => {
   const { id: reservationId } = useParams();
   const [reservation, setReservation] = useState<TReservation | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [paid, setPaid] = useState(false);
 
-  const handleUpdateReservation = async () => {
+  const handleCancelReservation = async () => {
     try {
       await axios.patch(`/reservations/${reservationId}`, {
         status: "canceled",
@@ -27,12 +28,24 @@ export const SingleReservationPage = () => {
     }
   };
 
+  const handlePayForReservation = async () => {
+    try {
+      await axios.patch(`/reservations/${reservationId}`, {
+        status: "paid",
+      });
+      setPaid(true);
+      alert("Reservation pay successful");
+    } catch (error) {
+      alert("Something went wrong.");
+    }
+  };
+
   useEffect(() => {
     if (!reservationId) return;
     axios
       .get(`/reservations/${reservationId}`)
       .then((response) => setReservation(response.data));
-  }, [reservationId, modalOpen]);
+  }, [reservationId, modalOpen, paid]);
 
   if (!reservation)
     return (
@@ -47,7 +60,7 @@ export const SingleReservationPage = () => {
       <Modal isOpen={modalOpen}>
         <ModalContent
           onClose={() => setModalOpen(false)}
-          onSubmit={handleUpdateReservation}
+          onSubmit={handleCancelReservation}
         />
       </Modal>
       <div className="mt-10 p-6 flex gap-4 justify-around">
@@ -67,18 +80,27 @@ export const SingleReservationPage = () => {
           <h1 className="font-bold text-xl">
             Total price: {reservation.price} €
           </h1>
-          {(reservation.status === "waiting" ||
-            reservation.status === "paid") && (
-            <button
-              className="px-3 py-2 bg-rose-500 text-white font-bold rounded-xl text-xs sm:text-sm"
-              onClick={() => setModalOpen(true)}
-              disabled={modalOpen}
-            >
-              Cancel reservation
-            </button>
+          {reservation.status === "waiting" && (
+            <div className="flex flex-col gap-1 items-center">
+              <button
+                className="px-3 py-2 bg-rose-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
+                onClick={() => setModalOpen(true)}
+                disabled={modalOpen}
+              >
+                Cancel reservation
+              </button>
+              <button
+                className="w-full px-3 py-2 bg-emerald-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
+                onClick={handlePayForReservation}
+              >
+                Pay
+              </button>
+            </div>
           )}
-
-          <h2 className={`status status-${reservation.status}`}>
+          {/*<Status status={reservation.status} />*/}
+          <h2
+            className={`status status-${reservation.status} text-[6px] sm:text-sm`}
+          >
             Status: {reservation.status.toUpperCase()}
           </h2>
         </div>
