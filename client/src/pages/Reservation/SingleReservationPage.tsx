@@ -5,7 +5,7 @@ import {
   ModalContent,
   ReservationDates,
 } from "../../components";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -63,7 +63,7 @@ export const SingleReservationPage = () => {
           onSubmit={handleCancelReservation}
         />
       </Modal>
-      <div className="mt-10 p-6 flex gap-4 justify-around">
+      <div className="mt-10 p-6 flex gap-4 justify-between">
         <div className="flex flex-col justify-center">
           <h1 className="text-2xl font-bold">
             {reservation.accommodation?.title}

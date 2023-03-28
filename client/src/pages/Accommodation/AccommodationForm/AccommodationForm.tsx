@@ -1,27 +1,27 @@
-import { AccountNavbar, FileInput, PhotosUploader } from "../../../components";
+import { AccountNavbar, FileInput } from "../../../components";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BsDoorClosed,
   CgScreen,
   FaParking,
   FaWifi,
-  GoCloudUpload,
   MdPets,
   TbToolsKitchen2,
 } from "react-icons/all";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { accommodationSchema } from "./Accommodation.schema";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
+import { UserContext } from "../../../context/UserContext";
 
 export type TAccommodationFormValues = {
+  ownerName?: string;
   id?: string;
   title: string;
   address: string;
   description: string;
-  addedPhotos?: string[];
-  photos?: string[];
+  photos?: any[];
   perks?: string[];
   extraInfo: string;
   checkIn: string;
@@ -31,16 +31,15 @@ export type TAccommodationFormValues = {
 };
 
 export const AccommodationForm = () => {
-  const [addedPhotos, setAddedPhotos] = useState<any[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (!id) return;
     axios.get(`/accommodations/${id}`).then((response) => {
       const { data } = response;
       Object.keys(data).forEach((field: any) => setValue(field, data[field]));
-      console.log(data);
     });
   }, [id]);
 
@@ -56,7 +55,6 @@ export const AccommodationForm = () => {
       title: "",
       address: "",
       description: "",
-      addedPhotos: [],
       photos: [],
       perks: [],
       extraInfo: "",
@@ -71,7 +69,7 @@ export const AccommodationForm = () => {
     title,
     address,
     description,
-    addedPhotos,
+    photos,
     perks,
     extraInfo,
     checkIn,
@@ -79,11 +77,12 @@ export const AccommodationForm = () => {
     maxGuests,
     price,
   }: TAccommodationFormValues) => {
-    const accommodationData = {
+    const formData = {
+      ownerName: user?.name,
       title,
       address,
       description,
-      addedPhotos,
+      photos,
       perks,
       extraInfo,
       checkIn,
@@ -91,32 +90,22 @@ export const AccommodationForm = () => {
       maxGuests,
       price,
     };
-    console.log(accommodationData);
+
     if (id) {
+      //edit
       try {
-        await axios.put("/accommodations", { id, ...accommodationData });
+        await axios.put("/accommodations", { id, ...formData });
         alert("Edit place successful!");
-        navigate("/account/accommodations");
+        navigate("/account/my-accommodations");
       } catch (error) {
         alert("Something went wrong!");
       }
     } else {
+      //add
       try {
-        await axios.post("/accommodations", {
-          title,
-          address,
-          description,
-          addedPhotos,
-          perks,
-          extraInfo,
-          checkIn,
-          checkOut,
-          maxGuests,
-          price,
-        });
+        await axios.post("/accommodations", formData);
         alert("Added new place!");
-
-        navigate("/account/accommodations");
+        navigate("/account/my-accommodations");
       } catch (error) {
         alert("Something went wrong!");
       }
@@ -156,11 +145,13 @@ export const AccommodationForm = () => {
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Photos</h2>
           <p className="text-zinc-500">Upload any photos from your device</p>
-          <PhotosUploader
-            addedPhotos={addedPhotos}
-            onPhotosChange={setAddedPhotos}
+          {/*<FileInput name="photos" control={control} />*/}
+          <input
+            type="text"
+            placeholder="add link to the photo..."
+            {...register("photos")}
           />
-          {/*<FileInput name="files" control={control} />*/}
+          <p className="error">{errors.address?.message}</p>
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>
@@ -219,16 +210,12 @@ export const AccommodationForm = () => {
           <div className="mt-2 grid gap-2 sm:grid-cols-3 items-center">
             <div>
               <h3 className="text-sm">Check in time</h3>
-              <input type="text" placeholder="10:00" {...register("checkIn")} />
+              <input type="text" {...register("checkIn")} />
               <p className="error">{errors.checkIn?.message}</p>
             </div>
             <div>
               <h3 className="text-sm">Check out time</h3>
-              <input
-                type="text"
-                placeholder="14:00"
-                {...register("checkOut")}
-              />
+              <input type="text" {...register("checkOut")} />
               <p className="error">{errors.checkOut?.message}</p>
             </div>
             <div>
@@ -262,7 +249,7 @@ export const AccommodationForm = () => {
         </div>
       </form>
       <div className="flex justify-center mt-8">
-        <Link className="link-primary" to={"/"}>
+        <Link className="link-primary" to={"/account/my-accommodations"}>
           Back
         </Link>
       </div>

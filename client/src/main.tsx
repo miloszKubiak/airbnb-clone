@@ -8,14 +8,13 @@ import {
   Register,
   SingleReservationPage,
   MyAccommodationsPage,
+  MyReservationsPage,
   AccommodationForm,
 } from "./pages";
 import { Layout } from "./components";
 import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
 import { SingleAccommodationPage } from "./pages/Accommodation/SingleAccommodationPage";
-import { FormTest } from "./pages/Accommodation/AccommodationForm/FormTest";
-import { MyReservationsPage } from "./pages/Reservation/MyReservationsPage";
 
 const router = createBrowserRouter([
   {
@@ -48,11 +47,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/accommodations/new",
-        element: <FormTest />,
+        element: <AccommodationForm />,
       },
       {
         path: "/account/accommodations/edit/:id",
-        element: <FormTest />,
+        element: <AccommodationForm />,
       },
       {
         path: "/accommodations/:id",
