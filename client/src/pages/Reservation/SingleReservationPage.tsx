@@ -1,27 +1,24 @@
-import {
-  AccountNavbar,
-  AddressLink,
-  Modal,
-  ModalContent,
-  ReservationDates,
-} from "../../components";
+import { AccountNavbar, AddressLink, ReservationDates } from "../../components";
 import { useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Modal, ModalCancel, ModalPay } from "../../components/Modal";
 
 export const SingleReservationPage = () => {
   const { id: reservationId } = useParams();
   const [reservation, setReservation] = useState<TReservation | null>(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  // const [modalOpen, setModalOpen] = useState(false);
   const [paid, setPaid] = useState(false);
+  const [modalCancelOpen, setModalCancelOpen] = useState(false);
+  const [modalPayOpen, setModalPayOpen] = useState(false);
 
   const handleCancelReservation = async () => {
     try {
       await axios.patch(`/reservations/${reservationId}`, {
         status: "canceled",
       });
-      setModalOpen(false);
+      setModalCancelOpen(false);
       alert("Reservation canceled successful");
     } catch (error) {
       alert("Something went wrong.");
@@ -34,6 +31,7 @@ export const SingleReservationPage = () => {
         status: "paid",
       });
       setPaid(true);
+      setModalPayOpen(false);
       alert("Reservation pay successful");
     } catch (error) {
       alert("Something went wrong.");
@@ -45,7 +43,7 @@ export const SingleReservationPage = () => {
     axios
       .get(`/reservations/${reservationId}`)
       .then((response) => setReservation(response.data));
-  }, [reservationId, modalOpen, paid]);
+  }, [reservationId, modalCancelOpen, modalPayOpen, paid]);
 
   if (!reservation)
     return (
@@ -57,10 +55,16 @@ export const SingleReservationPage = () => {
   return (
     <div>
       <AccountNavbar />
-      <Modal isOpen={modalOpen}>
-        <ModalContent
-          onClose={() => setModalOpen(false)}
+      <Modal isOpen={modalCancelOpen}>
+        <ModalCancel
+          onClose={() => setModalCancelOpen(false)}
           onSubmit={handleCancelReservation}
+        />
+      </Modal>
+      <Modal isOpen={modalPayOpen}>
+        <ModalPay
+          onClose={() => setModalPayOpen(false)}
+          onSubmit={handlePayForReservation}
         />
       </Modal>
       <div className="mt-10 p-6 flex gap-4 justify-between">
@@ -84,14 +88,15 @@ export const SingleReservationPage = () => {
             <div className="flex flex-col gap-1 items-center">
               <button
                 className="px-3 py-2 bg-rose-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
-                onClick={() => setModalOpen(true)}
-                disabled={modalOpen}
+                onClick={() => setModalCancelOpen(true)}
+                disabled={modalCancelOpen}
               >
                 Cancel reservation
               </button>
               <button
                 className="w-full px-3 py-2 bg-emerald-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
-                onClick={handlePayForReservation}
+                onClick={() => setModalPayOpen(true)}
+                disabled={modalPayOpen}
               >
                 Pay
               </button>
