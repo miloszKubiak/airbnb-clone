@@ -1,9 +1,11 @@
-import { Layout } from "./components";
+import { Navbar } from "./components";
+import { Outlet } from "react-router-dom";
 
 export const App = () => {
   return (
-    <>
-      <Layout />
-    </>
+    <div className="p-5 flex flex-col min-h-screen max-w-6xl mx-auto">
+      <Navbar />
+      <Outlet />
+    </div>
   );
 };

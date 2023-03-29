@@ -11,15 +11,15 @@ import {
   MyReservationsPage,
   AccommodationForm,
 } from "./pages";
-import { Layout } from "./components";
 import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
 import { SingleAccommodationPage } from "./pages/Accommodation/SingleAccommodationPage";
+import { App } from "./App";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <App />,
     children: [
       {
         path: "/",

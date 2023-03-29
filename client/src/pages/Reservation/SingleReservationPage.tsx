@@ -1,5 +1,5 @@
 import { AccountNavbar, AddressLink, ReservationDates } from "../../components";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -67,68 +67,73 @@ export const SingleReservationPage = () => {
           onSubmit={handlePayForReservation}
         />
       </Modal>
-      <div className="mt-10 p-6 flex gap-4 justify-between">
-        <div className="flex flex-col justify-center">
-          <h1 className="text-2xl font-bold">
-            {reservation.accommodation?.title}
-          </h1>
-          <AddressLink address={reservation.accommodation?.address} />
-          <ReservationDates
-            numberOfNights={reservation.numberOfNights}
-            numberOfGuests={reservation.numberOfGuests}
-            checkIn={reservation.checkIn}
-            checkOut={reservation.checkOut}
-          />
+      <div>
+        <div className="mt-10 py-6 flex gap-4 justify-between">
+          <div className="flex flex-col justify-center">
+            <h1 className="text-3xl font-bold">
+              {reservation.accommodation?.title}
+            </h1>
+            <AddressLink address={reservation.accommodation?.address} />
+            <ReservationDates
+              numberOfNights={reservation.numberOfNights}
+              numberOfGuests={reservation.numberOfGuests}
+              checkIn={reservation.checkIn}
+              checkOut={reservation.checkOut}
+            />
+          </div>
+          <div className="flex flex-col justify-center items-center gap-4">
+            <h1 className="font-bold text-xl">
+              Total price: {reservation.price} €
+            </h1>
+            {reservation.status === "waiting" && (
+              <div className="flex flex-col gap-4 items-center">
+                <button
+                  className="px-3 py-2 bg-rose-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
+                  onClick={() => setModalCancelOpen(true)}
+                  disabled={modalCancelOpen}
+                >
+                  Cancel reservation
+                </button>
+                <button
+                  className="w-full px-3 py-2 bg-emerald-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
+                  onClick={() => setModalPayOpen(true)}
+                  disabled={modalPayOpen}
+                >
+                  Pay
+                </button>
+              </div>
+            )}
+            {/*<Status status={reservation.status} />*/}
+            <h2
+              className={`status status-${reservation.status} text-[6px] sm:text-sm`}
+            >
+              Status: {reservation.status.toUpperCase()}
+            </h2>
+          </div>
         </div>
-        <div className="flex flex-col justify-center items-center gap-4">
-          <h1 className="font-bold text-xl">
-            Total price: {reservation.price} €
-          </h1>
-          {reservation.status === "waiting" && (
-            <div className="flex flex-col gap-1 items-center">
-              <button
-                className="px-3 py-2 bg-rose-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
-                onClick={() => setModalCancelOpen(true)}
-                disabled={modalCancelOpen}
-              >
-                Cancel reservation
-              </button>
-              <button
-                className="w-full px-3 py-2 bg-emerald-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
-                onClick={() => setModalPayOpen(true)}
-                disabled={modalPayOpen}
-              >
-                Pay
-              </button>
-            </div>
-          )}
-          {/*<Status status={reservation.status} />*/}
-          <h2
-            className={`status status-${reservation.status} text-[6px] sm:text-sm`}
-          >
-            Status: {reservation.status.toUpperCase()}
-          </h2>
-        </div>
-      </div>
-      <div className="grid gap-2 grid-cols-[2fr_1fr] overflow-hidden">
-        <img
-          className="cursor-pointer h-full"
-          src={reservation.accommodation?.photos![0]}
-          alt="photo of the place"
-        />
-        <div className="grid gap-2">
+        <div className="grid gap-2 grid-cols-[2fr_1fr] overflow-hidden">
           <img
-            className="cursor-pointer"
+            className="cursor-pointer h-full"
             src={reservation.accommodation?.photos![0]}
             alt="photo of the place"
           />
-          <img
-            className="cursor-pointer"
-            src={reservation.accommodation?.photos![0]}
-            alt="photo of the place"
-          />
+          <div className="grid gap-2">
+            <img
+              className="cursor-pointer"
+              src={reservation.accommodation?.photos![0]}
+              alt="photo of the place"
+            />
+            <img
+              className="cursor-pointer"
+              src={reservation.accommodation?.photos![0]}
+              alt="photo of the place"
+            />
+          </div>
         </div>
       </div>
+      <Link to="/account/my-reservations">
+        <button className="primary mt-4 w-1/4">back</button>
+      </Link>
     </div>
   );
 };

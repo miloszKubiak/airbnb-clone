@@ -34,7 +34,10 @@ export const Login = () => {
     <div className="mt-5 grow flex items-center justify-around">
       <div className="mb-60">
         <h1 className="text-3xl text-center text-indigo-500 mb-5">Login</h1>
-        <form className="max-w-md mx-auto" onSubmit={handleSubmit(handleLogin)}>
+        <form
+          className="max-w-md mx-auto flex flex-col items-center"
+          onSubmit={handleSubmit(handleLogin)}
+        >
           <input
             type="email"
             placeholder="your@email.com"

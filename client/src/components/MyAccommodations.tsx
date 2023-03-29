@@ -25,6 +25,7 @@ export const MyAccommodations = () => {
         {accommodations.length > 0 &&
           accommodations.map((accommodation) => (
             <Accommodation
+              key={accommodation._id}
               _id={accommodation._id!}
               title={accommodation.title}
               description={accommodation.description}

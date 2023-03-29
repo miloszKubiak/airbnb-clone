@@ -42,7 +42,7 @@ export const Register = () => {
       <div className="mb-60">
         <h1 className="text-3xl text-center text-indigo-500 mb-5">Register</h1>
         <form
-          className="max-w-md mx-auto"
+          className="max-w-md mx-auto flex flex-col items-center"
           onSubmit={handleSubmit(handleRegister)}
         >
           <input type="text" placeholder="Your name" {...register("name")} />
