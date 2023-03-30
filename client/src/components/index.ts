@@ -14,3 +14,4 @@ export { ReservationDates } from "./ReservationDates";
 export { Status } from "./Status";
 export { Price } from "./Price";
 export { AllAccommodations } from "./AllAccommodations";
+export { Pagination } from "./Pagination";

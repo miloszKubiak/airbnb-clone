@@ -1,9 +1,10 @@
-import { AllAccommodations } from "../components";
+import { AllAccommodations, Pagination } from "../components";
 
 export const Homepage = () => {
   return (
     <>
       <AllAccommodations />
+      <Pagination />
     </>
   );
 };
