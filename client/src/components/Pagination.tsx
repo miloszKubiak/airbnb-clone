@@ -1,19 +1,59 @@
-export const Pagination = () => {
+import { useState } from "react";
+
+type PaginationProps = {
+  numOfPages: number;
+  page: number;
+  setPage: (newPage: number) => void;
+};
+
+export const Pagination = ({ numOfPages, page, setPage }: PaginationProps) => {
+  const pages = Array.from({ length: numOfPages }, (_, index) => {
+    return index + 1;
+  });
+
   const prevPage = () => {
-    console.log("prev page");
+    let newPage = page - 1;
+    if (newPage < 1) {
+      newPage = 1;
+    }
+    setPage(newPage);
   };
 
   const nextPage = () => {
-    console.log("next page");
+    let newPage = page + 1;
+    if (newPage > numOfPages) {
+      newPage = 1;
+    }
+    setPage(newPage);
   };
 
   return (
     <div className="mt-8 gap-4 flex items-center justify-center">
-      <button className="primary" onClick={prevPage}>
+      <button
+        disabled={page <= 1}
+        className={page <= 1 ? "disabled" : "primary"}
+        onClick={prevPage}
+      >
         prev
       </button>
-      <div>buttons</div>
-      <button className="primary" onClick={nextPage}>
+      <div className="flex gap-2">
+        {pages?.map((pageNumber) => {
+          return (
+            <button
+              onClick={() => setPage(pageNumber)}
+              className="primary"
+              key={pageNumber}
+            >
+              {pageNumber}
+            </button>
+          );
+        })}
+      </div>
+      <button
+        disabled={page >= numOfPages}
+        className={page >= numOfPages ? "disabled" : "primary"}
+        onClick={nextPage}
+      >
         next
       </button>
     </div>

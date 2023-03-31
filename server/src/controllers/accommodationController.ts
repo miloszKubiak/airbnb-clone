@@ -77,7 +77,7 @@ export const getAllAccommodations = async (req: Request, res: Response) => {
 
   //pagination
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 4;
+  const limit = Number(req.query.limit) || 2;
   const skip = (page - 1) * limit;
 
   result = result.skip(skip).limit(limit);

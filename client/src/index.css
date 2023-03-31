@@ -46,7 +46,7 @@ textarea{
 }
 
 .disabled {
-    @apply bg-zinc-300
+    @apply text-xl py-2 px-4 rounded-xl text-zinc-800 bg-zinc-300
 }
 
 .status {
