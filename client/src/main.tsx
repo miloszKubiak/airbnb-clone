@@ -15,6 +15,7 @@ import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
 import { SingleAccommodationPage } from "./pages/Accommodation/SingleAccommodationPage";
 import { App } from "./App";
+import { AccommodationsContextProvider } from "./context/AccommodationsContext";
 
 const router = createBrowserRouter([
   {
@@ -72,7 +73,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <UserContextProvider>
-      <RouterProvider router={router} />
+      <AccommodationsContextProvider>
+        <RouterProvider router={router} />
+      </AccommodationsContextProvider>
     </UserContextProvider>
   </React.StrictMode>
 );

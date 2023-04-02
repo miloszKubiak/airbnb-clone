@@ -1,12 +1,8 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { AccommodationsContext } from "../context/AccommodationsContext";
 
-type PaginationProps = {
-  numOfPages: number;
-  page: number;
-  setPage: (newPage: number) => void;
-};
-
-export const Pagination = ({ numOfPages, page, setPage }: PaginationProps) => {
+export const Pagination = () => {
+  const { page, setPage, numOfPages } = useContext(AccommodationsContext);
   const pages = Array.from({ length: numOfPages }, (_, index) => {
     return index + 1;
   });
@@ -21,7 +17,7 @@ export const Pagination = ({ numOfPages, page, setPage }: PaginationProps) => {
 
   const nextPage = () => {
     let newPage = page + 1;
-    if (newPage > numOfPages) {
+    if (newPage > numOfPages!) {
       newPage = 1;
     }
     setPage(newPage);
@@ -41,8 +37,9 @@ export const Pagination = ({ numOfPages, page, setPage }: PaginationProps) => {
           return (
             <button
               onClick={() => setPage(pageNumber)}
-              className="primary"
+              className={pageNumber === page ? "disabled" : "primary"}
               key={pageNumber}
+              disabled={pageNumber === page}
             >
               {pageNumber}
             </button>

@@ -1,19 +1,15 @@
-import { useEffect, useState } from "react";
-import { TAccommodation } from "./Accommodation";
-import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Pagination } from "./Pagination";
+import { AccommodationsContext } from "../context/AccommodationsContext";
 
 export const AllAccommodations = () => {
-  const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
-  const [numOfPages, setNumOfPages] = useState(1);
-  const [page, setPage] = useState(1);
+  const { accommodations, page, getAllAccommodations } = useContext(
+    AccommodationsContext
+  );
 
   useEffect(() => {
-    axios.get(`/accommodations?page=${page}`).then((response) => {
-      setAccommodations(response.data.accommodations);
-      setNumOfPages(response.data.numOfPages);
-    });
+    getAllAccommodations();
   }, [page]);
 
   return (
@@ -42,7 +38,7 @@ export const AllAccommodations = () => {
             </Link>
           ))}
       </div>
-      <Pagination numOfPages={numOfPages} page={page} setPage={setPage} />
+      <Pagination />
     </>
   );
 };
