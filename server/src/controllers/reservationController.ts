@@ -36,7 +36,21 @@ export const getMyReservations = async (req: Request, res: Response) => {
   jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
     if (error) throw error;
     const { id } = userData;
-    res.json(await Reservation.find({ user: id }).populate("accommodation"));
+
+    let result = Reservation.find({ user: id }).populate("accommodation");
+    const queryObject = result;
+
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 4;
+    const skip = (page - 1) * limit;
+
+    result = result.skip(skip).limit(limit);
+
+    const reservations = await result;
+    const total = await Reservation.countDocuments(queryObject);
+    const numOfPages = Math.ceil(total / limit);
+
+    res.status(200).json({ total, reservations, numOfPages });
   });
 };
 
