@@ -1,8 +1,12 @@
-import { useContext } from "react";
-import { AccommodationsContext } from "../context/AccommodationsContext";
+import { Dispatch, SetStateAction } from "react";
 
-export const Pagination = () => {
-  const { page, setPage, numOfPages } = useContext(AccommodationsContext);
+type PaginationProps = {
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+  numOfPages: number;
+};
+
+export const Pagination = ({ page, setPage, numOfPages }: PaginationProps) => {
   const pages = Array.from({ length: numOfPages }, (_, index) => {
     return index + 1;
   });
@@ -17,7 +21,7 @@ export const Pagination = () => {
 
   const nextPage = () => {
     let newPage = page + 1;
-    if (newPage > numOfPages!) {
+    if (newPage > numOfPages) {
       newPage = 1;
     }
     setPage(newPage);

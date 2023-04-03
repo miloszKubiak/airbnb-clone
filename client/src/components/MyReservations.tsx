@@ -1,16 +1,18 @@
 import { Reservation, TReservation } from "./Reservation";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination } from "./Pagination";
-import { AccommodationsContext } from "../context/AccommodationsContext";
 
 export const MyReservations = () => {
-  const { page } = useContext(AccommodationsContext);
   const [myReservations, setMyReservations] = useState<TReservation[]>([]);
+  const [page, setPage] = useState(1);
+  const [numOfPages, setNumOfPages] = useState(1);
 
   const getMyReservations = async () => {
     const response = await axios.get(`/reservations?page=${page}`);
-    setMyReservations(response.data.reservations);
+    setMyReservations(response.data);
+    setNumOfPages(response.data.numOfPages);
+    console.log(response.data);
   };
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export const MyReservations = () => {
           />
         ))}
       </div>
-      <Pagination />
+      <Pagination page={page} numOfPages={numOfPages} setPage={setPage} />
     </>
   );
 };
