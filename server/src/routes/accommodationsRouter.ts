@@ -14,8 +14,11 @@ router.route("/user-accommodations").get(verifyToken, getUserAccommodations);
 router
   .route("/")
   .post(addNewAccommodation)
-  .put(updateAccommodation)
+  // .put(updateAccommodation)
   .get(getAllAccommodations);
-router.route("/:id").get(getSingleAccommodation);
+router
+  .route("/:id")
+  .get(getSingleAccommodation)
+  .patch(verifyToken, updateAccommodation);
 
 export default router;

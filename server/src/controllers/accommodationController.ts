@@ -41,16 +41,6 @@ export const addNewAccommodation = (req: Request, res: Response) => {
   });
 };
 
-// export const getUserAccommodations = (req: Request, res: Response) => {
-//   const { token } = req.cookies;
-//   console.log(req.cookies);
-//
-//   jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
-//     const { id } = userData;
-//     res.json(await Accommodation.find({ owner: id }));
-//   });
-// };
-
 export const getUserAccommodations = async (req: Request, res: Response) => {
   const accommodations = await Accommodation.find({ owner: req.cookies.owner });
   res.status(200).json({ count: accommodations.length, accommodations });
@@ -91,39 +81,17 @@ export const getAllAccommodations = async (req: Request, res: Response) => {
 };
 
 export const updateAccommodation = async (req: Request, res: Response) => {
-  const { token } = req.cookies;
-  const {
-    id,
-    title,
-    address,
-    description,
-    photos,
-    perks,
-    extraInfo,
-    checkIn,
-    checkOut,
-    maxGuests,
-    price,
-  } = req.body;
-  jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
-    if (error) throw error;
-    const accommodation = await Accommodation.findById(id);
+  const { id: accommodationId } = req.params;
 
-    if (userData.id === accommodation!.owner?.toString()) {
-      accommodation!.set({
-        title,
-        address,
-        description,
-        photos,
-        perks,
-        extraInfo,
-        checkIn,
-        checkOut,
-        maxGuests,
-        price,
-      });
-      await accommodation!.save();
-      res.json("Update success!");
-    }
-  });
+  const accommodation = await Accommodation.findOne({ _id: accommodationId });
+  if (!accommodation)
+    throw new Error(`No accommodation with id: ${accommodationId}`);
+
+  const updatedAccommodation = await Accommodation.findByIdAndUpdate(
+    { _id: accommodationId },
+    req.body,
+    { new: true, runValidators: true }
+  );
+
+  res.status(200).json({ updatedAccommodation });
 };
