@@ -1,12 +1,7 @@
 import { Request, Response } from "express";
 import Accommodation from "../models/Accommodation";
-import jwt from "jsonwebtoken";
 
-const jwtSecret = process.env.JWT_SECRET!;
-
-export const addNewAccommodation = (req: Request, res: Response) => {
-  const { token } = req.cookies;
-
+export const addNewAccommodation = async (req: Request, res: Response) => {
   const {
     ownerName,
     title,
@@ -21,24 +16,25 @@ export const addNewAccommodation = (req: Request, res: Response) => {
     price,
   } = req.body;
 
-  jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
-    if (error) throw error;
-    const newAccommodation = await Accommodation.create({
-      owner: userData?.id,
-      ownerName,
-      title,
-      address,
-      description,
-      photos,
-      perks,
-      extraInfo,
-      checkIn,
-      checkOut,
-      maxGuests,
-      price,
-    });
-    res.json(newAccommodation);
-  });
+  if (
+    !ownerName ||
+    !title ||
+    !address ||
+    !description ||
+    !photos ||
+    !extraInfo ||
+    !checkIn ||
+    !checkOut ||
+    !maxGuests ||
+    !price
+  ) {
+    throw new Error("Please provide all values.");
+  }
+  req.body.owner = req.cookies.owner;
+
+  const accommodation = await Accommodation.create(req.body);
+
+  res.status(201).json({ accommodation });
 };
 
 export const getUserAccommodations = async (req: Request, res: Response) => {

@@ -13,8 +13,7 @@ const router = express.Router();
 router.route("/user-accommodations").get(verifyToken, getUserAccommodations);
 router
   .route("/")
-  .post(addNewAccommodation)
-  // .put(updateAccommodation)
+  .post(verifyToken, addNewAccommodation)
   .get(getAllAccommodations);
 router
   .route("/:id")
