@@ -41,29 +41,25 @@ export const addNewAccommodation = (req: Request, res: Response) => {
   });
 };
 
-// type TokenData = {
-//   email: string;
-//   id: string;
-//   iat: number;
-// }; // do sprawdzenia!
+// export const getUserAccommodations = (req: Request, res: Response) => {
+//   const { token } = req.cookies;
+//   console.log(req.cookies);
+//
+//   jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
+//     const { id } = userData;
+//     res.json(await Accommodation.find({ owner: id }));
+//   });
+// };
 
-export const getUserAccommodations = (req: Request, res: Response) => {
-  const { token } = req.cookies;
-
-  jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
-    const { id } = userData;
-    res.json(await Accommodation.find({ owner: id }));
-  });
+export const getUserAccommodations = async (req: Request, res: Response) => {
+  const accommodations = await Accommodation.find({ owner: req.cookies.owner });
+  res.status(200).json({ count: accommodations.length, accommodations });
 };
 
 export const getSingleAccommodation = async (req: Request, res: Response) => {
   const { id } = req.params;
   res.json(await Accommodation.findById(id));
 };
-
-// export const getAllAccommodations = async (req: Request, res: Response) => {
-//   res.json(await Accommodation.find());
-// };
 
 export const getAllAccommodations = async (req: Request, res: Response) => {
   const { search } = req.query;

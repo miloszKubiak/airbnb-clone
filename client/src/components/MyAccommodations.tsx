@@ -5,14 +5,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export const MyAccommodations = () => {
-  const [accommodations, setAccommodations] = useState<TAccommodation[] | []>(
-    []
-  );
+  const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
 
+  const getMyAccommodations = async () => {
+    const response = await axios.get("/accommodations/user-accommodations");
+    console.log(response);
+    setAccommodations(response.data.accommodations);
+  };
   useEffect(() => {
-    axios
-      .get("/accommodations/user-accommodations")
-      .then(({ data }) => setAccommodations(data));
+    getMyAccommodations();
   }, []);
 
   return (

@@ -6,10 +6,11 @@ import {
   updateAccommodation,
   getAllAccommodations,
 } from "../controllers/accommodationController";
+import { verifyToken } from "../middleware/jwt";
 
 const router = express.Router();
 
-router.route("/user-accommodations").get(getUserAccommodations);
+router.route("/user-accommodations").get(verifyToken, getUserAccommodations);
 router
   .route("/")
   .post(addNewAccommodation)
