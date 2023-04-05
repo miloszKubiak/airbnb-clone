@@ -52,7 +52,7 @@ export const AllAccommodations = () => {
             </Link>
           ))}
       </div>
-      <Pagination page={page} numOfPages={numOfPages} setPage={setPage} />
+      <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
     </>
   );
 };

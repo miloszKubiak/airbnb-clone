@@ -3,18 +3,25 @@ import { GoPlus } from "react-icons/all";
 import { Accommodation, TAccommodation } from "./Accommodation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Pagination } from "./Pagination";
 
 export const MyAccommodations = () => {
-  const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
+  const [userAccommodations, setUserAccommodations] = useState<
+    TAccommodation[]
+  >([]);
+  const [page, setPage] = useState(1);
+  const [numOfPages, setNumOfPages] = useState(1);
 
-  const getMyAccommodations = async () => {
-    const response = await axios.get("/accommodations/user-accommodations");
-    console.log(response);
-    setAccommodations(response.data.accommodations);
+  const getUserAccommodations = async () => {
+    let url = `/accommodations/user-accommodations?page=${page}`;
+    const response = await axios.get(url);
+    setUserAccommodations(response.data.accommodations);
+    setNumOfPages(response.data.numOfPages);
+    console.log(response.data);
   };
   useEffect(() => {
-    getMyAccommodations();
-  }, []);
+    getUserAccommodations();
+  }, [page]);
 
   return (
     <div className="text-center mt-10">
@@ -23,8 +30,8 @@ export const MyAccommodations = () => {
         Add new
       </Link>
       <div className="mt-8 flex flex-col gap-4">
-        {accommodations.length > 0 &&
-          accommodations.map((accommodation) => (
+        {userAccommodations.length > 0 &&
+          userAccommodations.map((accommodation) => (
             <Accommodation
               key={accommodation._id}
               _id={accommodation._id!}
@@ -34,6 +41,7 @@ export const MyAccommodations = () => {
             />
           ))}
       </div>
+      <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
     </div>
   );
 };
