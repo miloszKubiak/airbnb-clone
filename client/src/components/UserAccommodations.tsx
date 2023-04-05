@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination } from "./Pagination";
 
-export const MyAccommodations = () => {
+export const UserAccommodations = () => {
   const [userAccommodations, setUserAccommodations] = useState<
     TAccommodation[]
   >([]);

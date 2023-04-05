@@ -7,13 +7,13 @@ import {
   Login,
   Register,
   SingleReservationPage,
-  MyAccommodationsPage,
-  MyReservationsPage,
+  UserAccommodationsPage,
+  UserReservationsPage,
   AccommodationForm,
+  SingleAccommodationPage,
 } from "./pages";
 import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
-import { SingleAccommodationPage } from "./pages/Accommodation/SingleAccommodationPage";
 import { App } from "./App";
 import { AccommodationsContextProvider } from "./context/AccommodationsContext";
 
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/my-accommodations",
-        element: <MyAccommodationsPage />,
+        element: <UserAccommodationsPage />,
       },
       {
         path: "/account/accommodations/new",
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/my-reservations",
-        element: <MyReservationsPage />,
+        element: <UserReservationsPage />,
       },
     ],
   },

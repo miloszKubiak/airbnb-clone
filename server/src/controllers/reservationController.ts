@@ -30,15 +30,9 @@ export const addNewReservation = async (req: Request, res: Response) => {
   });
 };
 
-export const getMyReservations = async (req: Request, res: Response) => {
-  const { token } = req.cookies;
-
-  jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
-    if (error) throw error;
-    const { id } = userData;
-
-    res.json(await Reservation.find({ user: id }).populate("accommodation"));
-  });
+export const getUserReservations = async (req: Request, res: Response) => {
+  const reservations = await Reservation.find({ user: req.cookies.id });
+  res.status(200).json({ count: reservations.length, reservations });
 };
 
 export const getSingleReservation = async (req: Request, res: Response) => {

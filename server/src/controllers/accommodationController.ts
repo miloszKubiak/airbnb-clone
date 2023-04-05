@@ -39,8 +39,9 @@ export const addNewAccommodation = async (req: Request, res: Response) => {
 
 export const getUserAccommodations = async (req: Request, res: Response) => {
   const queryObject = {
-    owner: req.cookies.owner,
+    owner: req.cookies.id,
   };
+  console.log(req.cookies);
   let result = Accommodation.find(queryObject);
 
   const page = Number(req.query.page) || 1;

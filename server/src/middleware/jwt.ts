@@ -16,7 +16,7 @@ export const verifyToken: RequestHandler = (req, res, next) => {
 
   try {
     const payload: any = jwt.verify(token, jwtSecret);
-    req.cookies.owner = payload.id;
+    req.cookies.id = payload.id;
     next();
   } catch (error) {
     throw new Error("Token is not valid!");

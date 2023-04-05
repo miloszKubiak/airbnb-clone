@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { MyAccommodationsPage } from "./Accommodation/MyAccommodationsPage";
+import { UserAccommodationsPage } from "./Accommodation/UserAccommodationsPage";
 
 export const Profile = () => {
   const { ready, user, setUser } = useContext(UserContext);
@@ -35,7 +35,7 @@ export const Profile = () => {
           Logout
         </button>
       </div>
-      {subpage === "accommodations" && <MyAccommodationsPage />}
+      {subpage === "accommodations" && <UserAccommodationsPage />}
     </div>
   );
 };
