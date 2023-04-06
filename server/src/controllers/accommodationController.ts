@@ -30,7 +30,7 @@ export const addNewAccommodation = async (req: Request, res: Response) => {
   ) {
     throw new Error("Please provide all values.");
   }
-  req.body.owner = req.cookies.owner;
+  req.body.owner = req.cookies.userId;
 
   const accommodation = await Accommodation.create(req.body);
 
@@ -39,9 +39,9 @@ export const addNewAccommodation = async (req: Request, res: Response) => {
 
 export const getUserAccommodations = async (req: Request, res: Response) => {
   const queryObject = {
-    owner: req.cookies.id,
+    owner: req.cookies.userId,
   };
-  console.log(req.cookies);
+
   let result = Accommodation.find(queryObject);
 
   const page = Number(req.query.page) || 1;

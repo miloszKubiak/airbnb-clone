@@ -30,9 +30,33 @@ export const addNewReservation = async (req: Request, res: Response) => {
   });
 };
 
+// export const getUserReservations = async (req: Request, res: Response) => {
+//   const reservations = await Reservation.find({ user: req.cookies.userId });
+//   res.status(200).json({ count: reservations.length, reservations });
+// };
+
 export const getUserReservations = async (req: Request, res: Response) => {
-  const reservations = await Reservation.find({ user: req.cookies.id });
-  res.status(200).json({ count: reservations.length, reservations });
+  const queryObject = {
+    user: req.cookies.userId,
+  };
+
+  let result = Reservation.find(queryObject);
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 4;
+  const skip = (page - 1) * limit;
+  result = result.skip(skip).limit(limit);
+
+  const reservations = await result;
+
+  const totalReservations = await Reservation.countDocuments(queryObject);
+  const numOfPages = Math.ceil(totalReservations / limit);
+
+  res.status(200).json({
+    reservations,
+    totalReservations,
+    numOfPages,
+  });
 };
 
 export const getSingleReservation = async (req: Request, res: Response) => {

@@ -9,7 +9,13 @@ import { verifyToken } from "../middleware/jwt";
 
 const router = express.Router();
 
-router.route("/").post(addNewReservation).get(verifyToken, getUserReservations);
-router.route("/:id").get(getSingleReservation).patch(updateReservation);
+router
+  .route("/")
+  .post(verifyToken, addNewReservation)
+  .get(verifyToken, getUserReservations);
+router
+  .route("/:id")
+  .get(verifyToken, getSingleReservation)
+  .patch(verifyToken, updateReservation);
 
 export default router;
