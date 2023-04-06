@@ -1,11 +1,7 @@
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 import Reservation from "../models/Reservation";
 
-const jwtSecret = process.env.JWT_SECRET!;
-
 export const addNewReservation = async (req: Request, res: Response) => {
-  const { token } = req.cookies;
   const {
     accommodation,
     checkIn,
@@ -15,25 +11,22 @@ export const addNewReservation = async (req: Request, res: Response) => {
     price,
   } = req.body;
 
-  jwt.verify(token, jwtSecret, {}, async (error, userData: any) => {
-    if (error) throw error;
-    const newReservation = await Reservation.create({
-      user: userData?.id,
-      accommodation,
-      checkIn,
-      checkOut,
-      numberOfGuests,
-      numberOfNights,
-      price,
-    });
-    res.json(newReservation);
-  });
-};
+  if (
+    !accommodation ||
+    !checkIn ||
+    !numberOfGuests ||
+    !checkOut ||
+    !numberOfNights ||
+    !price
+  ) {
+    throw new Error("Please provide all values.");
+  }
+  req.body.user = req.cookies.userId;
 
-// export const getUserReservations = async (req: Request, res: Response) => {
-//   const reservations = await Reservation.find({ user: req.cookies.userId });
-//   res.status(200).json({ count: reservations.length, reservations });
-// };
+  const reservation = await Reservation.create(req.body);
+
+  res.status(201).json({ reservation });
+};
 
 export const getUserReservations = async (req: Request, res: Response) => {
   const queryObject = {

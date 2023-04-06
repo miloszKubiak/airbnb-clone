@@ -44,9 +44,8 @@ export const ReservationWidget = ({
         price: numberOfNights * price + tax + cleaningPrice,
         user: user?._id,
       });
-      const reservationId = response.data._id;
       alert("The reservation was successful!");
-      navigate(`/account/reservations/${reservationId}`);
+      navigate(`/account/my-reservations`);
     } catch (error) {
       alert("Something went wrong!");
     }

@@ -23,6 +23,17 @@ export const UserAccommodations = () => {
     getUserAccommodations();
   }, [page]);
 
+  if (userAccommodations.length <= 0)
+    return (
+      <div className="mt-10 flex flex-col gap-4 justify-center items-center">
+        <Link className="link-primary" to={"/account/accommodations/new"}>
+          <GoPlus />
+          Add new
+        </Link>
+        <p className="mt-10">There are no accommodations...</p>
+      </div>
+    );
+
   return (
     <div className="text-center mt-10">
       <Link className="link-primary" to={"/account/accommodations/new"}>

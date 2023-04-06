@@ -13,12 +13,18 @@ export const UserReservations = () => {
     const response = await axios.get(url);
     setUserReservations(response.data.reservations);
     setNumOfPages(response.data.numOfPages);
-    console.log(response.data);
   };
 
   useEffect(() => {
     getUserReservations();
   }, [page]);
+
+  if (userReservations.length <= 0)
+    return (
+      <div className="mt-20 flex justify-center items-center">
+        <p>There are no reservations...</p>
+      </div>
+    );
 
   return (
     <>
