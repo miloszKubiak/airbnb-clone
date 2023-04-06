@@ -40,7 +40,7 @@ export const getUserReservations = async (req: Request, res: Response) => {
     user: req.cookies.userId,
   };
 
-  let result = Reservation.find(queryObject);
+  let result = Reservation.find(queryObject).populate("accommodation");
 
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 4;

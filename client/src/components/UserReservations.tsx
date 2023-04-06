@@ -8,16 +8,17 @@ export const UserReservations = () => {
   const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
 
-  const getMyReservations = async () => {
-    const response = await axios.get(`/reservations`);
-    setUserReservations(response.data);
+  const getUserReservations = async () => {
+    let url = `/reservations?page=${page}`;
+    const response = await axios.get(url);
+    setUserReservations(response.data.reservations);
     setNumOfPages(response.data.numOfPages);
     console.log(response.data);
   };
 
   useEffect(() => {
-    getMyReservations();
-  }, []);
+    getUserReservations();
+  }, [page]);
 
   return (
     <>
