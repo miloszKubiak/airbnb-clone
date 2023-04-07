@@ -11,7 +11,7 @@ import { SearchContext } from "../context/SearchContext";
 
 export const Navbar = () => {
   const { user } = useContext(UserContext);
-  const { search, setSearch } = useContext(SearchContext);
+  const { search, setSearch, clearFilters } = useContext(SearchContext);
   const navigate = useNavigate();
 
   const handleSubmit = () => {
@@ -21,7 +21,11 @@ export const Navbar = () => {
 
   return (
     <div className="flex items-center justify-between gap-4 pb-8 h-24 max-h-full border-b-2 border-zinc-200">
-      <Link to={"/"} className="flex justify-start items-center gap-1 grow-0">
+      <Link
+        onClick={clearFilters}
+        to={"/"}
+        className="flex justify-start items-center gap-1 grow-0"
+      >
         <div className="rotate-180 text-5xl text-indigo-500">
           <FaAirbnb />
         </div>
@@ -34,6 +38,7 @@ export const Navbar = () => {
           type="text"
           placeholder="Search..."
           className="border-none outline-zinc-100"
+          value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <button onClick={handleSubmit} className="text-5xl text-indigo-500">

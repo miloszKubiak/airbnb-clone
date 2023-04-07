@@ -9,6 +9,7 @@ import {
 type SearchContextType = {
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
+  clearFilters: () => void;
 };
 
 type SearchContextProviderProps = {
@@ -24,11 +25,16 @@ export const SearchContextProvider = ({
 }: SearchContextProviderProps) => {
   const [search, setSearch] = useState("");
 
+  const clearFilters = () => {
+    setSearch("");
+  };
+
   return (
     <SearchContext.Provider
       value={{
         search,
         setSearch,
+        clearFilters,
       }}
     >
       {children}
