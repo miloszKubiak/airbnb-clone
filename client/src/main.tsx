@@ -11,11 +11,12 @@ import {
   UserReservationsPage,
   AccommodationForm,
   SingleAccommodationPage,
+  FilteredAccommodations,
 } from "./pages";
 import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
 import { App } from "./App";
-import { AccommodationsContextProvider } from "./context/AccommodationsContext";
+import { SearchContextProvider } from "./context/SearchContext";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
         element: <AccommodationForm />,
       },
       {
+        path: "/accommodations",
+        element: <FilteredAccommodations />,
+      },
+      {
         path: "/accommodations/:id",
         element: <SingleAccommodationPage />,
       },
@@ -73,9 +78,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <UserContextProvider>
-      <AccommodationsContextProvider>
+      <SearchContextProvider>
         <RouterProvider router={router} />
-      </AccommodationsContextProvider>
+      </SearchContextProvider>
     </UserContextProvider>
   </React.StrictMode>
 );
