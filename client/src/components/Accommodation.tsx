@@ -38,7 +38,7 @@ export const Accommodation = ({
         <div className="w-32 h-32 bg-gray-300 grow shrink-0">
           {photos!.length > 0 && (
             <img
-              className="object-cover h-full"
+              className="object-cover h-full w-full"
               src={photos![0]}
               alt="main photo of the accommodation"
             />

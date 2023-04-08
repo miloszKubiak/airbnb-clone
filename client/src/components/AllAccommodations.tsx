@@ -26,8 +26,8 @@ export const AllAccommodations = () => {
   }, [page]);
 
   return (
-    <>
-      <div className="mt-10 gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+    <div className="flex flex-col items-center justify-center">
+      <div className="px-2 py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
         {accommodations.length > 0 &&
           accommodations.map((accommodation) => (
             <Link
@@ -52,6 +52,6 @@ export const AllAccommodations = () => {
           ))}
       </div>
       <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
-    </>
+    </div>
   );
 };

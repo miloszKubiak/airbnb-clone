@@ -24,7 +24,7 @@ p.error {
 }
 
 button.primary {
-    @apply text-xl py-2 px-4 rounded-xl text-white bg-indigo-500
+    @apply text-sm p-2 rounded-md text-white bg-indigo-500
 }
 
 .button-pay {
@@ -46,7 +46,7 @@ textarea{
 }
 
 .disabled {
-    @apply text-xl py-2 px-4 rounded-xl text-zinc-800 bg-zinc-300
+    @apply text-sm p-2 rounded-md text-zinc-800 bg-zinc-300
 }
 
 .status {

@@ -28,7 +28,7 @@ export const Pagination = ({ page, setPage, numOfPages }: PaginationProps) => {
   };
 
   return (
-    <div className="mt-8 gap-4 flex items-center justify-center">
+    <div className="mt-8 gap-2 flex items-center justify-center">
       <button
         disabled={page <= 1}
         className={page <= 1 ? "disabled" : "primary"}

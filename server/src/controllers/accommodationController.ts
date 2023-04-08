@@ -22,7 +22,6 @@ export const addNewAccommodation = async (req: Request, res: Response) => {
     !address ||
     !description ||
     !photos ||
-    !extraInfo ||
     !checkIn ||
     !checkOut ||
     !maxGuests ||
@@ -45,7 +44,7 @@ export const getUserAccommodations = async (req: Request, res: Response) => {
   let result = Accommodation.find(queryObject);
 
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 2;
+  const limit = Number(req.query.limit) || 4;
   const skip = (page - 1) * limit;
 
   result = result.skip(skip).limit(limit);
@@ -64,7 +63,7 @@ export const getSingleAccommodation = async (req: Request, res: Response) => {
 };
 
 export const getAllAccommodations = async (req: Request, res: Response) => {
-  const { search } = req.query;
+  const { search, sort } = req.query;
 
   const queryObject: any = {};
 
@@ -73,9 +72,23 @@ export const getAllAccommodations = async (req: Request, res: Response) => {
   }
   let result: any = Accommodation.find(queryObject);
 
+  //sort
+  if (sort === "a-z") {
+    result = result.sort("name");
+  }
+  if (sort === "z-a") {
+    result = result.sort("-name");
+  }
+  if (sort === "price-lowest") {
+    result = result.sort("price");
+  }
+  if (sort === "price-highest") {
+    result = result.sort("-price");
+  }
+
   //pagination
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 2;
+  const limit = Number(req.query.limit) || 8;
   const skip = (page - 1) * limit;
 
   result = result.skip(skip).limit(limit);
