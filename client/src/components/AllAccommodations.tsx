@@ -6,13 +6,13 @@ import axios from "axios";
 import { TAccommodation } from "./Accommodation";
 
 export const AllAccommodations = () => {
-  const { search } = useContext(SearchContext);
+  const { search, sort } = useContext(SearchContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
 
   const getAllAccommodations = async () => {
-    let url = `/accommodations?page=${page}`;
+    let url = `/accommodations?page=${page}&sort=${sort}`;
     if (search) {
       url = url + `&search=${search}`;
     }
@@ -23,11 +23,11 @@ export const AllAccommodations = () => {
 
   useEffect(() => {
     getAllAccommodations();
-  }, [page]);
+  }, [page, sort]);
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="px-2 py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+      <div className="py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
         {accommodations.length > 0 &&
           accommodations.map((accommodation) => (
             <Link

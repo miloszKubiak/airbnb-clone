@@ -74,10 +74,10 @@ export const getAllAccommodations = async (req: Request, res: Response) => {
 
   //sort
   if (sort === "a-z") {
-    result = result.sort("name");
+    result = result.sort("title");
   }
   if (sort === "z-a") {
-    result = result.sort("-name");
+    result = result.sort("-title");
   }
   if (sort === "price-lowest") {
     result = result.sort("price");

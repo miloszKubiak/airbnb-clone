@@ -1,9 +1,9 @@
-import { AllAccommodations, SortSelect } from "../components";
+import { AllAccommodations, FiltersBar } from "../components";
 
 export const Homepage = () => {
   return (
     <>
-      <SortSelect />
+      <FiltersBar />
       <AllAccommodations />
     </>
   );
