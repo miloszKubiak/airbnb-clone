@@ -9,6 +9,8 @@ import {
 type SearchContextType = {
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
+  sort: string;
+  setSort: Dispatch<SetStateAction<string>>;
   clearFilters: () => void;
 };
 
@@ -24,6 +26,7 @@ export const SearchContextProvider = ({
   children,
 }: SearchContextProviderProps) => {
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("A-Z");
 
   const clearFilters = () => {
     setSearch("");
@@ -34,6 +37,8 @@ export const SearchContextProvider = ({
       value={{
         search,
         setSearch,
+        sort,
+        setSort,
         clearFilters,
       }}
     >

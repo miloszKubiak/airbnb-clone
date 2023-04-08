@@ -16,3 +16,4 @@ export { Price } from "./Price";
 export { AllAccommodations } from "./AllAccommodations";
 export { Pagination } from "./Pagination";
 export { UserAccommodations } from "./UserAccommodations";
+export { SortSelect } from "./SortSelect";

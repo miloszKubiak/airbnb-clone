@@ -35,7 +35,7 @@ export const AllAccommodations = () => {
               key={accommodation._id}
               className="flex gap-4"
             >
-              <div className="flex flex-col justify-between">
+              <div className="flex flex-col gap-1 justify-between">
                 <img
                   className="object-cover aspect-square rounded-2xl"
                   src={accommodation.photos?.[0]}
