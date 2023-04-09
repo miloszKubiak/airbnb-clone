@@ -17,5 +17,6 @@ export { AllAccommodations } from "./AllAccommodations";
 export { Pagination } from "./Pagination";
 export { UserAccommodations } from "./UserAccommodations";
 export { SortSelect } from "./SortSelect";
-export { Filters } from "./Filters";
+export { Categories } from "./Categories";
+export { CategoryItem } from "./CategoryItem";
 export { FiltersBar } from "./FiltersBar";

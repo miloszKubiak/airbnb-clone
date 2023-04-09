@@ -1,11 +1,11 @@
 import { SortSelect } from "./SortSelect";
-import { Filters } from "./Filters";
+import { Categories } from "./Categories";
 
 export const FiltersBar = () => {
   return (
     <div className="mt-4 flex gap-4 items-center">
       <SortSelect />
-      <Filters />
+      <Categories />
     </div>
   );
 };

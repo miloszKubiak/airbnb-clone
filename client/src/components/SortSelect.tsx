@@ -7,7 +7,7 @@ export const SortSelect = () => {
 
   return (
     <select
-      className="p-2 basis-1/3"
+      className="p-2"
       value={sort}
       onChange={(e) => setSort(e.target.value)}
     >
