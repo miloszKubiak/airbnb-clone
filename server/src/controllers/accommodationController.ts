@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Accommodation from "../models/Accommodation";
+import { checkPermissions } from "../utils/checkPermissions";
 
 export const addNewAccommodation = async (req: Request, res: Response) => {
   const {
@@ -40,6 +41,7 @@ export const getUserAccommodations = async (req: Request, res: Response) => {
   const queryObject = {
     owner: req.cookies.userId,
   };
+  console.log(req.cookies.userId);
 
   let result = Accommodation.find(queryObject);
 
@@ -119,4 +121,22 @@ export const updateAccommodation = async (req: Request, res: Response) => {
   );
 
   res.status(200).json({ updatedAccommodation });
+};
+
+export const deleteAccommodation = async (req: Request, res: Response) => {
+  const { id: accommodationId } = req.params;
+
+  const accommodation = await Accommodation.findOne({ _id: accommodationId });
+
+  if (!accommodation) {
+    throw new Error(`No accommodation with id: ${accommodationId}`);
+  }
+  console.log(req.cookies.userId);
+  console.log(accommodation.owner);
+  //check permissions
+  checkPermissions(req.cookies, accommodation.owner);
+
+  await accommodation.remove();
+
+  res.status(200).json({ msg: "Success! Accommodation removed." });
 };

@@ -5,6 +5,7 @@ import {
   getSingleAccommodation,
   updateAccommodation,
   getAllAccommodations,
+  deleteAccommodation,
 } from "../controllers/accommodationController";
 import { verifyToken } from "../middleware/jwt";
 
@@ -18,6 +19,7 @@ router
 router
   .route("/:id")
   .get(getSingleAccommodation)
-  .patch(verifyToken, updateAccommodation);
+  .patch(verifyToken, updateAccommodation)
+  .delete(verifyToken, deleteAccommodation);
 
 export default router;
