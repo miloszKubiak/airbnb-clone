@@ -17,13 +17,21 @@ export const UserAccommodations = () => {
     const response = await axios.get(url);
     setUserAccommodations(response.data.accommodations);
     setNumOfPages(response.data.numOfPages);
-    console.log(response.data);
   };
+
+  const handleDelete = async (id: string) => {
+    await axios.delete(`/accommodations/${id}`);
+    setUserAccommodations(
+      userAccommodations.filter((accommodation) => accommodation._id !== id)
+    );
+    alert("Accommodation deleted successfully!");
+  };
+
   useEffect(() => {
     getUserAccommodations();
   }, [page]);
 
-  if (userAccommodations.length <= 0)
+  if (userAccommodations!.length <= 0)
     return (
       <div className="mt-10 flex flex-col gap-4 justify-center items-center">
         <Link className="link-primary" to={"/account/accommodations/new"}>
@@ -49,6 +57,7 @@ export const UserAccommodations = () => {
               title={accommodation.title}
               description={accommodation.description}
               photos={accommodation.photos!}
+              onDelete={() => handleDelete(accommodation._id!)}
             />
           ))}
       </div>

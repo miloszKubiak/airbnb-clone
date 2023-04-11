@@ -51,7 +51,7 @@ export const Reservation = ({
         />
       </div>
       <div className="ml-2 py-2 flex flex-col justify-between h-full text-[8px] sm:text-sm basis-1/2">
-        <h2 className="font-bold">{accommodation.title}</h2>
+        <h2 className="font-bold">{accommodation?.title}</h2>
         <ReservationDates
           numberOfNights={numberOfNights}
           numberOfGuests={numberOfGuests}

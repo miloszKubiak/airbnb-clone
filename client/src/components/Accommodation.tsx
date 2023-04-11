@@ -21,6 +21,7 @@ type AccommodationProps = {
   title: string;
   description: string;
   photos: string[];
+  onDelete?: any;
 };
 
 export const Accommodation = ({
@@ -28,6 +29,7 @@ export const Accommodation = ({
   photos,
   title,
   description,
+  onDelete,
 }: AccommodationProps) => {
   return (
     <div className="bg-gray-100 p-4 rounded-2xl" key={_id}>
@@ -49,14 +51,17 @@ export const Accommodation = ({
           <p className="text-xs text-left mt-4 md:text-sm">{description}</p>
         </div>
       </Link>
-      <div>
+      <div className="flex gap-2 items-center justify-center">
         <Link
           to={`/account/accommodations/edit/${_id}`}
-          className="link-primary mt-4"
+          className="link-primary"
           type="button"
         >
           Edit
         </Link>
+        <button onClick={() => onDelete(_id)} className="link-primary">
+          Delete
+        </button>
       </div>
     </div>
   );
