@@ -1,36 +1,38 @@
 import {
-  BiGlasses,
-  BsDoorClosed,
-  FaWater,
-  GiDesert,
+  BiWater,
+  GiFarmTractor,
   GiGreenhouse,
+  GiIsland,
   GiPalmTree,
-  GiRiver,
-  MdMeetingRoom,
+  GrHomeRounded,
+  HiOutlineHomeModern,
   MdOutlineHouse,
+  RiMagicLine,
+  TbBeach,
   TbBuildingCastle,
   TbMountain,
+  TbWindmill,
 } from "react-icons/all";
 
 export const categories = [
   {
     id: 1,
-    name: "houses on the water",
-    icon: <FaWater />,
+    name: "mills",
+    icon: <TbWindmill />,
   },
   {
     id: 2,
-    name: "amazing views",
-    icon: <BiGlasses />,
+    name: "mansions",
+    icon: <HiOutlineHomeModern />,
   },
   {
     id: 3,
-    name: "private rooms",
-    icon: <MdMeetingRoom />,
+    name: "luxe",
+    icon: <RiMagicLine />,
   },
   {
     id: 4,
-    name: "small houses",
+    name: "houses",
     icon: <MdOutlineHouse />,
   },
   {
@@ -40,12 +42,12 @@ export const categories = [
   },
   {
     id: 6,
-    name: "cottages in mountains",
+    name: "countryside",
     icon: <TbMountain />,
   },
   {
     id: 7,
-    name: "in the tropics",
+    name: "tropical",
     icon: <GiPalmTree />,
   },
   {
@@ -55,12 +57,27 @@ export const categories = [
   },
   {
     id: 9,
-    name: "in the desert",
-    icon: <GiDesert />,
+    name: "beach",
+    icon: <TbBeach />,
   },
   {
     id: 10,
-    name: "at the lake",
-    icon: <GiRiver />,
+    name: "lake",
+    icon: <BiWater />,
+  },
+  {
+    id: 11,
+    name: "barns",
+    icon: <GrHomeRounded />,
+  },
+  {
+    id: 12,
+    name: "islands",
+    icon: <GiIsland />,
+  },
+  {
+    id: 13,
+    name: "farms",
+    icon: <GiFarmTractor />,
   },
 ];

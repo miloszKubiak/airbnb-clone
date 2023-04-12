@@ -44,6 +44,7 @@ export const getUserAccommodations = async (req: Request, res: Response) => {
   console.log(req.cookies.userId);
 
   let result = Accommodation.find(queryObject);
+  ``;
 
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 4;
@@ -131,9 +132,7 @@ export const deleteAccommodation = async (req: Request, res: Response) => {
   if (!accommodation) {
     throw new Error(`No accommodation with id: ${accommodationId}`);
   }
-  console.log(req.cookies.userId);
-  console.log(accommodation.owner);
-  //check permissions
+
   checkPermissions(req.cookies, accommodation.owner);
 
   await accommodation.remove();

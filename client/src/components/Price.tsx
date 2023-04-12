@@ -10,7 +10,7 @@ export const Price = ({ price }: PriceProps) => {
       <p>
         <FaMoneyBillWave />
       </p>
-      <p>Total price: {price} €</p>
+      <p className="font-bold">Total price: {price} €</p>
     </div>
   );
 };

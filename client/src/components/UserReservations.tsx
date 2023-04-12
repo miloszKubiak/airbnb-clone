@@ -14,6 +14,7 @@ export const UserReservations = () => {
     setUserReservations(response.data.reservations);
     setNumOfPages(response.data.numOfPages);
   };
+  console.log(userReservations);
 
   useEffect(() => {
     getUserReservations();

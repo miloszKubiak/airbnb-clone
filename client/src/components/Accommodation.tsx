@@ -47,11 +47,13 @@ export const Accommodation = ({
           )}
         </div>
         <div className="grow-0 shrink">
-          <h2 className="text-xl font-bold">{title}</h2>
-          <p className="text-xs text-left mt-4 md:text-sm">{description}</p>
+          <h2 className="text-xl text-left font-bold">{title}</h2>
+          <p className="text-xs text-left mt-4 md:text-sm h-24 overflow-hidden">
+            {description}
+          </p>
         </div>
       </Link>
-      <div className="flex gap-2 items-center justify-center">
+      <div className="flex gap-4 items-center justify-center">
         <Link
           to={`/account/accommodations/edit/${_id}`}
           className="link-primary"
@@ -59,7 +61,7 @@ export const Accommodation = ({
         >
           Edit
         </Link>
-        <button onClick={() => onDelete(_id)} className="link-primary">
+        <button onClick={() => onDelete(_id)} className="delete">
           Delete
         </button>
       </div>

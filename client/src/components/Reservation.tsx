@@ -3,6 +3,7 @@ import { TAccommodation } from "./Accommodation";
 import { ReservationDates } from "./ReservationDates";
 import { Price } from "./Price";
 import { Status } from "./Status";
+import { RefundedReservation } from "./RefundedReservation";
 
 export type TReservation = {
   _id: string;
@@ -26,6 +27,8 @@ type ReservationProps = {
   status: string;
 };
 
+//while we delete accommodation, there are still in our reservation. To prevent errors, i create div with infos.
+//you can also make a request post to the table instead of deleting accommodation, e.g. INACTIVE
 export const Reservation = ({
   _id,
   accommodation,
@@ -36,6 +39,18 @@ export const Reservation = ({
   price,
   status,
 }: ReservationProps) => {
+  if (!accommodation)
+    return (
+      <RefundedReservation
+        _id={_id}
+        price={price}
+        checkIn={checkIn}
+        checkOut={checkOut}
+        numberOfGuests={numberOfGuests}
+        numberOfNights={numberOfNights}
+      />
+    );
+
   return (
     <Link
       to={`/account/reservations/${_id}`}
@@ -51,7 +66,7 @@ export const Reservation = ({
         />
       </div>
       <div className="ml-2 py-2 flex flex-col justify-between h-full text-[8px] sm:text-sm basis-1/2">
-        <h2 className="font-bold">{accommodation?.title}</h2>
+        <h2 className="font-bold">{accommodation.title}</h2>
         <ReservationDates
           numberOfNights={numberOfNights}
           numberOfGuests={numberOfGuests}
