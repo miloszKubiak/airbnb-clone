@@ -1,6 +1,7 @@
 import {
   AddressLink,
   Description,
+  Location,
   Perks,
   PhotosGallery,
   ReservationWidget,
@@ -33,7 +34,7 @@ export const SingleAccommodationPage = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex flex-col justify-between mt-10 p-4">
+      <div className="flex flex-col justify-between mt-4 p-4">
         <div className="mb-4">
           <h1 className="text-3xl font-bold">{accommodation.title}</h1>
           <AddressLink address={accommodation.address} />
@@ -64,6 +65,7 @@ export const SingleAccommodationPage = () => {
           </div>
         </div>
         <Perks perks={accommodation.perks} />
+        <Location />
       </div>
       <Link to={"/"} className="link-primary my-6">
         Back

@@ -19,10 +19,10 @@ export const Description = ({
       <p className="mb-2">{description}</p>
       <div className="flex flex-col gap-1 font-bold">
         <h2>
-          Check-in hour : <span className="font-normal">{checkIn}</span>
+          Check-in hour : <span className="font-normal">{checkIn}:00</span>
         </h2>
         <h2>
-          Checkout hour : <span className="font-normal">{checkOut}</span>
+          Checkout hour : <span className="font-normal">{checkOut}:00</span>
         </h2>
       </div>
       <p>{extraInfo}</p>

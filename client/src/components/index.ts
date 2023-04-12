@@ -21,3 +21,4 @@ export { Categories } from "./Categories";
 export { CategoryItem } from "./CategoryItem";
 export { FiltersBar } from "./FiltersBar";
 export { RefundedReservation } from "./RefundedReservation";
+export { Location } from "./Location";
