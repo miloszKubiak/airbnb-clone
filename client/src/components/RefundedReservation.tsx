@@ -22,7 +22,7 @@ export const RefundedReservation = ({
     <div
       key={_id}
       className="mt-10 h-40 px-2 bg-zinc-100 rounded-xl overflow-hidden w-[80%]
-      flex items-center gap-2 bg-rose-200"
+      flex items-center gap-2 bg-rose-300"
     >
       <div className="py-2 flex flex-col justify-between w-full h-full text-sm">
         <h2 className="font-bold text-center">Accommodation deleted by user</h2>

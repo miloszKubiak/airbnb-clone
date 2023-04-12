@@ -131,8 +131,8 @@ export const SingleReservationPage = () => {
           </div>
         </div>
       </div>
-      <Link to="/account/my-reservations">
-        <button className="primary mt-4 w-1/4">back</button>
+      <Link to="/account/my-reservations" className="link-primary mt-4">
+        back
       </Link>
     </div>
   );

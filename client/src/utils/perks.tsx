@@ -12,7 +12,7 @@ type TPerks = {
   icon: JSX.Element;
 };
 
-export const perks: TPerks[] = [
+export const perksIcons: TPerks[] = [
   {
     title: "wifi",
     icon: <FaWifi />,

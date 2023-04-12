@@ -24,7 +24,7 @@ p.error {
 }
 
 button.primary {
-    @apply text-sm p-2 rounded-md text-white bg-indigo-500
+    @apply w-full p-2 rounded-xl text-white bg-indigo-500
 }
 
 button.delete {

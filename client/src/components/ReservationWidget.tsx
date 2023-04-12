@@ -35,7 +35,7 @@ export const ReservationWidget = ({
 
   const handleReserve = async () => {
     try {
-      const response = await axios.post("/reservations", {
+      await axios.post("/reservations", {
         checkIn,
         checkOut,
         numberOfGuests,
@@ -76,7 +76,7 @@ export const ReservationWidget = ({
           />
         </div>
       </div>
-      <div>
+      <div className="flex flex-col gap-1 items-center">
         <label className="text-center">
           Number of guests (max. {maxGuests})
         </label>
@@ -88,7 +88,7 @@ export const ReservationWidget = ({
           onChange={(event: any) => setNumberOfGuests(event.target.value)}
         />
         <button
-          className="primary disabled:bg-zinc-300"
+          className="primary disabled:bg-zinc-300 w-full text-xl"
           onClick={handleReserve}
           disabled={numberOfNights <= 0 || !user}
         >
