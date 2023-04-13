@@ -13,6 +13,25 @@ const AccommodationSchema = new mongoose.Schema({
   checkOut: Number,
   maxGuests: Number,
   price: Number,
+  category: {
+    type: String,
+    enum: [
+      "mills",
+      "mansions",
+      "luxe",
+      "houses",
+      "castles",
+      "countryside",
+      "tropical",
+      "agritourism",
+      "beach",
+      "lake",
+      "barns",
+      "islands",
+      "farms",
+    ],
+    default: "houses",
+  },
 });
 
 const AccommodationModel = mongoose.model("Accommodation", AccommodationSchema);

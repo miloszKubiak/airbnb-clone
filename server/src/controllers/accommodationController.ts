@@ -66,10 +66,14 @@ export const getSingleAccommodation = async (req: Request, res: Response) => {
 };
 
 export const getAllAccommodations = async (req: Request, res: Response) => {
-  const { search, sort } = req.query;
+  const { search, sort, category } = req.query;
 
   const queryObject: any = {};
 
+  //filtering
+  if (category && category !== "all") {
+    queryObject.category = category;
+  }
   if (search) {
     queryObject.title = { $regex: search, $options: "i" };
   }
