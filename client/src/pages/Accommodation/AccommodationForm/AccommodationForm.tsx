@@ -14,6 +14,7 @@ import { accommodationSchema } from "./Accommodation.schema";
 import { useContext, useEffect } from "react";
 import axios from "axios";
 import { UserContext } from "../../../context/UserContext";
+import { categories } from "../../../utils/categories";
 
 export type TAccommodationFormValues = {
   ownerName?: string;
@@ -23,6 +24,7 @@ export type TAccommodationFormValues = {
   description: string;
   photos?: any[];
   perks?: string[];
+  category: string;
   extraInfo: string;
   checkIn: string;
   checkOut: string;
@@ -56,6 +58,7 @@ export const AccommodationForm = () => {
       description: "",
       photos: [],
       perks: [],
+      category: "houses",
       extraInfo: "",
       checkIn: "",
       checkOut: "",
@@ -70,6 +73,7 @@ export const AccommodationForm = () => {
     description,
     photos,
     perks,
+    category,
     extraInfo,
     checkIn,
     checkOut,
@@ -83,6 +87,7 @@ export const AccommodationForm = () => {
       description,
       photos,
       perks,
+      category,
       extraInfo,
       checkIn,
       checkOut,
@@ -156,13 +161,23 @@ export const AccommodationForm = () => {
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>
           <p className="text-zinc-500">Add description of the place</p>
-          <textarea {...register("description")} />
+          <textarea className="h-36" {...register("description")} />
           <p className="error">{errors.description?.message}</p>
+        </div>
+        <div className="my-4 px-4 flex flex-col gap-1 items-start">
+          <h2 className="text-xl font-bold">Category</h2>
+          <p className="text-zinc-500">Select category of the accommodation</p>
+          <select {...register("category")}>
+            {categories.map((category) => (
+              <option key={category.name}>{category.name}</option>
+            ))}
+          </select>
+          <p className="error">{errors.extraInfo?.message}</p>
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Perks</h2>
           <p className="text-zinc-500">Select all the perks of your place</p>
-          <div className="mt-2 grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-4">
+          <div className="mt-2 grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-4 text-xs sm:text-sm">
             <label className="p-4 flex items-center gap-1 border rounded-2xl cursor-pointer">
               <input type="checkbox" {...register("perks")} value="wifi" />
               <FaWifi />
@@ -181,7 +196,7 @@ export const AccommodationForm = () => {
             <label className="p-4 flex items-center gap-1 border rounded-2xl cursor-pointer">
               <input type="checkbox" {...register("perks")} value="parking" />
               <FaParking />
-              <span className="text-sm">Free&nbsp;parking&nbsp;spot</span>
+              <span>Free&nbsp;parking&nbsp;spot</span>
             </label>
             <label className="p-4 flex items-center gap-1 border rounded-2xl cursor-pointer">
               <input type="checkbox" {...register("perks")} value="entrance" />
@@ -198,7 +213,7 @@ export const AccommodationForm = () => {
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Extra info</h2>
           <p className="text-zinc-500">House rules, etc.</p>
-          <textarea {...register("extraInfo")} />
+          <textarea className="h-28" {...register("extraInfo")} />
           <p className="error">{errors.extraInfo?.message}</p>
         </div>
         <div className="my-4 px-4">

@@ -37,6 +37,7 @@ export const SingleAccommodationPage = () => {
       <div className="flex flex-col justify-between mt-4 p-4">
         <div className="mb-4">
           <h1 className="text-3xl font-bold">{accommodation.title}</h1>
+          <p>{accommodation.category}</p>
           <AddressLink address={accommodation.address} />
         </div>
         <PhotosGallery photos={accommodation.photos} />

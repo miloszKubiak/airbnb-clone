@@ -14,6 +14,7 @@ export type TAccommodation = {
   checkOut: string;
   maxGuests: number;
   price: number;
+  category: string;
 };
 
 type AccommodationProps = {
@@ -21,7 +22,7 @@ type AccommodationProps = {
   title: string;
   description: string;
   photos: string[];
-  onDelete?: any;
+  onDelete: (_id: string) => void;
 };
 
 export const Accommodation = ({

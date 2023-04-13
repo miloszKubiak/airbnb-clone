@@ -11,6 +11,8 @@ type SearchContextType = {
   setSearch: Dispatch<SetStateAction<string>>;
   sort: string;
   setSort: Dispatch<SetStateAction<string>>;
+  category: string;
+  setCategory: Dispatch<SetStateAction<string>>;
   clearFilters: () => void;
 };
 
@@ -27,9 +29,12 @@ export const SearchContextProvider = ({
 }: SearchContextProviderProps) => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("A-Z");
+  const [category, setCategory] = useState("all");
 
   const clearFilters = () => {
     setSearch("");
+    setSort("A-Z");
+    setCategory("all");
   };
 
   return (
@@ -39,6 +44,8 @@ export const SearchContextProvider = ({
         setSearch,
         sort,
         setSort,
+        category,
+        setCategory,
         clearFilters,
       }}
     >

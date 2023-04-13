@@ -6,13 +6,13 @@ import axios from "axios";
 import { TAccommodation } from "./Accommodation";
 
 export const AllAccommodations = () => {
-  const { search, sort } = useContext(SearchContext);
+  const { search, sort, category } = useContext(SearchContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
 
   const getAllAccommodations = async () => {
-    let url = `/accommodations?page=${page}&sort=${sort}`;
+    let url = `/accommodations?page=${page}&sort=${sort}&category=${category}`;
     if (search) {
       url = url + `&search=${search}`;
     }
@@ -23,7 +23,14 @@ export const AllAccommodations = () => {
 
   useEffect(() => {
     getAllAccommodations();
-  }, [page, sort]);
+  }, [page, sort, category]);
+
+  if (accommodations.length <= 0)
+    return (
+      <div className="h-screen flex items-center justify-center font-bold text-xl">
+        <h2>There are no accommodations in category {category}.</h2>
+      </div>
+    );
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -51,7 +58,9 @@ export const AllAccommodations = () => {
             </Link>
           ))}
       </div>
-      <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
+      {accommodations.length >= 8 && (
+        <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
+      )}
     </div>
   );
 };

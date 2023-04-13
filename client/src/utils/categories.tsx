@@ -17,8 +17,8 @@ import {
 export const categories = [
   {
     id: 1,
-    name: "mills",
-    icon: <TbWindmill />,
+    name: "houses",
+    icon: <MdOutlineHouse />,
   },
   {
     id: 2,
@@ -32,8 +32,8 @@ export const categories = [
   },
   {
     id: 4,
-    name: "houses",
-    icon: <MdOutlineHouse />,
+    name: "mills",
+    icon: <TbWindmill />,
   },
   {
     id: 5,

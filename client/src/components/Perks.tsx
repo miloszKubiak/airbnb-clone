@@ -11,11 +11,11 @@ export const Perks = ({ perks }: PerksProps) => {
       <div className="flex flex-col md:flex-row lg:flex-row gap-2 sm:gap-4">
         {perks.map((perk) => {
           return (
-            <div className="flex items-center gap-1 text-xl">
+            <div key={perk} className="flex items-center gap-1 text-xl">
               {perksIcons.map((icon) => {
                 if (icon.title === perk) return <p>{icon.icon}</p>;
               })}
-              <p key={perk}>{perk}</p>
+              <p>{perk}</p>
             </div>
           );
         })}
