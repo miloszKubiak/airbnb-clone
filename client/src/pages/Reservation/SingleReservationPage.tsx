@@ -3,12 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Modal, ModalCancel, ModalPay } from "../../components/Modal";
+import { Modal } from "../../components/Modal";
+import { ModalContent } from "../../components/Modal";
 
 export const SingleReservationPage = () => {
   const { id: reservationId } = useParams();
   const [reservation, setReservation] = useState<TReservation | null>(null);
-  // const [modalOpen, setModalOpen] = useState(false);
   const [paid, setPaid] = useState(false);
   const [modalCancelOpen, setModalCancelOpen] = useState(false);
   const [modalPayOpen, setModalPayOpen] = useState(false);
@@ -56,15 +56,17 @@ export const SingleReservationPage = () => {
     <div>
       <AccountNavbar />
       <Modal isOpen={modalCancelOpen}>
-        <ModalCancel
+        <ModalContent
           onClose={() => setModalCancelOpen(false)}
           onSubmit={handleCancelReservation}
+          type="cancel"
         />
       </Modal>
       <Modal isOpen={modalPayOpen}>
-        <ModalPay
+        <ModalContent
           onClose={() => setModalPayOpen(false)}
           onSubmit={handlePayForReservation}
+          type="pay for"
         />
       </Modal>
       <div>
