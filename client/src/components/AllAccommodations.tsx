@@ -58,7 +58,7 @@ export const AllAccommodations = () => {
             </Link>
           ))}
       </div>
-      {accommodations.length >= 8 && (
+      {numOfPages >= 2 && (
         <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
       )}
     </div>

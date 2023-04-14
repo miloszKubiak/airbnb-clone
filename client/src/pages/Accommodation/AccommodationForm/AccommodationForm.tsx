@@ -167,7 +167,10 @@ export const AccommodationForm = () => {
         <div className="my-4 px-4 flex flex-col gap-1 items-start">
           <h2 className="text-xl font-bold">Category</h2>
           <p className="text-zinc-500">Select category of the accommodation</p>
-          <select {...register("category")}>
+          <select
+            className="border my-1 py-2 px-4 mb-2 rounded-xl"
+            {...register("category")}
+          >
             {categories.map((category) => (
               <option key={category.name}>{category.name}</option>
             ))}

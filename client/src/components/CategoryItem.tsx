@@ -14,7 +14,8 @@ export const CategoryItem = ({
   return (
     <div
       onClick={() => onSetCategory(name)}
-      className="flex-1 min-w-[5rem] flex flex-col items-center justify-center cursor-pointer"
+      className="flex-1 min-w-[5rem] flex flex-col items-center justify-center
+      cursor-pointer hover:bg-zinc-100 duration-200 rounded-md"
     >
       <div className="p-1 w-full h-full text-3xl flex-1 flex items-center justify-center">
         {icon}

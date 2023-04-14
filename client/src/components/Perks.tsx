@@ -13,7 +13,8 @@ export const Perks = ({ perks }: PerksProps) => {
           return (
             <div key={perk} className="flex items-center gap-1 text-xl">
               {perksIcons.map((icon) => {
-                if (icon.title === perk) return <p>{icon.icon}</p>;
+                if (icon.title === perk)
+                  return <p key={icon.title}>{icon.icon}</p>;
               })}
               <p>{perk}</p>
             </div>
