@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { TAccommodation } from "./Accommodation";
 import { ReservationDates } from "./ReservationDates";
 import { Price } from "./Price";
 import { Status } from "./Status";
 import { RefundedReservation } from "./RefundedReservation";
+import { TAccommodation } from "./Accommodation";
 
 export type TReservation = {
   _id: string;

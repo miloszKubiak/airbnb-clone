@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { GoPlus } from "react-icons/all";
-import { Accommodation, TAccommodation } from "./Accommodation";
+import { UserAccommodation, TAccommodation } from "./UserAccommodation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination } from "./Pagination";
 
-export const UserAccommodations = () => {
+export const AllUserAccommodations = () => {
   const [userAccommodations, setUserAccommodations] = useState<
     TAccommodation[]
   >([]);
@@ -24,7 +24,7 @@ export const UserAccommodations = () => {
     setUserAccommodations(
       userAccommodations.filter((accommodation) => accommodation._id !== id)
     );
-    alert("Accommodation deleted successfully!");
+    alert("UserAccommodation deleted successfully!");
   };
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const UserAccommodations = () => {
       <div className="mt-8 flex flex-col gap-4">
         {userAccommodations.length > 0 &&
           userAccommodations.map((accommodation) => (
-            <Accommodation
+            <UserAccommodation
               key={accommodation._id}
               _id={accommodation._id!}
               title={accommodation.title}

@@ -1,15 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Pagination } from "./Pagination";
 import { SearchContext } from "../context/SearchContext";
 import axios from "axios";
-import { TAccommodation } from "./Accommodation";
+import { Accommodation, TAccommodation } from "./Accommodation";
 
 export const AllAccommodations = () => {
   const { search, sort, category } = useContext(SearchContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
+
+  if (page > numOfPages) {
+    setPage(1);
+  }
 
   const getAllAccommodations = async () => {
     let url = `/accommodations?page=${page}&sort=${sort}&category=${category}`;
@@ -37,25 +40,14 @@ export const AllAccommodations = () => {
       <div className="py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
         {accommodations.length > 0 &&
           accommodations.map((accommodation) => (
-            <Link
-              to={"/accommodations/" + accommodation._id}
+            <Accommodation
               key={accommodation._id}
-              className="flex gap-4"
-            >
-              <div className="flex flex-col gap-1 justify-between">
-                <img
-                  className="object-cover aspect-square rounded-2xl"
-                  src={accommodation.photos?.[0]}
-                  alt="photo of the place"
-                />
-                <h2 className="text-sm font-bold">{accommodation.title}</h2>
-                <h3 className="text-xs">{accommodation.address}</h3>
-                <p className="font-bold">
-                  {accommodation.price} €{" "}
-                  <span className="text-sm font-medium">per night</span>
-                </p>
-              </div>
-            </Link>
+              _id={accommodation._id!}
+              photos={accommodation.photos!}
+              title={accommodation.title}
+              address={accommodation.address}
+              price={accommodation.price}
+            />
           ))}
       </div>
       {numOfPages >= 2 && (

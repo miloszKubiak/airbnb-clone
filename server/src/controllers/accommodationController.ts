@@ -141,5 +141,5 @@ export const deleteAccommodation = async (req: Request, res: Response) => {
 
   await accommodation.remove();
 
-  res.status(200).json({ msg: "Success! Accommodation removed." });
+  res.status(200).json({ msg: "Success! UserAccommodation removed." });
 };

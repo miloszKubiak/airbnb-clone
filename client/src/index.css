@@ -24,7 +24,7 @@ p.error {
 }
 
 button.primary {
-    @apply p-2 rounded-xl text-white bg-indigo-500
+    @apply text-sm p-2 rounded-md  text-white bg-indigo-500
 }
 
 button.delete {
@@ -77,4 +77,15 @@ textarea{
 
 .button-cancel {
     @apply flex-grow w-full text-xl mt-2 p-2 rounded-xl text-white bg-rose-500
+}
+
+.selected-category {
+    @apply flex-1 min-w-[5rem] flex flex-col items-center justify-center text-zinc-700
+    hover:bg-zinc-50 cursor-pointer bg-zinc-50 duration-200 rounded-md
+}
+
+.category {
+    @apply flex-1 min-w-[5rem] flex flex-col items-center justify-center text-zinc-400
+    hover:bg-zinc-50 hover:text-zinc-700 cursor-pointer duration-200 rounded-md
+
 }

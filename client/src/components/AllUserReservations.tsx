@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination } from "./Pagination";
 
-export const UserReservations = () => {
+export const AllUserReservations = () => {
   const [userReservations, setUserReservations] = useState<TReservation[]>([]);
   const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);

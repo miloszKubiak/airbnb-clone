@@ -19,53 +19,33 @@ export type TAccommodation = {
 
 type AccommodationProps = {
   _id: string;
-  title: string;
-  description: string;
   photos: string[];
-  onDelete: (_id: string) => void;
+  title: string;
+  address: string;
+  price: number;
 };
 
 export const Accommodation = ({
   _id,
   photos,
   title,
-  description,
-  onDelete,
+  address,
+  price,
 }: AccommodationProps) => {
   return (
-    <div className="bg-gray-100 p-4 rounded-2xl" key={_id}>
-      <Link
-        to={`/accommodations/${_id}`}
-        className="p-4 flex gap-4 bg-gray-100 cursor-pointer"
-      >
-        <div className="w-32 h-32 bg-gray-300 grow shrink-0">
-          {photos!.length > 0 && (
-            <img
-              className="object-cover h-full w-full"
-              src={photos![0]}
-              alt="main photo of the accommodation"
-            />
-          )}
-        </div>
-        <div className="grow-0 shrink">
-          <h2 className="text-xl text-left font-bold">{title}</h2>
-          <p className="text-xs text-left mt-4 md:text-sm h-24 overflow-hidden">
-            {description}
-          </p>
-        </div>
-      </Link>
-      <div className="flex gap-4 items-center justify-center">
-        <Link
-          to={`/account/accommodations/edit/${_id}`}
-          className="link-primary"
-          type="button"
-        >
-          Edit
-        </Link>
-        <button onClick={() => onDelete(_id)} className="delete">
-          Delete
-        </button>
+    <Link to={"/accommodations/" + _id} className="flex gap-4">
+      <div className="flex flex-col gap-1 justify-between">
+        <img
+          className="object-cover aspect-square rounded-2xl"
+          src={photos?.[0]}
+          alt="photo of the place"
+        />
+        <h2 className="text-sm font-bold">{title}</h2>
+        <h3 className="text-xs">{address}</h3>
+        <p className="font-bold">
+          {price} € <span className="text-sm font-medium">per night</span>
+        </p>
       </div>
-    </div>
+    </Link>
   );
 };

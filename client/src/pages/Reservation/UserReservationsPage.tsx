@@ -1,10 +1,10 @@
-import { AccountNavbar, UserReservations } from "../../components";
+import { AccountNavbar, AllUserReservations } from "../../components";
 
 export const UserReservationsPage = () => {
   return (
     <div>
       <AccountNavbar />
-      <UserReservations />
+      <AllUserReservations />
     </div>
   );
 };

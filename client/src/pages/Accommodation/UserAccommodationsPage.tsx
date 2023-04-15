@@ -1,10 +1,10 @@
-import { AccountNavbar, UserAccommodations } from "../../components";
+import { AccountNavbar, AllUserAccommodations } from "../../components";
 
 export const UserAccommodationsPage = () => {
   return (
     <div>
       <AccountNavbar />
-      <UserAccommodations />
+      <AllUserAccommodations />
     </div>
   );
 };

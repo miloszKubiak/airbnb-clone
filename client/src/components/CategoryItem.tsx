@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
+import { SearchContext } from "../context/SearchContext";
 
 type CategoryItemProps = {
   icon: ReactNode;
@@ -11,11 +12,11 @@ export const CategoryItem = ({
   name,
   onSetCategory,
 }: CategoryItemProps) => {
+  const { category } = useContext(SearchContext);
   return (
     <div
       onClick={() => onSetCategory(name)}
-      className="flex-1 min-w-[5rem] flex flex-col items-center justify-center
-      cursor-pointer hover:bg-zinc-100 duration-200 rounded-md"
+      className={category === name ? "selected-category" : "category"}
     >
       <div className="p-1 w-full h-full text-3xl flex-1 flex items-center justify-center">
         {icon}

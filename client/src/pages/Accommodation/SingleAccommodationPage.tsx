@@ -8,8 +8,8 @@ import {
 } from "../../components";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { TAccommodation } from "../../components/Accommodation";
 import axios from "axios";
+import { TAccommodation } from "../../components/Accommodation";
 
 export const SingleAccommodationPage = () => {
   const { id } = useParams();
