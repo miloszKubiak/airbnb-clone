@@ -12,6 +12,7 @@ import {
   AccommodationForm,
   SingleAccommodationPage,
   FilteredAccommodations,
+  ProtectedRoute,
 } from "./pages";
 import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
@@ -29,11 +30,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <Register />,
+        element: (
+          <ProtectedRoute>
+            <Register />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <ProtectedRoute>
+            <Login />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/account",
