@@ -32,11 +32,16 @@ const AccommodationSchema = new mongoose.Schema({
     ],
     default: "houses",
   },
+  averageRating: {
+    type: Number,
+    default: 0,
+  },
+  numOfReviews: {
+    type: Number,
+    default: 0,
+  },
 });
 
-const AccommodationModel = mongoose.model(
-  "UserAccommodation",
-  AccommodationSchema
-);
+const AccommodationModel = mongoose.model("Accommodation", AccommodationSchema);
 
 export default AccommodationModel;

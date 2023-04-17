@@ -10,6 +10,7 @@ import accommodationsRouter from "./routes/accommodationsRouter";
 import reservationsRouter from "./routes/reservationsRouter";
 import fileUpload from "express-fileupload";
 import usersRouter from "./routes/usersRouter";
+import reviewsRouter from "./routes/reviewsRouter";
 
 config();
 const PORT = process.env.PORT || 3000;
@@ -43,6 +44,7 @@ app.use("/uploads", uploadsRouter);
 app.use("/accommodations", accommodationsRouter);
 app.use("/reservations", reservationsRouter);
 app.use("/users", usersRouter);
+app.use("/reviews", reviewsRouter);
 
 mongoose.set("strictQuery", false);
 
