@@ -9,7 +9,6 @@ export const addNewReservation = async (req: Request, res: Response) => {
     checkOut,
     numberOfNights,
     price,
-    category,
   } = req.body;
 
   if (
@@ -18,8 +17,7 @@ export const addNewReservation = async (req: Request, res: Response) => {
     !numberOfGuests ||
     !checkOut ||
     !numberOfNights ||
-    !price ||
-    !category
+    !price
   ) {
     throw new Error("Please provide all values.");
   }

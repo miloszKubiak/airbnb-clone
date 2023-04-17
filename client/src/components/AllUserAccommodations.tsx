@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { GoPlus } from "react-icons/all";
-import { UserAccommodation, TAccommodation } from "./UserAccommodation";
+import { UserAccommodation } from "./UserAccommodation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination } from "./Pagination";
+import { TAccommodation } from "./Accommodation";
 
 export const AllUserAccommodations = () => {
   const [userAccommodations, setUserAccommodations] = useState<
@@ -24,7 +25,7 @@ export const AllUserAccommodations = () => {
     setUserAccommodations(
       userAccommodations.filter((accommodation) => accommodation._id !== id)
     );
-    alert("UserAccommodation deleted successfully!");
+    alert("Accommodation deleted successfully!");
   };
 
   useEffect(() => {
