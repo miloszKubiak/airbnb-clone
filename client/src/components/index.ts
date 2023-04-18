@@ -23,3 +23,4 @@ export { FiltersBar } from "./FiltersBar";
 export { RefundedReservation } from "./RefundedReservation";
 export { Location } from "./Location";
 export { Accommodation } from "./Accommodation";
+export { SavedAccommodations } from "./SavedAccommodations";

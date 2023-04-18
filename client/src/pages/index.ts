@@ -8,3 +8,4 @@ export { UserReservationsPage } from "./Reservation/UserReservationsPage";
 export { SingleAccommodationPage } from "./Accommodation/SingleAccommodationPage";
 export { FilteredAccommodations } from "./FilteredAccommodations";
 export { ProtectedRoute } from "./ProtectedRoute";
+export { SavedAccommodationsPage } from "./Accommodation/SavedAccommodationsPage";

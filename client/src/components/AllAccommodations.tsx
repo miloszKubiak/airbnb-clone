@@ -10,9 +10,13 @@ export const AllAccommodations = () => {
   const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
 
-  if (page > numOfPages) {
-    setPage(1);
-  }
+  ///poprawic paginacje
+  console.log(accommodations);
+  console.log(`numOfPages: ${numOfPages}`);
+  console.log(`page: ${page}`);
+  // if (numOfPages < page) {
+  //   setPage(1);
+  // }
 
   const getAllAccommodations = async () => {
     let url = `/accommodations?page=${page}&sort=${sort}&category=${category}`;
@@ -22,13 +26,16 @@ export const AllAccommodations = () => {
     const response = await axios.get(url);
     setAccommodations(response.data.accommodations);
     setNumOfPages(response.data.numOfPages);
+    if (numOfPages < page) {
+      setPage(1);
+    }
   };
 
   useEffect(() => {
     getAllAccommodations();
-  }, [page, sort, category]);
+  }, [category, page, sort]);
 
-  if (accommodations.length <= 0)
+  if (accommodations.length === 0)
     return (
       <div className="h-screen flex items-center justify-center font-bold text-xl">
         <h2>There are no accommodations in category {category}.</h2>
@@ -38,17 +45,18 @@ export const AllAccommodations = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
-        {accommodations.length > 0 &&
-          accommodations.map((accommodation) => (
-            <Accommodation
-              key={accommodation._id}
-              _id={accommodation._id!}
-              photos={accommodation.photos!}
-              title={accommodation.title}
-              address={accommodation.address}
-              price={accommodation.price}
-            />
-          ))}
+        {accommodations.map((accommodation) => (
+          <Accommodation
+            key={accommodation._id}
+            _id={accommodation._id!}
+            photos={accommodation.photos!}
+            title={accommodation.title}
+            address={accommodation.address}
+            price={accommodation.price}
+            averageRating={accommodation.averageRating}
+            numOfReviews={accommodation.numOfReviews}
+          />
+        ))}
       </div>
       {numOfPages >= 2 && (
         <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />

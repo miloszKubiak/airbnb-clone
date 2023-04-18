@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { FaHome, FaUser, MdPlace } from "react-icons/all";
+import { FaBookmark, FaHome, FaUser, MdPlace } from "react-icons/all";
 
 export const AccountNavbar = () => {
   const { pathname } = useLocation();
@@ -39,6 +39,13 @@ export const AccountNavbar = () => {
         >
           <FaHome />
           My accommodations
+        </Link>
+        <Link
+          to={"/account/saved-accommodations"}
+          className={linkClasses("saved-accommodations")}
+        >
+          <FaBookmark />
+          Saved
         </Link>
       </nav>
     </div>

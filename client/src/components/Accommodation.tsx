@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaHeart, FaStar } from "react-icons/all";
 
 export type TAccommodation = {
   _id?: string;
@@ -15,6 +16,8 @@ export type TAccommodation = {
   maxGuests: number;
   price: number;
   category: string;
+  averageRating: number;
+  numOfReviews: number;
 };
 
 type AccommodationProps = {
@@ -23,6 +26,8 @@ type AccommodationProps = {
   title: string;
   address: string;
   price: number;
+  averageRating: number;
+  numOfReviews: number;
 };
 
 export const Accommodation = ({
@@ -31,21 +36,68 @@ export const Accommodation = ({
   title,
   address,
   price,
+  averageRating,
 }: AccommodationProps) => {
   return (
-    <Link to={"/accommodations/" + _id} className="flex gap-4">
-      <div className="flex flex-col gap-1 justify-between">
-        <img
-          className="object-cover aspect-square rounded-2xl"
-          src={photos?.[0]}
-          alt="photo of the place"
-        />
-        <h2 className="text-sm font-bold">{title}</h2>
-        <h3 className="text-xs">{address}</h3>
-        <p className="font-bold">
-          {price} € <span className="text-sm font-medium">per night</span>
-        </p>
+    <div className="relative">
+      <div
+        className="absolute right-0 top-0 mt-4 mr-4
+        duration-300 text-2xl text-zinc-700 hover:text-rose-400 cursor-pointer"
+        onClick={() => console.log(title)}
+      >
+        <FaHeart />
       </div>
-    </Link>
+      <Link to={"/accommodations/" + _id} className="flex gap-4">
+        <div className="flex flex-col gap-1 justify-between">
+          <img
+            className="object-cover aspect-square rounded-2xl"
+            src={photos?.[0]}
+            alt="photo of the place"
+          />
+          <div className="flex items-center justify-between">
+            <h2 className="text-xs sm:text-sm font-bold">{title}</h2>
+            <div className="flex items-center gap-1">
+              <p className="text-xs">
+                <FaStar />
+              </p>
+              <p>{averageRating}</p>
+            </div>
+          </div>
+          <h3 className="text-xs">{address}</h3>
+          <p className="font-bold">
+            {price} € <span className="text-sm font-medium">per night</span>
+          </p>
+        </div>
+      </Link>
+    </div>
+    // <Link to={"/accommodations/" + _id} className="flex gap-4">
+    //   <div className="relative flex flex-col gap-1 justify-between">
+    //     <div
+    //       className="absolute right-0 top-0 mt-4 mr-4
+    //     duration-300 text-2xl hover:text-rose-400"
+    //       onClick={() => console.log(title)}
+    //     >
+    //       <FaHeart />
+    //     </div>
+    //     <img
+    //       className="object-cover aspect-square rounded-2xl"
+    //       src={photos?.[0]}
+    //       alt="photo of the place"
+    //     />
+    //     <div className="flex items-center justify-between">
+    //       <h2 className="text-xs sm:text-sm font-bold">{title}</h2>
+    //       <div className="flex items-center gap-1">
+    //         <p className="text-xs">
+    //           <FaStar />
+    //         </p>
+    //         <p>{averageRating}</p>
+    //       </div>
+    //     </div>
+    //     <h3 className="text-xs">{address}</h3>
+    //     <p className="font-bold">
+    //       {price} € <span className="text-sm font-medium">per night</span>
+    //     </p>
+    //   </div>
+    // </Link>
   );
 };
