@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { Pagination } from "./Pagination";
-import { SearchContext } from "../context/SearchContext";
+import { Pagination } from "../Pagination";
+import { SearchContext } from "../../context/SearchContext";
 import axios from "axios";
 import { Accommodation, TAccommodation } from "./Accommodation";
 

@@ -1,7 +1,7 @@
 import { Reservation, TReservation } from "./Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Pagination } from "./Pagination";
+import { Pagination } from "../Pagination";
 
 export const AllUserReservations = () => {
   const [userReservations, setUserReservations] = useState<TReservation[]>([]);

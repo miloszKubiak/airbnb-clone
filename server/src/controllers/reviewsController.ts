@@ -45,6 +45,16 @@ export const getAllReviews = async (req: Request, res: Response) => {
   res.status(200).json({ count: reviews.length, reviews });
 };
 
+export const getSingleAccommodationReviews = async (
+  req: Request,
+  res: Response
+) => {
+  const { id: accommodationId } = req.params;
+  const reviews = await Review.find({ accommodation: accommodationId });
+
+  res.status(200).json({ count: reviews.length, reviews });
+};
+
 export const deleteReview = async (req: Request, res: Response) => {
   const { id: reviewId } = req.params;
 

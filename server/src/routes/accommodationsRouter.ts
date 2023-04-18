@@ -8,6 +8,7 @@ import {
   deleteAccommodation,
 } from "../controllers/accommodationController";
 import { verifyToken } from "../middleware/jwt";
+import { getSingleAccommodationReviews } from "../controllers/reviewsController";
 
 const router = express.Router();
 
@@ -21,5 +22,7 @@ router
   .get(getSingleAccommodation)
   .patch(verifyToken, updateAccommodation)
   .delete(verifyToken, deleteAccommodation);
+
+router.route("/:id/reviews").get(getSingleAccommodationReviews);
 
 export default router;
