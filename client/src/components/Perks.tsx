@@ -6,9 +6,9 @@ type PerksProps = {
 
 export const Perks = ({ perks }: PerksProps) => {
   return (
-    <div className="mt-6">
+    <div className="mt-10">
       <h2 className="font-bold">Perks:</h2>
-      <div className="flex flex-col md:flex-row lg:flex-row gap-2 sm:gap-4">
+      <div className="mt-4 flex flex-col md:flex-row lg:flex-row gap-2 sm:gap-6">
         {perks.map((perk) => {
           return (
             <div key={perk} className="flex items-center gap-1 text-xl">

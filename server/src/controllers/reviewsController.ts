@@ -50,7 +50,11 @@ export const getSingleAccommodationReviews = async (
   res: Response
 ) => {
   const { id: accommodationId } = req.params;
-  const reviews = await Review.find({ accommodation: accommodationId });
+  const reviews = await Review.find({
+    accommodation: accommodationId,
+  })
+    .populate("user", "name")
+    .populate("accommodation", "title");
 
   res.status(200).json({ count: reviews.length, reviews });
 };

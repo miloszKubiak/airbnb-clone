@@ -8,7 +8,7 @@ import {
 } from "react";
 import axios from "axios";
 
-type TUser = {
+export type TUser = {
   _id: string;
   name: string;
   email: string;

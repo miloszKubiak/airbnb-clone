@@ -1,6 +1,6 @@
 import {
   AddressLink,
-  AllReviews,
+  AccommodationReviews,
   Description,
   Location,
   Perks,
@@ -17,7 +17,6 @@ export const SingleAccommodationPage = () => {
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
   );
-  const [reviews, setReviews] = useState();
 
   useEffect(() => {
     if (!id) return;
@@ -63,7 +62,7 @@ export const SingleAccommodationPage = () => {
         </div>
         <Perks perks={accommodation.perks} />
         <Location />
-        <AllReviews />
+        <AccommodationReviews />
       </div>
       <Link to={"/"} className="link-primary my-6">
         Back
