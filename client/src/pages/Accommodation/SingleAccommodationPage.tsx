@@ -7,7 +7,7 @@ import {
   PhotosGallery,
   ReservationWidget,
 } from "../../components";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { TAccommodation } from "../../components/Accommodation";
@@ -18,12 +18,16 @@ export const SingleAccommodationPage = () => {
     null
   );
 
+  const getAccommodation = async () => {
+    const response = await axios.get(`/accommodations/${id}`);
+    setAccommodation(response.data);
+  };
+
   useEffect(() => {
-    if (!id) return;
-    axios
-      .get(`/accommodations/${id}`)
-      .then((response) => setAccommodation(response.data));
+    getAccommodation();
   }, [id]);
+
+  if (!id) return <Navigate to={"/"} />;
 
   if (!accommodation)
     return (
@@ -62,7 +66,7 @@ export const SingleAccommodationPage = () => {
         </div>
         <Perks perks={accommodation.perks} />
         <Location />
-        <AccommodationReviews />
+        <AccommodationReviews accommodationId={id} />
       </div>
       <Link to={"/"} className="link-primary my-6">
         Back

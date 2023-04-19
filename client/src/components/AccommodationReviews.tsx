@@ -1,10 +1,14 @@
 import { Review, TReview } from "./Review";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export const AccommodationReviews = () => {
-  const { id: accommodationId } = useParams();
+type AccommodationReviewsProps = {
+  accommodationId: string;
+};
+
+export const AccommodationReviews = ({
+  accommodationId,
+}: AccommodationReviewsProps) => {
   const [reviews, setReviews] = useState<TReview[]>([]);
 
   const getAllReviews = async () => {
