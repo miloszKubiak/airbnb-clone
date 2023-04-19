@@ -28,6 +28,10 @@ const ReviewSchema = new mongoose.Schema(
 
 ReviewSchema.index({ accommodation: 1, user: 1 }, { unique: true });
 
+ReviewSchema.post("save", async function () {
+  console.log("post save called");
+});
+
 const ReviewModel = mongoose.model("Review", ReviewSchema);
 
 export default ReviewModel;

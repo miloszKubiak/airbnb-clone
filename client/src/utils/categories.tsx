@@ -1,10 +1,10 @@
 import {
   BiWater,
+  GiBarn,
   GiFarmTractor,
   GiGreenhouse,
   GiIsland,
   GiPalmTree,
-  GrHomeRounded,
   HiOutlineHomeModern,
   MdOutlineHouse,
   RiMagicLine,
@@ -68,7 +68,7 @@ export const categories = [
   {
     id: 11,
     name: "barns",
-    icon: <GrHomeRounded />,
+    icon: <GiBarn />,
   },
   {
     id: 12,

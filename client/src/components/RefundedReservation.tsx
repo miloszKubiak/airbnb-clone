@@ -1,5 +1,5 @@
 import { ReservationDates } from "./ReservationDates";
-import { Price } from "../Price";
+import { Price } from "./Price";
 
 type RefundedReservationProps = {
   _id: string;

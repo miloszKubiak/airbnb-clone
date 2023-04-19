@@ -1,5 +1,6 @@
 import {
   AddressLink,
+  AllReviews,
   Description,
   Location,
   Perks,
@@ -16,7 +17,7 @@ export const SingleAccommodationPage = () => {
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
   );
-  // const { user } = useContext(UserContext);
+  const [reviews, setReviews] = useState();
 
   useEffect(() => {
     if (!id) return;
@@ -49,11 +50,6 @@ export const SingleAccommodationPage = () => {
               checkIn={accommodation.checkIn}
               extraInfo={accommodation.extraInfo}
               ownerName={accommodation.ownerName!}
-              // ownerName={
-              //   accommodation.owner === user?._id
-              //     ? "You"
-              //     : accommodation.ownerName!
-              // }
             />
             <div className="flex justify-center">
               <ReservationWidget
@@ -67,6 +63,7 @@ export const SingleAccommodationPage = () => {
         </div>
         <Perks perks={accommodation.perks} />
         <Location />
+        <AllReviews />
       </div>
       <Link to={"/"} className="link-primary my-6">
         Back

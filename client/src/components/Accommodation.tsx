@@ -70,34 +70,5 @@ export const Accommodation = ({
         </div>
       </Link>
     </div>
-    // <Link to={"/accommodations/" + _id} className="flex gap-4">
-    //   <div className="relative flex flex-col gap-1 justify-between">
-    //     <div
-    //       className="absolute right-0 top-0 mt-4 mr-4
-    //     duration-300 text-2xl hover:text-rose-400"
-    //       onClick={() => console.log(title)}
-    //     >
-    //       <FaHeart />
-    //     </div>
-    //     <img
-    //       className="object-cover aspect-square rounded-2xl"
-    //       src={photos?.[0]}
-    //       alt="photo of the place"
-    //     />
-    //     <div className="flex items-center justify-between">
-    //       <h2 className="text-xs sm:text-sm font-bold">{title}</h2>
-    //       <div className="flex items-center gap-1">
-    //         <p className="text-xs">
-    //           <FaStar />
-    //         </p>
-    //         <p>{averageRating}</p>
-    //       </div>
-    //     </div>
-    //     <h3 className="text-xs">{address}</h3>
-    //     <p className="font-bold">
-    //       {price} € <span className="text-sm font-medium">per night</span>
-    //     </p>
-    //   </div>
-    // </Link>
   );
 };

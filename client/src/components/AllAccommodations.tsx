@@ -1,22 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { Pagination } from "../Pagination";
-import { SearchContext } from "../../context/SearchContext";
+import { Pagination } from "./Pagination";
+import { SearchContext } from "../context/SearchContext";
 import axios from "axios";
 import { Accommodation, TAccommodation } from "./Accommodation";
 
 export const AllAccommodations = () => {
-  const { search, sort, category } = useContext(SearchContext);
+  const { search, sort, category, page, setPage } = useContext(SearchContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
-  const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
-
-  ///poprawic paginacje
-  console.log(accommodations);
-  console.log(`numOfPages: ${numOfPages}`);
-  console.log(`page: ${page}`);
-  // if (numOfPages < page) {
-  //   setPage(1);
-  // }
 
   const getAllAccommodations = async () => {
     let url = `/accommodations?page=${page}&sort=${sort}&category=${category}`;
@@ -26,9 +17,6 @@ export const AllAccommodations = () => {
     const response = await axios.get(url);
     setAccommodations(response.data.accommodations);
     setNumOfPages(response.data.numOfPages);
-    if (numOfPages < page) {
-      setPage(1);
-    }
   };
 
   useEffect(() => {

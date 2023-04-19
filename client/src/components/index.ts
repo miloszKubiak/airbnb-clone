@@ -24,3 +24,5 @@ export { RefundedReservation } from "./RefundedReservation";
 export { Location } from "./Location";
 export { Accommodation } from "./Accommodation";
 export { SavedAccommodations } from "./SavedAccommodations";
+export { Review } from "./Review";
+export { AllReviews } from "./AllReviews";
