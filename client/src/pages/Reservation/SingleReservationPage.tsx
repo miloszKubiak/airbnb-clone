@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Modal } from "../../components/Modal";
+import { Modal, ReviewFormModal } from "../../components/Modal";
 import { ModalContent } from "../../components/Modal";
 
 export const SingleReservationPage = () => {
@@ -12,6 +12,7 @@ export const SingleReservationPage = () => {
   const [paid, setPaid] = useState(false);
   const [modalCancelOpen, setModalCancelOpen] = useState(false);
   const [modalPayOpen, setModalPayOpen] = useState(false);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const handleCancelReservation = async () => {
     try {
@@ -36,6 +37,10 @@ export const SingleReservationPage = () => {
     } catch (error) {
       alert("Something went wrong.");
     }
+  };
+
+  const handleAddReview = async () => {
+    console.log("review added.");
   };
 
   useEffect(() => {
@@ -69,6 +74,12 @@ export const SingleReservationPage = () => {
           type="pay for"
         />
       </Modal>
+      <Modal isOpen={reviewModalOpen}>
+        <ReviewFormModal
+          onClose={() => setReviewModalOpen(false)}
+          onSubmit={handleAddReview}
+        />
+      </Modal>
       <div>
         <div className="mt-10 py-6 flex gap-4 justify-between">
           <div className="flex flex-col justify-center">
@@ -82,6 +93,12 @@ export const SingleReservationPage = () => {
               checkIn={reservation.checkIn}
               checkOut={reservation.checkOut}
             />
+            <button
+              onClick={() => setReviewModalOpen(true)}
+              className="mt-4 w-1/2 primary"
+            >
+              add review
+            </button>
           </div>
           <div className="flex flex-col justify-center items-center gap-4">
             <h1 className="font-bold text-xl">

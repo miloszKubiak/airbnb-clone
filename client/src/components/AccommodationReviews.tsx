@@ -24,7 +24,7 @@ export const AccommodationReviews = ({
 
   if (reviews.length === 0) {
     return (
-      <div className="mt-10 flex items-center justify-center">
+      <div className="mt-10 flex flex-col gap-2 items-center justify-center">
         <h2>There are no reviews</h2>
       </div>
     );
@@ -43,7 +43,6 @@ export const AccommodationReviews = ({
           />
         ))}
       </div>
-      <button className="mt-4 w-1/2 sm:w-1/4 link-primary">add review</button>
     </div>
   );
 };
