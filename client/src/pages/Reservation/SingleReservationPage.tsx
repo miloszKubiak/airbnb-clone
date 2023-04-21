@@ -3,7 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Modal, ReviewFormModal } from "../../components/Modal";
+import { Modal, ReviewForm } from "../../components/Modal";
 import { ModalContent } from "../../components/Modal";
 
 export const SingleReservationPage = () => {

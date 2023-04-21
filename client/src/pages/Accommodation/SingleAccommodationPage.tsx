@@ -9,33 +9,32 @@ import {
   Stats,
 } from "../../components";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { TAccommodation } from "../../components/Accommodation";
-import { Modal, ReviewFormModal } from "../../components/Modal";
+import { Modal } from "../../components/Modal";
+import { UserContext } from "../../context/UserContext";
+import { ReviewForm } from "../../components/ReviewForm/ReviewForm";
 
 export const SingleAccommodationPage = () => {
-  const { id } = useParams();
+  const { id: accommodationId } = useParams();
+  const { user } = useContext(UserContext);
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
   );
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const getAccommodation = async () => {
-    const response = await axios.get(`/accommodations/${id}`);
+    const response = await axios.get(`/accommodations/${accommodationId}`);
     setAccommodation(response.data);
     console.log(response.data);
   };
 
-  const handleAddReview = async () => {
-    console.log("review added.");
-  };
-
   useEffect(() => {
     getAccommodation();
-  }, [id]);
+  }, [accommodationId]);
 
-  if (!id) return <Navigate to={"/"} />;
+  if (!accommodationId) return <Navigate to={"/"} />;
 
   if (!accommodation)
     return (
@@ -47,9 +46,10 @@ export const SingleAccommodationPage = () => {
   return (
     <>
       <Modal isOpen={reviewModalOpen}>
-        <ReviewFormModal
+        <ReviewForm
           onClose={() => setReviewModalOpen(false)}
-          onSubmit={handleAddReview}
+          accommodationId={accommodationId}
+          onSuccess={() => setReviewModalOpen(false)}
         />
       </Modal>
       <div className="flex flex-col items-center">
@@ -87,13 +87,15 @@ export const SingleAccommodationPage = () => {
           </div>
           <Perks perks={accommodation.perks} />
           <Location />
-          <AccommodationReviews accommodationId={id} />
-          <button
-            onClick={() => setReviewModalOpen(true)}
-            className="inline-block w-1/2 sm:w-1/6 mt-8 primary"
-          >
-            add review
-          </button>
+          <AccommodationReviews accommodationId={accommodationId} />
+          {user && (
+            <button
+              onClick={() => setReviewModalOpen(true)}
+              className="inline-block w-1/2 sm:w-1/6 mt-8 primary"
+            >
+              add review
+            </button>
+          )}
         </div>
         <Link to={"/"} className="link-primary my-6">
           Back
