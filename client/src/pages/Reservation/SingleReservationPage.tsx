@@ -1,5 +1,5 @@
 import { AccountNavbar, AddressLink, ReservationDates } from "../../components";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,7 +12,6 @@ export const SingleReservationPage = () => {
   const [paid, setPaid] = useState(false);
   const [modalCancelOpen, setModalCancelOpen] = useState(false);
   const [modalPayOpen, setModalPayOpen] = useState(false);
-  const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const handleCancelReservation = async () => {
     try {
@@ -39,15 +38,15 @@ export const SingleReservationPage = () => {
     }
   };
 
-  const handleAddReview = async () => {
-    console.log("review added.");
+  const getReservation = async () => {
+    const response = await axios.get(`/reservations/${reservationId}`);
+    setReservation(response.data);
   };
 
+  if (!reservationId) return <Navigate to={"/account/my-reservations"} />;
+
   useEffect(() => {
-    if (!reservationId) return;
-    axios
-      .get(`/reservations/${reservationId}`)
-      .then((response) => setReservation(response.data));
+    getReservation();
   }, [reservationId, modalCancelOpen, modalPayOpen, paid]);
 
   if (!reservation)
@@ -74,12 +73,6 @@ export const SingleReservationPage = () => {
           type="pay for"
         />
       </Modal>
-      <Modal isOpen={reviewModalOpen}>
-        <ReviewFormModal
-          onClose={() => setReviewModalOpen(false)}
-          onSubmit={handleAddReview}
-        />
-      </Modal>
       <div>
         <div className="mt-10 py-6 flex gap-4 justify-between">
           <div className="flex flex-col justify-center">
@@ -93,12 +86,6 @@ export const SingleReservationPage = () => {
               checkIn={reservation.checkIn}
               checkOut={reservation.checkOut}
             />
-            <button
-              onClick={() => setReviewModalOpen(true)}
-              className="mt-4 w-1/2 primary"
-            >
-              add review
-            </button>
           </div>
           <div className="flex flex-col justify-center items-center gap-4">
             <h1 className="font-bold text-xl">
