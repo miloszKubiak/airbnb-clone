@@ -8,7 +8,6 @@ import { UserContext } from "../../context/UserContext";
 type ReviewFormProps = {
   onClose: () => void;
   accommodationId: string;
-  onSuccess: any;
 };
 
 export type TReviewFormValues = {
@@ -16,11 +15,7 @@ export type TReviewFormValues = {
   rating: number;
 };
 
-export const ReviewForm = ({
-  onClose,
-  accommodationId,
-  onSuccess,
-}: ReviewFormProps) => {
+export const ReviewForm = ({ onClose, accommodationId }: ReviewFormProps) => {
   const { user } = useContext(UserContext);
   const {
     register,
@@ -42,7 +37,7 @@ export const ReviewForm = ({
         comment: comment,
         rating: rating,
       });
-      onSuccess();
+      onClose();
       alert("Added review.");
     } catch (error) {
       alert(error);

@@ -22,7 +22,7 @@ export const SingleAccommodationPage = () => {
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
   );
-  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  // const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const getAccommodation = async () => {
     const response = await axios.get(`/accommodations/${accommodationId}`);
@@ -45,13 +45,12 @@ export const SingleAccommodationPage = () => {
 
   return (
     <>
-      <Modal isOpen={reviewModalOpen}>
-        <ReviewForm
-          onClose={() => setReviewModalOpen(false)}
-          accommodationId={accommodationId}
-          onSuccess={() => setReviewModalOpen(false)}
-        />
-      </Modal>
+      {/*<Modal isOpen={reviewModalOpen}>*/}
+      {/*  <ReviewForm*/}
+      {/*    onClose={() => setReviewModalOpen(false)}*/}
+      {/*    accommodationId={accommodationId}*/}
+      {/*  />*/}
+      {/*</Modal>*/}
       <div className="flex flex-col items-center">
         <div className="flex flex-col justify-between mt-4 p-4">
           <div className="mb-4">
@@ -88,14 +87,14 @@ export const SingleAccommodationPage = () => {
           <Perks perks={accommodation.perks} />
           <Location />
           <AccommodationReviews accommodationId={accommodationId} />
-          {user && (
-            <button
-              onClick={() => setReviewModalOpen(true)}
-              className="inline-block w-1/2 sm:w-1/6 mt-8 primary"
-            >
-              add review
-            </button>
-          )}
+          {/*{user && (*/}
+          {/*  <button*/}
+          {/*    onClick={() => setReviewModalOpen(true)}*/}
+          {/*    className="inline-block w-1/2 sm:w-1/6 mt-8 primary"*/}
+          {/*  >*/}
+          {/*    add review*/}
+          {/*  </button>*/}
+          {/*)}*/}
         </div>
         <Link to={"/"} className="link-primary my-6">
           Back
