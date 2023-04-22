@@ -25,7 +25,7 @@ export const SingleAccommodationPage = () => {
   const calculatedAverageRating = (
     reviews.reduce((total, next) => total + next.rating, 0) /
     calculatedNumberOfReviews
-  ).toFixed(1);
+  ).toFixed(2);
 
   const getAccommodation = async () => {
     const response = await axios.get(`/accommodations/${accommodationId}`);
@@ -40,7 +40,7 @@ export const SingleAccommodationPage = () => {
 
   useEffect(() => {
     getAllReviews();
-  }, [calculatedNumberOfReviews]);
+  }, []);
 
   useEffect(() => {
     getAccommodation();
@@ -96,6 +96,8 @@ export const SingleAccommodationPage = () => {
           <AccommodationReviews
             reviews={reviews}
             accommodationId={accommodationId}
+            averageRating={Number(calculatedAverageRating)}
+            numberOfReviews={calculatedNumberOfReviews}
           />
         </div>
         <Link to={"/"} className="link-primary my-6">

@@ -4,15 +4,20 @@ import { useContext, useEffect, useState } from "react";
 import { ReviewForm } from "./ReviewForm/ReviewForm";
 import { Modal } from "./Modal";
 import { UserContext } from "../context/UserContext";
+import { BsDot, FaStar } from "react-icons/all";
 
 type AccommodationReviewsProps = {
   accommodationId: string;
   reviews: TReview[];
+  averageRating: number;
+  numberOfReviews: number;
 };
 
 export const AccommodationReviews = ({
   accommodationId,
   reviews,
+  averageRating,
+  numberOfReviews,
 }: AccommodationReviewsProps) => {
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const { user } = useContext(UserContext);
@@ -49,6 +54,16 @@ export const AccommodationReviews = ({
           accommodationId={accommodationId}
         />
       </Modal>
+      <div className="mt-8 flex items-center gap-2 text-2xl">
+        <div className="flex items-center gap-1">
+          <FaStar />
+          <p>{averageRating}</p>
+        </div>
+        <p>
+          <BsDot />
+        </p>
+        <p>{numberOfReviews} reviews</p>
+      </div>
       <div className="flex flex-col gap-4 items-center">
         <div className="w-full mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {reviews?.map((review) => (

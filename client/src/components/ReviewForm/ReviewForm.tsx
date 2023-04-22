@@ -4,6 +4,7 @@ import { reviewSchema } from "./Review.schema";
 import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 type ReviewFormProps = {
   onClose: () => void;
@@ -17,6 +18,7 @@ export type TReviewFormValues = {
 
 export const ReviewForm = ({ onClose, accommodationId }: ReviewFormProps) => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -38,7 +40,7 @@ export const ReviewForm = ({ onClose, accommodationId }: ReviewFormProps) => {
         rating: rating,
       });
       alert("Added review.");
-      onClose();
+      navigate("/");
     } catch (error: any) {
       alert(error.response.data.msg);
       onClose();
