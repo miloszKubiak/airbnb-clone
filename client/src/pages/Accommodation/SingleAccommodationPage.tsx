@@ -21,6 +21,12 @@ export const SingleAccommodationPage = () => {
   );
   const [reviews, setReviews] = useState<TReview[]>([]);
 
+  const calculatedNumberOfReviews = reviews.length;
+  const calculatedAverageRating = (
+    reviews.reduce((total, next) => total + next.rating, 0) /
+    calculatedNumberOfReviews
+  ).toFixed(1);
+
   const getAccommodation = async () => {
     const response = await axios.get(`/accommodations/${accommodationId}`);
     setAccommodation(response.data);
@@ -34,7 +40,7 @@ export const SingleAccommodationPage = () => {
 
   useEffect(() => {
     getAllReviews();
-  }, []);
+  }, [calculatedNumberOfReviews]);
 
   useEffect(() => {
     getAccommodation();
@@ -58,7 +64,10 @@ export const SingleAccommodationPage = () => {
             <p>{accommodation.category}</p>
             <div className="flex items-center gap-1">
               {/*testowe wartosci*/}
-              <Stats numberOfReviews={5} averageRating={5} />
+              <Stats
+                numberOfReviews={calculatedNumberOfReviews}
+                averageRating={Number(calculatedAverageRating)}
+              />
               <AddressLink address={accommodation.address} />
             </div>
           </div>

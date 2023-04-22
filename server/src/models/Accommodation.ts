@@ -32,14 +32,6 @@ const AccommodationSchema = new mongoose.Schema({
     ],
     default: "houses",
   },
-  averageRating: {
-    type: Number,
-    default: 0,
-  },
-  numOfReviews: {
-    type: Number,
-    default: 0,
-  }, //możliwe, że bedzie do wyjebania
 });
 
 const AccommodationModel = mongoose.model("Accommodation", AccommodationSchema);
