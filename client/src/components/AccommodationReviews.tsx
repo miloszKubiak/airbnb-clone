@@ -7,25 +7,15 @@ import { UserContext } from "../context/UserContext";
 
 type AccommodationReviewsProps = {
   accommodationId: string;
+  reviews: TReview[];
 };
 
 export const AccommodationReviews = ({
   accommodationId,
+  reviews,
 }: AccommodationReviewsProps) => {
-  const [reviews, setReviews] = useState<TReview[]>([]);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const { user } = useContext(UserContext);
-
-  const getAllReviews = async () => {
-    const response = await axios.get(
-      `/accommodations/${accommodationId}/reviews`
-    );
-    setReviews(response.data.reviews);
-  };
-
-  useEffect(() => {
-    getAllReviews();
-  }, []);
 
   if (reviews.length === 0) {
     return (

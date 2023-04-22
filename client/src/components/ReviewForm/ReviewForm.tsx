@@ -37,10 +37,11 @@ export const ReviewForm = ({ onClose, accommodationId }: ReviewFormProps) => {
         comment: comment,
         rating: rating,
       });
-      onClose();
       alert("Added review.");
-    } catch (error) {
-      alert(error);
+      onClose();
+    } catch (error: any) {
+      alert(error.response.data.msg);
+      onClose();
     }
   };
 

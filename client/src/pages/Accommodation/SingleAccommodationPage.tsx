@@ -9,26 +9,32 @@ import {
   Stats,
 } from "../../components";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { TAccommodation } from "../../components/Accommodation";
-import { Modal } from "../../components/Modal";
-import { UserContext } from "../../context/UserContext";
-import { ReviewForm } from "../../components/ReviewForm/ReviewForm";
+import { TReview } from "../../components/Review";
 
 export const SingleAccommodationPage = () => {
   const { id: accommodationId } = useParams();
-  const { user } = useContext(UserContext);
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
   );
-  // const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  const [reviews, setReviews] = useState<TReview[]>([]);
 
   const getAccommodation = async () => {
     const response = await axios.get(`/accommodations/${accommodationId}`);
     setAccommodation(response.data);
-    console.log(response.data);
   };
+  const getAllReviews = async () => {
+    const response = await axios.get(
+      `/accommodations/${accommodationId}/reviews`
+    );
+    setReviews(response.data.reviews);
+  };
+
+  useEffect(() => {
+    getAllReviews();
+  }, []);
 
   useEffect(() => {
     getAccommodation();
@@ -45,22 +51,14 @@ export const SingleAccommodationPage = () => {
 
   return (
     <>
-      {/*<Modal isOpen={reviewModalOpen}>*/}
-      {/*  <ReviewForm*/}
-      {/*    onClose={() => setReviewModalOpen(false)}*/}
-      {/*    accommodationId={accommodationId}*/}
-      {/*  />*/}
-      {/*</Modal>*/}
       <div className="flex flex-col items-center">
         <div className="flex flex-col justify-between mt-4 p-4">
           <div className="mb-4">
             <h1 className="text-3xl font-bold">{accommodation.title}</h1>
             <p>{accommodation.category}</p>
             <div className="flex items-center gap-1">
-              <Stats
-                numberOfReviews={accommodation.numOfReviews}
-                averageRating={accommodation.averageRating}
-              />
+              {/*testowe wartosci*/}
+              <Stats numberOfReviews={5} averageRating={5} />
               <AddressLink address={accommodation.address} />
             </div>
           </div>
@@ -86,15 +84,10 @@ export const SingleAccommodationPage = () => {
           </div>
           <Perks perks={accommodation.perks} />
           <Location />
-          <AccommodationReviews accommodationId={accommodationId} />
-          {/*{user && (*/}
-          {/*  <button*/}
-          {/*    onClick={() => setReviewModalOpen(true)}*/}
-          {/*    className="inline-block w-1/2 sm:w-1/6 mt-8 primary"*/}
-          {/*  >*/}
-          {/*    add review*/}
-          {/*  </button>*/}
-          {/*)}*/}
+          <AccommodationReviews
+            reviews={reviews}
+            accommodationId={accommodationId}
+          />
         </div>
         <Link to={"/"} className="link-primary my-6">
           Back

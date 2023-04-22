@@ -20,7 +20,9 @@ export const addReview = async (req: Request, res: Response) => {
     user: req.cookies.userId,
   });
   if (!purchased) {
-    throw new Error("You not purchased a reservation for this accommodation.");
+    return res
+      .status(400)
+      .send({ msg: "You not purchased a reservation for this accommodation." });
   }
 
   const alreadySubmitted = await Review.findOne({
@@ -29,7 +31,9 @@ export const addReview = async (req: Request, res: Response) => {
   });
 
   if (alreadySubmitted) {
-    throw new Error("Already submitted review for this accommodation.");
+    return res
+      .status(400)
+      .send({ msg: "Already submitted review for this accommodation." });
   }
 
   req.body.user = req.cookies.userId;
