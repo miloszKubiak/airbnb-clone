@@ -77,3 +77,27 @@ export const deleteReview = async (req: Request, res: Response) => {
 
   res.status(200).json({ review });
 };
+
+export const updateReview = async (req: Request, res: Response) => {
+  const { id: reviewId } = req.params;
+  const { comment, rating } = req.body;
+
+  if (!comment || !rating) {
+    return res.status(400).send({ msg: "Please provide all values" });
+  }
+
+  const review = await Review.findOne({ _id: reviewId });
+
+  if (!review) {
+    return res.status(404).send({ msg: `No review with id: ${reviewId}` });
+  }
+
+  checkPermissions(req.cookies, review.user);
+
+  review.rating = rating;
+  review.comment = comment;
+
+  await review.save();
+
+  res.status(200).json({ review });
+};
