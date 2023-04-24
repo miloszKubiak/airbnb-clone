@@ -1,8 +1,7 @@
 import { Review, TReview } from "./Review";
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { ReviewForm } from "./ReviewForm/ReviewForm";
-import { Modal } from "./Modal";
+import { Modal, ModalConfirm } from "./Modal";
 import { UserContext } from "../context/UserContext";
 import { BsDot, FaStar } from "react-icons/all";
 
@@ -19,8 +18,14 @@ export const AccommodationReviews = ({
   averageRating,
   numberOfReviews,
 }: AccommodationReviewsProps) => {
-  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false); //zmienic nazwe na addoredit modal
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
   const { user } = useContext(UserContext);
+
+  const deleteReview = async () => {
+    console.log("delete review success");
+    setModalDeleteOpen(false);
+  };
 
   if (reviews.length === 0) {
     return (
@@ -54,6 +59,14 @@ export const AccommodationReviews = ({
           accommodationId={accommodationId}
         />
       </Modal>
+      <Modal isOpen={modalDeleteOpen}>
+        <ModalConfirm
+          onClose={() => setModalDeleteOpen(false)}
+          onSubmit={deleteReview}
+          type={"delete"}
+          context={"review"}
+        />
+      </Modal>
       <div className="mt-8 flex items-center gap-2 text-2xl">
         <div className="flex items-center gap-1">
           <FaStar />
@@ -74,6 +87,7 @@ export const AccommodationReviews = ({
               rating={review.rating}
               createdAt={review.createdAt}
               userId={review.user._id}
+              onModalOpen={() => setModalDeleteOpen(true)}
             />
           ))}
         </div>
