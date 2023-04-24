@@ -1,5 +1,7 @@
 import { TAccommodation } from "./Accommodation";
-import { TUser } from "../context/UserContext";
+import { TUser, UserContext } from "../context/UserContext";
+import { useContext, useState } from "react";
+import { Modal, ModalConfirm } from "./Modal";
 
 export type TReview = {
   _id: string;
@@ -11,19 +13,51 @@ export type TReview = {
 };
 
 type ReviewProps = {
-  user: string;
+  userName: string;
   comment: string;
   rating: number;
   createdAt: string;
+  userId: string;
 };
 
-export const Review = ({ user, comment, rating, createdAt }: ReviewProps) => {
+export const Review = ({
+  userName,
+  comment,
+  rating,
+  createdAt,
+  userId,
+}: ReviewProps) => {
+  const { user } = useContext(UserContext);
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+
+  const deleteReview = async () => {
+    console.log("delete review success");
+  };
+
   return (
-    <div className="bg-rose-200">
-      <p>{user}</p>
-      <p>{createdAt}</p>
-      <p>{comment}</p>
-      <p>{rating}</p>
-    </div>
+    <>
+      <Modal isOpen={modalDeleteOpen}>
+        <ModalConfirm
+          onClose={() => setModalDeleteOpen(false)}
+          onSubmit={deleteReview}
+          type={"delete"}
+          context={"review"}
+        />
+      </Modal>
+      <div className="px-3 py-2 relative bg-rose-200">
+        {user?._id === userId && (
+          <div className="bg-emerald-200 p-1 absolute flex gap-4 top-0 right-0">
+            <button onClick={() => console.log("edit")}>edit</button>
+            <button onClick={() => setModalDeleteOpen(true)}>x</button>
+          </div>
+        )}
+        <div>
+          <p>{userName}</p>
+          <p>{createdAt}</p>
+          <p>{comment}</p>
+          <p>{rating}</p>
+        </div>
+      </div>
+    </>
   );
 };

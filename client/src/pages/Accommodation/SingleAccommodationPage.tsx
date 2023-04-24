@@ -63,7 +63,6 @@ export const SingleAccommodationPage = () => {
             <h1 className="text-3xl font-bold">{accommodation.title}</h1>
             <p>{accommodation.category}</p>
             <div className="flex items-center gap-1">
-              {/*testowe wartosci*/}
               <Stats
                 numberOfReviews={calculatedNumberOfReviews}
                 averageRating={Number(calculatedAverageRating)}

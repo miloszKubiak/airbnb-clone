@@ -69,10 +69,11 @@ export const AccommodationReviews = ({
           {reviews?.map((review) => (
             <Review
               key={review._id}
-              user={review.user.name}
+              userName={review.user.name}
               comment={review.comment}
               rating={review.rating}
               createdAt={review.createdAt}
+              userId={review.user._id}
             />
           ))}
         </div>

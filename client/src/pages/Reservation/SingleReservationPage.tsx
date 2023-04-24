@@ -3,8 +3,8 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Modal, ReviewForm } from "../../components/Modal";
-import { ModalContent } from "../../components/Modal";
+import { Modal } from "../../components/Modal";
+import { ModalConfirm } from "../../components/Modal";
 
 export const SingleReservationPage = () => {
   const { id: reservationId } = useParams();
@@ -60,17 +60,19 @@ export const SingleReservationPage = () => {
     <div>
       <AccountNavbar />
       <Modal isOpen={modalCancelOpen}>
-        <ModalContent
+        <ModalConfirm
           onClose={() => setModalCancelOpen(false)}
           onSubmit={handleCancelReservation}
           type="cancel"
+          context={"reservation"}
         />
       </Modal>
       <Modal isOpen={modalPayOpen}>
-        <ModalContent
+        <ModalConfirm
           onClose={() => setModalPayOpen(false)}
           onSubmit={handlePayForReservation}
           type="pay for"
+          context={"reservation"}
         />
       </Modal>
       <div>
