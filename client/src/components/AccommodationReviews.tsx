@@ -1,5 +1,5 @@
 import { Review, TReview } from "./Review";
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { ReviewForm } from "./ReviewForm/ReviewForm";
 import { Modal, ModalConfirm } from "./Modal";
 import { UserContext } from "../context/UserContext";

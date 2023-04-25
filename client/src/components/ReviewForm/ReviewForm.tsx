@@ -4,13 +4,13 @@ import { reviewSchema } from "./Review.schema";
 import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
 import { TReview } from "../Review";
+import { TAccommodation } from "../Accommodation";
 
 type ReviewFormProps = {
   onClose: () => void;
   onAddReviewSuccess: (review: TReview) => void;
-  accommodation: any;
+  accommodation: TAccommodation;
 };
 
 export type TReviewFormValues = {
@@ -36,6 +36,9 @@ export const ReviewForm = ({
     },
   });
 
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
+
   const handleAddReview = async ({ comment, rating }: TReviewFormValues) => {
     const data: TReview = {
       accommodation: {
@@ -48,7 +51,7 @@ export const ReviewForm = ({
       },
       comment,
       rating,
-      createdAt: Date.now().toString(),
+      createdAt: today.toISOString(),
     };
     try {
       await axios.post(`/reviews`, {
