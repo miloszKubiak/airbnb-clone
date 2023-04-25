@@ -3,7 +3,7 @@ import { TUser, UserContext } from "../context/UserContext";
 import { useContext } from "react";
 
 export type TReview = {
-  _id: string;
+  _id?: string;
   accommodation: Pick<TAccommodation, "_id" | "title">;
   comment: string;
   rating: number;
@@ -29,7 +29,6 @@ export const Review = ({
   onModalOpen,
 }: ReviewProps) => {
   const { user } = useContext(UserContext);
-
   return (
     <>
       <div className="px-3 py-2 relative bg-rose-200">

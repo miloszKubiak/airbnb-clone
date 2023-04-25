@@ -1,20 +1,21 @@
 import { Review, TReview } from "./Review";
-import { useContext, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { ReviewForm } from "./ReviewForm/ReviewForm";
 import { Modal, ModalConfirm } from "./Modal";
 import { UserContext } from "../context/UserContext";
 import { BsDot, FaStar } from "react-icons/all";
+import { TAccommodation } from "./Accommodation";
 
 type AccommodationReviewsProps = {
-  accommodationId: string;
   reviews: TReview[];
   averageRating: number;
   numberOfReviews: number;
   setReviews: any;
+  accommodation: TAccommodation;
 };
 
 export const AccommodationReviews = ({
-  accommodationId,
+  accommodation,
   reviews,
   setReviews,
   averageRating,
@@ -36,9 +37,10 @@ export const AccommodationReviews = ({
         <Modal isOpen={reviewModalOpen}>
           <ReviewForm
             onClose={() => setReviewModalOpen(false)}
-            accommodationId={accommodationId}
-            onAddReviewSuccess={setReviews}
-            onReviews={reviews}
+            accommodation={accommodation}
+            onAddReviewSuccess={(review) =>
+              setReviews((prev: any) => [...prev, review])
+            }
           />
         </Modal>
         <div className="mt-10 flex flex-col gap-2 items-center justify-center">
@@ -61,9 +63,10 @@ export const AccommodationReviews = ({
       <Modal isOpen={reviewModalOpen}>
         <ReviewForm
           onClose={() => setReviewModalOpen(false)}
-          accommodationId={accommodationId}
-          onAddReviewSuccess={setReviews}
-          onReviews={reviews}
+          accommodation={accommodation}
+          onAddReviewSuccess={(review) =>
+            setReviews((prev: any) => [...prev, review])
+          }
         />
       </Modal>
       <Modal isOpen={modalDeleteOpen}>

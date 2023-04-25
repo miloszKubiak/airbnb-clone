@@ -93,9 +93,9 @@ export const SingleAccommodationPage = () => {
           <Perks perks={accommodation.perks} />
           <Location />
           <AccommodationReviews
+            accommodation={accommodation}
             reviews={reviews}
-            setReviews={() => setReviews(reviews)}
-            accommodationId={accommodationId}
+            setReviews={setReviews}
             averageRating={Number(calculatedAverageRating)}
             numberOfReviews={calculatedNumberOfReviews}
           />

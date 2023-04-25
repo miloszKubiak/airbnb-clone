@@ -3,15 +3,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { reviewSchema } from "./Review.schema";
 import axios from "axios";
 import { useContext } from "react";
-import { TUser, UserContext } from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { TReview } from "../Review";
 
 type ReviewFormProps = {
   onClose: () => void;
-  accommodationId: string;
-  onAddReviewSuccess: any;
-  onReviews: TReview[];
+  onAddReviewSuccess: (review: TReview) => void;
+  accommodation: any;
 };
 
 export type TReviewFormValues = {
@@ -21,12 +20,10 @@ export type TReviewFormValues = {
 
 export const ReviewForm = ({
   onClose,
-  accommodationId,
+  accommodation,
   onAddReviewSuccess,
-  onReviews,
 }: ReviewFormProps) => {
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -40,17 +37,26 @@ export const ReviewForm = ({
   });
 
   const handleAddReview = async ({ comment, rating }: TReviewFormValues) => {
-    const data = { comment, rating };
+    const data: TReview = {
+      accommodation: {
+        _id: accommodation._id,
+        title: accommodation.title,
+      },
+      user: {
+        _id: user!._id,
+        name: user!.name,
+      },
+      comment,
+      rating,
+      createdAt: Date.now().toString(),
+    };
     try {
       await axios.post(`/reviews`, {
-        accommodation: accommodationId,
-        user: user?._id,
         ...data,
       });
       alert("Added review.");
-      onAddReviewSuccess([...onReviews, data]);
+      onAddReviewSuccess(data);
       onClose();
-      // navigate("/");
     } catch (error: any) {
       alert(error.response.data.msg);
       onClose();
