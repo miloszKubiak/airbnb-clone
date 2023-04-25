@@ -98,7 +98,6 @@ export const AccommodationForm = () => {
     if (id) {
       //edit
       try {
-        // await axios.put("/accommodations", { id, ...formData });
         await axios.patch(`/accommodations/${id}`, { id, ...formData });
         alert("Edit place successful!");
         navigate("/account/my-accommodations");

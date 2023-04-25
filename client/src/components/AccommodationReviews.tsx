@@ -10,17 +10,20 @@ type AccommodationReviewsProps = {
   reviews: TReview[];
   averageRating: number;
   numberOfReviews: number;
+  setReviews: any;
 };
 
 export const AccommodationReviews = ({
   accommodationId,
   reviews,
+  setReviews,
   averageRating,
   numberOfReviews,
 }: AccommodationReviewsProps) => {
   const [reviewModalOpen, setReviewModalOpen] = useState(false); //zmienic nazwe na addoredit modal
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
   const { user } = useContext(UserContext);
+  console.log(reviews);
 
   const deleteReview = async () => {
     console.log("delete review success");
@@ -34,6 +37,8 @@ export const AccommodationReviews = ({
           <ReviewForm
             onClose={() => setReviewModalOpen(false)}
             accommodationId={accommodationId}
+            onAddReviewSuccess={setReviews}
+            onReviews={reviews}
           />
         </Modal>
         <div className="mt-10 flex flex-col gap-2 items-center justify-center">
@@ -57,6 +62,8 @@ export const AccommodationReviews = ({
         <ReviewForm
           onClose={() => setReviewModalOpen(false)}
           accommodationId={accommodationId}
+          onAddReviewSuccess={setReviews}
+          onReviews={reviews}
         />
       </Modal>
       <Modal isOpen={modalDeleteOpen}>
