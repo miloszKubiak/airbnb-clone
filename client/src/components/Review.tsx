@@ -18,6 +18,8 @@ type ReviewProps = {
   createdAt: string;
   userId: string;
   onModalOpen: () => void;
+  reviewId: string;
+  onReviewToDelete: (reviewId: string) => void;
 };
 
 export const Review = ({
@@ -26,19 +28,32 @@ export const Review = ({
   rating,
   createdAt,
   userId,
+  reviewId,
+  onReviewToDelete,
   onModalOpen,
 }: ReviewProps) => {
   const { user } = useContext(UserContext);
+
   return (
     <>
       <div className="px-3 py-2 relative bg-rose-200">
         {user?._id === userId && (
           <div className="bg-emerald-200 p-1 absolute flex gap-4 top-0 right-0">
-            <button onClick={() => console.log("edit")}>edit</button>
-            <button onClick={onModalOpen}>x</button>
+            <button onClick={() => console.log(`edit ${reviewId}`)}>
+              edit
+            </button>
+            <button
+              onClick={() => {
+                onModalOpen();
+                onReviewToDelete(reviewId);
+              }}
+            >
+              x
+            </button>
           </div>
         )}
         <div>
+          <p>{reviewId}</p>
           <p>{userName}</p>
           <p>{createdAt}</p>
           <p>{comment}</p>

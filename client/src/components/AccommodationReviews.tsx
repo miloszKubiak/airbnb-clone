@@ -1,16 +1,17 @@
 import { Review, TReview } from "./Review";
-import { useContext, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { ReviewForm } from "./ReviewForm/ReviewForm";
 import { Modal, ModalConfirm } from "./Modal";
 import { UserContext } from "../context/UserContext";
 import { BsDot, FaStar } from "react-icons/all";
 import { TAccommodation } from "./Accommodation";
+import axios from "axios";
 
 type AccommodationReviewsProps = {
   reviews: TReview[];
   averageRating: number;
   numberOfReviews: number;
-  setReviews: any;
+  setReviews: Dispatch<SetStateAction<TReview[]>>;
   accommodation: TAccommodation;
 };
 
@@ -23,13 +24,16 @@ export const AccommodationReviews = ({
 }: AccommodationReviewsProps) => {
   const [reviewModalOpen, setReviewModalOpen] = useState(false); //zmienic nazwe na addoredit modal
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+  const [reviewToDelete, setReviewToDelete] = useState<string | null>(null);
   const { user } = useContext(UserContext);
-  console.log(reviews);
 
   const deleteReview = async () => {
-    console.log("delete review success");
+    await axios.delete(`/reviews/${reviewToDelete}`);
     setModalDeleteOpen(false);
+    setReviewToDelete(null);
+    setReviews(reviews);
   };
+  console.log(reviewToDelete);
 
   if (reviews.length === 0) {
     return (
@@ -39,7 +43,7 @@ export const AccommodationReviews = ({
             onClose={() => setReviewModalOpen(false)}
             accommodation={accommodation}
             onAddReviewSuccess={(review) =>
-              setReviews((prev: any) => [...prev, review])
+              setReviews((prev) => [...prev, review])
             }
           />
         </Modal>
@@ -65,13 +69,16 @@ export const AccommodationReviews = ({
           onClose={() => setReviewModalOpen(false)}
           accommodation={accommodation}
           onAddReviewSuccess={(review) =>
-            setReviews((prev: any) => [...prev, review])
+            setReviews((prev) => [...prev, review])
           }
         />
       </Modal>
       <Modal isOpen={modalDeleteOpen}>
         <ModalConfirm
-          onClose={() => setModalDeleteOpen(false)}
+          onClose={() => {
+            setModalDeleteOpen(false);
+            setReviewToDelete(null);
+          }}
           onSubmit={deleteReview}
           type={"delete"}
           context={"review"}
@@ -91,6 +98,8 @@ export const AccommodationReviews = ({
         <div className="w-full mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {reviews?.map((review) => (
             <Review
+              onReviewToDelete={() => setReviewToDelete(review._id!)}
+              reviewId={review._id!}
               key={review._id}
               userName={review.user.name}
               comment={review.comment}
