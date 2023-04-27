@@ -12,7 +12,9 @@ export const addReview = async (req: Request, res: Response) => {
   });
 
   if (!isValidAccommodation) {
-    throw new Error(`No accommodation with id: ${accommodationId}`);
+    return res
+      .status(404)
+      .send({ msg: `No accommodation with id: ${accommodationId}` });
   }
 
   const purchased = await Reservation.findOne({

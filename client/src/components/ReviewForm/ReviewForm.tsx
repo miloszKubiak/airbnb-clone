@@ -54,11 +54,10 @@ export const ReviewForm = ({
       createdAt: today.toISOString(),
     };
     try {
-      await axios.post(`/reviews`, {
-        ...data,
-      });
+      const response = await axios.post(`/reviews`, data);
+      const _id = response.data.review._id;
       alert("Added review.");
-      onAddReviewSuccess(data);
+      onAddReviewSuccess({ ...data, _id });
       onClose();
     } catch (error: any) {
       alert(error.response.data.msg);

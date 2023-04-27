@@ -23,7 +23,7 @@ export const AccommodationReviews = ({
   numberOfReviews,
 }: AccommodationReviewsProps) => {
   const [reviewModalOpen, setReviewModalOpen] = useState(false); //zmienic nazwe na addoredit modal
-  const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false); //!!reviewToDelete zamiast state
   const [reviewToDelete, setReviewToDelete] = useState<string | null>(null);
   const { user } = useContext(UserContext);
 
@@ -31,9 +31,8 @@ export const AccommodationReviews = ({
     await axios.delete(`/reviews/${reviewToDelete}`);
     setModalDeleteOpen(false);
     setReviewToDelete(null);
-    setReviews(reviews);
+    setReviews(reviews.filter((review) => review._id !== reviewToDelete));
   };
-  console.log(reviewToDelete);
 
   if (reviews.length === 0) {
     return (
@@ -98,7 +97,9 @@ export const AccommodationReviews = ({
         <div className="w-full mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {reviews?.map((review) => (
             <Review
-              onReviewToDelete={() => setReviewToDelete(review._id!)}
+              onReviewToDelete={() => {
+                setReviewToDelete(review._id!);
+              }}
               reviewId={review._id!}
               key={review._id}
               userName={review.user.name}
