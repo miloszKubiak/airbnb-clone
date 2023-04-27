@@ -103,3 +103,15 @@ export const updateReview = async (req: Request, res: Response) => {
 
   res.status(200).json({ review });
 };
+
+export const getSingleReview = async (req: Request, res: Response) => {
+  const { id: reviewId } = req.params;
+
+  const review = await Review.findOne({ _id: reviewId });
+
+  if (!review) {
+    return res.status(404).send({ msg: `No review with id: ${reviewId}` });
+  }
+
+  res.status(200).json({ review });
+};
