@@ -107,7 +107,9 @@ export const updateReview = async (req: Request, res: Response) => {
 export const getSingleReview = async (req: Request, res: Response) => {
   const { id: reviewId } = req.params;
 
-  const review = await Review.findOne({ _id: reviewId });
+  const review = await Review.findOne({ _id: reviewId })
+    .populate("user", "-password")
+    .populate("accommodation");
 
   if (!review) {
     return res.status(404).send({ msg: `No review with id: ${reviewId}` });
