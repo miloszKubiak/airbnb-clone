@@ -24,14 +24,20 @@ export const AccommodationReviews = ({
 }: AccommodationReviewsProps) => {
   const [reviewModalOpen, setReviewModalOpen] = useState(false); //zmienic nazwe na addoredit modal
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false); //!!reviewToDelete zamiast state
-  const [reviewToDelete, setReviewToDelete] = useState<string | null>(null);
+  const [selectedReviewId, setSelectedReviewId] = useState<string | null>(null);
   const { user } = useContext(UserContext);
 
   const deleteReview = async () => {
-    await axios.delete(`/reviews/${reviewToDelete}`);
+    await axios.delete(`/reviews/${selectedReviewId}`);
     setModalDeleteOpen(false);
-    setReviewToDelete(null);
-    setReviews(reviews.filter((review) => review._id !== reviewToDelete));
+    setSelectedReviewId(null);
+    setReviews(reviews.filter((review) => review._id !== selectedReviewId));
+  };
+
+  const getSingleReview = async (id: string) => {
+    const response = await axios.get(`/reviews/${id}`);
+    console.log(response.data);
+    setSelectedReviewId(response.data.review._id);
   };
 
   if (reviews.length === 0) {
@@ -76,7 +82,7 @@ export const AccommodationReviews = ({
         <ModalConfirm
           onClose={() => {
             setModalDeleteOpen(false);
-            setReviewToDelete(null);
+            setSelectedReviewId(null);
           }}
           onSubmit={deleteReview}
           type={"delete"}
@@ -97,8 +103,8 @@ export const AccommodationReviews = ({
         <div className="w-full mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {reviews?.map((review) => (
             <Review
-              onReviewToDelete={() => {
-                setReviewToDelete(review._id!);
+              onSetReviewId={() => {
+                setSelectedReviewId(review._id!);
               }}
               reviewId={review._id!}
               key={review._id}
@@ -107,7 +113,12 @@ export const AccommodationReviews = ({
               rating={review.rating}
               createdAt={review.createdAt}
               userId={review.user._id}
-              onModalOpen={() => setModalDeleteOpen(true)}
+              onModalDeleteOpen={() => setModalDeleteOpen(true)}
+              onModalEditOpen={() => setReviewModalOpen(true)}
+              onGetSingleReview={() => {
+                setSelectedReviewId(review._id!);
+                getSingleReview(selectedReviewId!);
+              }}
             />
           ))}
         </div>

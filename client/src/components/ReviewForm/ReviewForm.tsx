@@ -59,6 +59,7 @@ export const ReviewForm = ({
       alert("Added review.");
       onAddReviewSuccess({ ...data, _id });
       onClose();
+      console.log(`reviewID: ${_id}`);
     } catch (error: any) {
       alert(error.response.data.msg);
       onClose();

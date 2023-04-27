@@ -17,9 +17,11 @@ type ReviewProps = {
   rating: number;
   createdAt: string;
   userId: string;
-  onModalOpen: () => void;
+  onModalDeleteOpen: () => void;
+  onModalEditOpen: () => void;
+  onGetSingleReview: (id: string) => void;
   reviewId: string;
-  onReviewToDelete: (reviewId: string) => void;
+  onSetReviewId: (reviewId: string) => void;
 };
 
 export const Review = ({
@@ -29,8 +31,10 @@ export const Review = ({
   createdAt,
   userId,
   reviewId,
-  onReviewToDelete,
-  onModalOpen,
+  onSetReviewId,
+  onModalDeleteOpen,
+  onModalEditOpen,
+  onGetSingleReview,
 }: ReviewProps) => {
   const { user } = useContext(UserContext);
 
@@ -39,13 +43,21 @@ export const Review = ({
       <div className="px-3 py-2 relative bg-rose-200">
         {user?._id === userId && (
           <div className="bg-emerald-200 p-1 absolute flex gap-4 top-0 right-0">
-            <button onClick={() => console.log(`edit ${reviewId}`)}>
+            <button
+              onClick={() => {
+                onModalEditOpen();
+                onSetReviewId(reviewId);
+                onGetSingleReview(reviewId);
+                console.log(`edit: ${reviewId}`);
+              }}
+            >
               edit
             </button>
             <button
               onClick={() => {
-                onModalOpen();
-                onReviewToDelete(reviewId);
+                onModalDeleteOpen();
+                onSetReviewId(reviewId);
+                console.log(`delete: ${reviewId}`);
               }}
             >
               x
