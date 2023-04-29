@@ -27,3 +27,4 @@ export { SavedAccommodations } from "./SavedAccommodations";
 export { Review } from "./Review";
 export { AccommodationReviews } from "./AccommodationReviews";
 export { Stats } from "./Stats";
+export { AddReview } from "./AddReview";

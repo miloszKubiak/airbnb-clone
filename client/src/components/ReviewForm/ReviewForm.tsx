@@ -1,16 +1,10 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { reviewSchema } from "./Review.schema";
-import axios from "axios";
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
-import { TReview } from "../Review";
-import { TAccommodation } from "../Accommodation";
 
 type ReviewFormProps = {
   onClose: () => void;
-  onAddReviewSuccess: (review: TReview) => void;
-  accommodation: TAccommodation;
+  onSubmit: (values: TReviewFormValues) => void;
 };
 
 export type TReviewFormValues = {
@@ -18,12 +12,7 @@ export type TReviewFormValues = {
   rating: number;
 };
 
-export const ReviewForm = ({
-  onClose,
-  accommodation,
-  onAddReviewSuccess,
-}: ReviewFormProps) => {
-  const { user } = useContext(UserContext);
+export const ReviewForm = ({ onClose, onSubmit }: ReviewFormProps) => {
   const {
     register,
     handleSubmit,
@@ -35,36 +24,6 @@ export const ReviewForm = ({
       rating: 1,
     },
   });
-
-  const timeElapsed = Date.now();
-  const today = new Date(timeElapsed);
-
-  const handleAddReview = async ({ comment, rating }: TReviewFormValues) => {
-    const data: TReview = {
-      accommodation: {
-        _id: accommodation._id,
-        title: accommodation.title,
-      },
-      user: {
-        _id: user!._id,
-        name: user!.name,
-      },
-      comment,
-      rating,
-      createdAt: today.toISOString(),
-    };
-    try {
-      const response = await axios.post(`/reviews`, data);
-      const _id = response.data.review._id;
-      alert("Added review.");
-      onAddReviewSuccess({ ...data, _id });
-      onClose();
-      console.log(`reviewID: ${_id}`);
-    } catch (error: any) {
-      alert(error.response.data.msg);
-      onClose();
-    }
-  };
 
   return (
     <div className="p-4 border-zinc-200 border-2 rounded-md bg-zinc-100">
@@ -79,7 +38,7 @@ export const ReviewForm = ({
       </div>
 
       <form
-        onSubmit={handleSubmit(handleAddReview)}
+        onSubmit={handleSubmit(onSubmit)}
         className="w-70 sm:w-80 flex flex-col justify-center gap-2"
       >
         <textarea className="h-40 w-full" {...register("comment")} />
