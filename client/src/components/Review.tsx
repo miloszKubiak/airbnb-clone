@@ -18,6 +18,7 @@ type ReviewProps = {
   createdAt: string;
   userId: string;
   onModalOpen: () => void;
+  onModalEditOpen: () => void;
   reviewId: string;
   onReviewToDelete: (reviewId: string) => void;
 };
@@ -31,6 +32,7 @@ export const Review = ({
   reviewId,
   onReviewToDelete,
   onModalOpen,
+  onModalEditOpen,
 }: ReviewProps) => {
   const { user } = useContext(UserContext);
 
@@ -41,6 +43,7 @@ export const Review = ({
           <div className="bg-emerald-200 p-1 absolute flex gap-4 top-0 right-0">
             <button
               onClick={() => {
+                onModalEditOpen();
                 console.log(`edit: ${reviewId}`);
               }}
             >

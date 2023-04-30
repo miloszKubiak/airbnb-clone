@@ -5,7 +5,8 @@ import { UserContext } from "../context/UserContext";
 import { BsDot, FaStar } from "react-icons/all";
 import { TAccommodation } from "./Accommodation";
 import axios from "axios";
-import { AddReview } from "./AddReview";
+import { AddReviewModal } from "./AddReviewModal";
+import { EditReviewModal } from "./EditReviewModal";
 
 type AccommodationReviewsProps = {
   reviews: TReview[];
@@ -34,24 +35,17 @@ export const AccommodationReviews = ({
     setReviews(reviews.filter((review) => review._id !== reviewToDelete));
   };
 
-  const getSingleReview = async (id: string) => {
-    const response = await axios.get(`/reviews/${id}`);
-    console.log(response.data);
-    setReviewToDelete(response.data.review._id);
-  };
-
   if (reviews.length === 0) {
     return (
       <>
-        <Modal isOpen={reviewModalOpen}>
-          <AddReview
-            onAddReviewSuccess={(review) =>
-              setReviews((prev) => [...prev, review])
-            }
-            onClose={() => setReviewModalOpen(false)}
-            accommodation={accommodation}
-          />
-        </Modal>
+        <AddReviewModal
+          reviewModalOpen={reviewModalOpen}
+          accommodation={accommodation}
+          onClose={() => setReviewModalOpen(false)}
+          onAddReviewSuccess={(review) =>
+            setReviews((prev) => [...prev, review])
+          }
+        />
         <div className="mt-10 flex flex-col gap-2 items-center justify-center">
           <h2>There are no reviews</h2>
           {user && (
@@ -69,15 +63,16 @@ export const AccommodationReviews = ({
 
   return (
     <>
-      <Modal isOpen={reviewModalOpen}>
-        <AddReview
-          onAddReviewSuccess={(review) =>
-            setReviews((prev) => [...prev, review])
-          }
-          onClose={() => setReviewModalOpen(false)}
-          accommodation={accommodation}
-        />
-      </Modal>
+      <AddReviewModal
+        accommodation={accommodation}
+        onClose={() => setReviewModalOpen(false)}
+        onAddReviewSuccess={(review) => setReviews((prev) => [...prev, review])}
+        reviewModalOpen={reviewModalOpen}
+      />
+      <EditReviewModal
+        onClose={() => setReviewModalOpen(false)}
+        reviewModalOpen={reviewModalOpen}
+      />
       <Modal isOpen={modalDeleteOpen}>
         <ModalConfirm
           onClose={() => {
@@ -114,6 +109,7 @@ export const AccommodationReviews = ({
               createdAt={review.createdAt}
               userId={review.user._id}
               onModalOpen={() => setModalDeleteOpen(true)}
+              onModalEditOpen={() => setReviewModalOpen(true)}
             />
           ))}
         </div>

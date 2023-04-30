@@ -4,17 +4,20 @@ import { TReview } from "./Review";
 import axios from "axios";
 import { ReviewForm, TReviewFormValues } from "./ReviewForm/ReviewForm";
 import { TAccommodation } from "./Accommodation";
+import { Modal } from "./Modal";
 
 type AddReviewProps = {
   accommodation: TAccommodation;
   onClose: () => void;
   onAddReviewSuccess: (review: TReview) => void;
+  reviewModalOpen: boolean;
 };
 
-export const AddReview = ({
+export const AddReviewModal = ({
   accommodation,
   onAddReviewSuccess,
   onClose,
+  reviewModalOpen,
 }: AddReviewProps) => {
   const { user } = useContext(UserContext);
 
@@ -49,7 +52,9 @@ export const AddReview = ({
   };
   return (
     <>
-      <ReviewForm onClose={onClose} onSubmit={handleAddReview} />
+      <Modal isOpen={reviewModalOpen}>
+        <ReviewForm onClose={onClose} onSubmit={handleAddReview} />
+      </Modal>
     </>
   );
 };
