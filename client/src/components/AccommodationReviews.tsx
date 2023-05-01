@@ -25,15 +25,17 @@ export const AccommodationReviews = ({
 }: AccommodationReviewsProps) => {
   const [reviewModalOpen, setReviewModalOpen] = useState(false); //zmienic nazwe na addoredit modal
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false); //!!reviewToDelete zamiast state
-  const [reviewToDelete, setReviewToDelete] = useState<string | null>(null);
+  const [selectedReviewId, setSelectedReviewId] = useState<string | null>(null);
   const { user } = useContext(UserContext);
 
   const deleteReview = async () => {
-    await axios.delete(`/reviews/${reviewToDelete}`);
+    await axios.delete(`/reviews/${selectedReviewId}`);
     setModalDeleteOpen(false);
-    setReviewToDelete(null);
-    setReviews(reviews.filter((review) => review._id !== reviewToDelete));
+    setSelectedReviewId(null);
+    setReviews(reviews.filter((review) => review._id !== selectedReviewId));
   };
+
+  console.log(selectedReviewId);
 
   if (reviews.length === 0) {
     return (
@@ -72,12 +74,13 @@ export const AccommodationReviews = ({
       <EditReviewModal
         onClose={() => setReviewModalOpen(false)}
         reviewModalOpen={reviewModalOpen}
+        reviewId={selectedReviewId}
       />
       <Modal isOpen={modalDeleteOpen}>
         <ModalConfirm
           onClose={() => {
             setModalDeleteOpen(false);
-            setReviewToDelete(null);
+            setSelectedReviewId(null);
           }}
           onSubmit={deleteReview}
           type={"delete"}
@@ -99,7 +102,7 @@ export const AccommodationReviews = ({
           {reviews?.map((review) => (
             <Review
               onReviewToDelete={() => {
-                setReviewToDelete(review._id!);
+                setSelectedReviewId(review._id!);
               }}
               reviewId={review._id!}
               key={review._id}

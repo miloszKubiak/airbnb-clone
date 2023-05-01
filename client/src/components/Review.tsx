@@ -1,6 +1,7 @@
 import { TAccommodation } from "./Accommodation";
 import { TUser, UserContext } from "../context/UserContext";
 import { useContext } from "react";
+import { FaStar } from "react-icons/all";
 
 export type TReview = {
   _id?: string;
@@ -44,6 +45,7 @@ export const Review = ({
             <button
               onClick={() => {
                 onModalEditOpen();
+                onReviewToDelete(reviewId);
                 console.log(`edit: ${reviewId}`);
               }}
             >
