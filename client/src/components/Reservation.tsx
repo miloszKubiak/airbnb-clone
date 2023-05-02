@@ -55,7 +55,7 @@ export const Reservation = ({
     <Link
       to={`/account/reservations/${_id}`}
       key={_id}
-      className="mt-10 h-40 px-2 bg-zinc-100 rounded-xl overflow-hidden w-[80%]
+      className="mt-10 w-full sm:w-[60%] h-44 px-2 bg-zinc-100 rounded-xl overflow-hidden w-1/2
       flex items-center gap-2"
     >
       <div className="min-h-full flex -ml-2 w-48">
@@ -65,7 +65,7 @@ export const Reservation = ({
           alt="main photo of the place"
         />
       </div>
-      <div className="ml-2 py-2 flex flex-col justify-between h-full text-[8px] sm:text-sm basis-1/2">
+      <div className="ml-2 py-2 flex flex-col justify-between h-full text-[8px] sm:text-[10px] md:text-[12px] basis-1/2">
         <h2 className="font-bold">{accommodation.title}</h2>
         <ReservationDates
           numberOfNights={numberOfNights}

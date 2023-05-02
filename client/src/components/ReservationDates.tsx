@@ -34,7 +34,7 @@ export const ReservationDates = ({
           {Number(numberOfGuests) > 1 ? "s" : ""}
         </p>
       </div>
-      <div className="flex flex-col sm:flex-row sm:gap-1 text-[10px] sm:text-sm">
+      <div className="flex flex-col sm:flex-row sm:gap-1 text-[8px] sm:text-[10px] md:text-[14px]">
         <p className="flex items-center gap-1">
           <FaRegCalendarAlt />
           <span>{format(new Date(checkIn), "dd-MM-yyyy")}</span>
