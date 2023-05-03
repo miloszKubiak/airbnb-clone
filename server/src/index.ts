@@ -11,6 +11,7 @@ import reservationsRouter from "./routes/reservationsRouter";
 import fileUpload from "express-fileupload";
 import usersRouter from "./routes/usersRouter";
 import reviewsRouter from "./routes/reviewsRouter";
+import favoritesRouter from "./routes/favoritesRouter";
 
 config();
 const PORT = process.env.PORT || 3000;
@@ -45,6 +46,7 @@ app.use("/accommodations", accommodationsRouter);
 app.use("/reservations", reservationsRouter);
 app.use("/users", usersRouter);
 app.use("/reviews", reviewsRouter);
+app.use("/user-favorites", favoritesRouter);
 
 mongoose.set("strictQuery", false);
 
