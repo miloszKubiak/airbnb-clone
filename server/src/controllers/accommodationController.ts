@@ -41,7 +41,6 @@ export const getUserAccommodations = async (req: Request, res: Response) => {
   const queryObject = {
     owner: req.cookies.userId,
   };
-  console.log(req.cookies.userId);
 
   let result = Accommodation.find(queryObject);
   ``;

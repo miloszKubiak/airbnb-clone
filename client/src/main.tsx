@@ -13,7 +13,7 @@ import {
   SingleAccommodationPage,
   FilteredAccommodations,
   ProtectedRoute,
-  SavedAccommodationsPage,
+  FavoritesPage,
 } from "./pages";
 import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
@@ -78,8 +78,8 @@ const router = createBrowserRouter([
         element: <UserReservationsPage />,
       },
       {
-        path: "/account/saved-accommodations",
-        element: <SavedAccommodationsPage />,
+        path: "/account/favorites",
+        element: <FavoritesPage />,
       },
     ],
   },

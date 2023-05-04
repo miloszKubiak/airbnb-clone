@@ -23,7 +23,7 @@ export { FiltersBar } from "./FiltersBar";
 export { RefundedReservation } from "./RefundedReservation";
 export { Location } from "./Location";
 export { Accommodation } from "./Accommodation";
-export { SavedAccommodations } from "./SavedAccommodations";
+export { Favorites } from "./Favorites";
 export { Review } from "./Review";
 export { AccommodationReviews } from "./AccommodationReviews";
 export { Stats } from "./Stats";
