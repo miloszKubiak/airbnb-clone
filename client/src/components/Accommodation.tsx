@@ -44,6 +44,7 @@ export const Accommodation = ({
         className="absolute right-0 top-0 mt-4 mr-4
         duration-300 text-2xl text-zinc-700 hover:text-rose-400 cursor-pointer"
         onClick={() => console.log(title)}
+        //selected, if true add to favorites else remove
       >
         <FaHeart />
       </div>
