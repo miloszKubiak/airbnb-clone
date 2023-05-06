@@ -4,11 +4,18 @@ import { checkPermissions } from "../utils/checkPermissions";
 
 export const addToFavorites = async (req: Request, res: Response) => {
   const { accommodation } = req.body;
-
-  if (!accommodation) {
-    return res.status(403).send({ msg: "Such accommodation does not exist." });
-  }
   req.body.user = req.cookies.userId;
+
+  const isFavorite = await Favorites.findOne({
+    accommodation: accommodation,
+    user: req.body.user,
+  });
+
+  if (isFavorite) {
+    return res
+      .status(403)
+      .send({ msg: `You already have this accommodation in your favorites.` });
+  }
 
   const favorite = await Favorites.create(req.body);
 
@@ -20,7 +27,7 @@ export const getUserFavorites = async (req: Request, res: Response) => {
     user: req.cookies.userId,
   };
 
-  let result = Favorites.find(queryObject).populate("accommodation");
+  let result = Favorites.find(queryObject).populate("accommodation", "title");
 
   const favorites = await result;
 
