@@ -19,6 +19,7 @@ import { UserContextProvider } from "./context/UserContext";
 import { Profile } from "./pages/Profile";
 import { App } from "./App";
 import { SearchContextProvider } from "./context/SearchContext";
+import { FavoritesContextProvider } from "./context/FavoritesContext";
 
 const router = createBrowserRouter([
   {
@@ -89,7 +90,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <UserContextProvider>
       <SearchContextProvider>
-        <RouterProvider router={router} />
+        <FavoritesContextProvider>
+          <RouterProvider router={router} />
+        </FavoritesContextProvider>
       </SearchContextProvider>
     </UserContextProvider>
   </React.StrictMode>

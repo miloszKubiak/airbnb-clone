@@ -27,7 +27,7 @@ export const getUserFavorites = async (req: Request, res: Response) => {
     user: req.cookies.userId,
   };
 
-  let result = Favorites.find(queryObject).populate("accommodation", "title");
+  let result = Favorites.find(queryObject).populate("accommodation");
 
   const favorites = await result;
 

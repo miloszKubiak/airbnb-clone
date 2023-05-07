@@ -3,9 +3,13 @@ import { Pagination } from "./Pagination";
 import { SearchContext } from "../context/SearchContext";
 import axios from "axios";
 import { Accommodation, TAccommodation } from "./Accommodation";
+import { FavoritesContext } from "../context/FavoritesContext";
+import { UserContext } from "../context/UserContext";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
+  // const { getUserFavorites } = useContext(FavoritesContext);
+  // const { user } = useContext(UserContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [numOfPages, setNumOfPages] = useState(1);
 

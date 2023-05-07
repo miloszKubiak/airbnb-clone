@@ -1,15 +1,26 @@
-import axios from "axios";
-import { useEffect } from "react";
+import { useContext } from "react";
+import { FavoritesContext } from "../context/FavoritesContext";
+import { Accommodation } from "./Accommodation";
 
 export const Favorites = () => {
-  const getUserFavorites = async () => {
-    const response = await axios.get("/user-favorites");
-    console.log(response.data);
-  };
+  const { favorites } = useContext(FavoritesContext);
 
-  useEffect(() => {
-    getUserFavorites();
-  }, []);
-
-  return <div className="h-screen flex items-center justify-center"></div>;
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <div className="py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+        {favorites.map((favorite) => (
+          <Accommodation
+            key={favorite._id}
+            _id={favorite.accommodation._id}
+            photos={favorite.accommodation.photos!}
+            title={favorite.accommodation.title}
+            address={favorite.accommodation.address}
+            price={favorite.accommodation.price}
+            averageRating={favorite.accommodation.averageRating}
+            numOfReviews={favorite.accommodation.numOfReviews}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };

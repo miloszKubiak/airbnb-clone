@@ -1,4 +1,5 @@
 import { BsDot, FaStar } from "react-icons/all";
+import { TReview } from "./Review";
 
 type StatsProps = {
   numberOfReviews: number;

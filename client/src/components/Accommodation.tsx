@@ -21,7 +21,7 @@ export type TAccommodation = {
 };
 
 type AccommodationProps = {
-  _id: string;
+  _id?: string;
   photos: string[];
   title: string;
   address: string;
@@ -58,8 +58,9 @@ export const Accommodation = ({
           <div className="flex items-center justify-between">
             <h2 className="text-xs sm:text-sm font-bold">{title}</h2>
             <div className="flex items-center gap-1">
-              <p className="text-xs">
+              <p className="flex gap-1 text-xs">
                 <FaStar />
+                66
               </p>
               <p>{averageRating}</p>
             </div>
