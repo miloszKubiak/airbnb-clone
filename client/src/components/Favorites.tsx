@@ -1,9 +1,13 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { Accommodation } from "./Accommodation";
 
 export const Favorites = () => {
-  const { favorites } = useContext(FavoritesContext);
+  const { favorites, getUserFavorites } = useContext(FavoritesContext);
+
+  useEffect(() => {
+    getUserFavorites();
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center">

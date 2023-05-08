@@ -45,15 +45,13 @@ export const FavoritesContextProvider = ({
   const [favorites, setFavorites] = useState<TFavorite[]>([]);
 
   const getUserFavorites = async () => {
-    const response = await axios.get("/user-favorites");
-    setFavorites(response.data.favorites);
+    try {
+      const response = await axios.get("/user-favorites");
+      setFavorites(response.data.favorites);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  console.log(favorites);
-
-  useEffect(() => {
-    getUserFavorites();
-  }, []);
 
   return (
     <FavoritesContext.Provider

@@ -4,9 +4,11 @@ import { UserContext } from "../context/UserContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { UserAccommodationsPage } from "./Accommodation/UserAccommodationsPage";
+import { FavoritesContext } from "../context/FavoritesContext";
 
 export const Profile = () => {
   const { ready, user, setUser } = useContext(UserContext);
+  const { setFavorites } = useContext(FavoritesContext);
   let { subpage } = useParams();
   const navigate = useNavigate();
 
@@ -18,6 +20,7 @@ export const Profile = () => {
     await axios.post("/auth/logout");
     navigate("/");
     setUser(null);
+    setFavorites([]);
   };
 
   if (!ready) return <div>"Loading..."</div>;

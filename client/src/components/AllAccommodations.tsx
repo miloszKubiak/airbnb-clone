@@ -8,8 +8,8 @@ import { UserContext } from "../context/UserContext";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
-  // const { getUserFavorites } = useContext(FavoritesContext);
-  // const { user } = useContext(UserContext);
+  const { favorites, getUserFavorites } = useContext(FavoritesContext);
+  const { user } = useContext(UserContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [numOfPages, setNumOfPages] = useState(1);
 
@@ -22,6 +22,12 @@ export const AllAccommodations = () => {
     setAccommodations(response.data.accommodations);
     setNumOfPages(response.data.numOfPages);
   };
+
+  useEffect(() => {
+    getUserFavorites();
+  }, [user]);
+
+  console.log(favorites);
 
   useEffect(() => {
     getAllAccommodations();
