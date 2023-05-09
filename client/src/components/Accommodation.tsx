@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaHeart, FaStar } from "react-icons/all";
+import { useContext, useState } from "react";
+import { FavoritesContext } from "../context/FavoritesContext";
 
 export type TAccommodation = {
   _id?: string;
@@ -28,6 +30,7 @@ type AccommodationProps = {
   price: number;
   averageRating: number;
   numOfReviews: number;
+  // onAddOrRemove: (_id: string) => void;
 };
 
 export const Accommodation = ({
@@ -37,13 +40,33 @@ export const Accommodation = ({
   address,
   price,
   averageRating,
-}: AccommodationProps) => {
+}: // onAddOrRemove,
+AccommodationProps) => {
+  const [selected, setSelected] = useState(false);
+  const { removeFromFavorites, addToFavorites } = useContext(FavoritesContext);
+
+  const handleAddOrRemove = async (_id: string) => {
+    if (selected) {
+      removeFromFavorites(_id);
+    } else {
+      addToFavorites(_id);
+    }
+  };
+
   return (
     <div className="relative">
       <div
-        className="absolute right-0 top-0 mt-4 mr-4
-        duration-300 text-2xl text-zinc-700 hover:text-rose-400 cursor-pointer"
-        onClick={() => console.log(title)}
+        className={`absolute right-0 top-0 mt-4 mr-4
+          duration-300 text-2xl text-zinc-700 hover:text-rose-400 cursor-pointer ${
+            selected && `text-red-500`
+          }`}
+        onClick={() => {
+          // onAddOrRemove(_id!);
+          setSelected(!selected);
+          handleAddOrRemove(_id!);
+          console.log(title);
+          console.log(selected);
+        }}
         //selected, if true add to favorites else remove
       >
         <FaHeart />

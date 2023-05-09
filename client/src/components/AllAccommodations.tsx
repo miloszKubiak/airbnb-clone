@@ -8,7 +8,8 @@ import { UserContext } from "../context/UserContext";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
-  const { favorites, getUserFavorites } = useContext(FavoritesContext);
+  const { favorites, getUserFavorites, addToFavorites, removeFromFavorites } =
+    useContext(FavoritesContext);
   const { user } = useContext(UserContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [numOfPages, setNumOfPages] = useState(1);
@@ -53,6 +54,7 @@ export const AllAccommodations = () => {
             price={accommodation.price}
             averageRating={accommodation.averageRating}
             numOfReviews={accommodation.numOfReviews}
+            // onAddOrRemove={() => handleAddOrRemove(accommodation._id!)}
           />
         ))}
       </div>
