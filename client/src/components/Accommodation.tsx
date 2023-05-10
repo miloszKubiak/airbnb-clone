@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FaHeart, FaStar } from "react-icons/all";
 import { useContext, useState } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
+import { UserContext } from "../context/UserContext";
 
 export type TAccommodation = {
   _id?: string;
@@ -44,12 +45,13 @@ export const Accommodation = ({
 AccommodationProps) => {
   const [selected, setSelected] = useState(false);
   const { removeFromFavorites, addToFavorites } = useContext(FavoritesContext);
+  const { user } = useContext(UserContext);
 
   const handleAddOrRemove = async (_id: string) => {
     if (selected) {
       removeFromFavorites(_id);
     } else {
-      addToFavorites(_id);
+      addToFavorites(_id, user?._id);
     }
   };
 

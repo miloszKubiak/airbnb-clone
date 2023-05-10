@@ -55,20 +55,19 @@ export const FavoritesContextProvider = ({
     }
   };
 
-  const addToFavorites = async (accommodation: string) => {
-    // const data = {
-    //   accommodation: accommodation,
-    //   user: user,
-    // };
-    // const response = await axios.post("/user-favorites", data);
-    // const _id = response.data.favorite._id;
-    //
-    // setFavorites((prev: any) => [...prev, { data, _id }]);
-    console.log(`${accommodation} removed from favorites`);
-    setFavorites((prev: any) => [...prev, accommodation]);
+  const addToFavorites = async (accommodation: string, user: string) => {
+    const data = {
+      accommodation,
+      user,
+    };
+    const response = await axios.post("/user-favorites", data);
+    const _id = response.data.favorite._id;
+    console.log(`${accommodation} added to favorites`);
+    setFavorites((prev: any) => [...prev, { _id, ...data }]);
   };
 
-  const removeFromFavorites = async (id: string) => {
+  const removeFromFavorites = async (id: any) => {
+    await axios.delete(`/user-favorites`, id);
     console.log(`${id} removed from favorites`);
     setFavorites(favorites.filter((favorite: any) => favorite !== id));
   };
