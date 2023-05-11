@@ -43,15 +43,20 @@ export const Accommodation = ({
   averageRating,
 }: // onAddOrRemove,
 AccommodationProps) => {
-  const [selected, setSelected] = useState(false);
-  const { removeFromFavorites, addToFavorites } = useContext(FavoritesContext);
+  const {
+    removeFromFavorites,
+    addToFavorites,
+    favorites,
+    isFavorite,
+    setIsFavorite,
+  } = useContext(FavoritesContext);
   const { user } = useContext(UserContext);
 
   const handleAddOrRemove = async (_id: string) => {
-    if (selected) {
+    if (isFavorite) {
       removeFromFavorites(_id);
     } else {
-      addToFavorites(_id, user?._id);
+      addToFavorites(_id, user!._id!);
     }
   };
 
@@ -60,14 +65,14 @@ AccommodationProps) => {
       <div
         className={`absolute right-0 top-0 mt-4 mr-4
           duration-300 text-2xl text-zinc-700 hover:text-rose-400 cursor-pointer ${
-            selected && `text-red-500`
+            isFavorite ? `text-red-500` : `text-blue-500`
           }`}
         onClick={() => {
           // onAddOrRemove(_id!);
-          setSelected(!selected);
+          setIsFavorite(!isFavorite);
           handleAddOrRemove(_id!);
           console.log(title);
-          console.log(selected);
+          console.log(isFavorite);
         }}
         //selected, if true add to favorites else remove
       >

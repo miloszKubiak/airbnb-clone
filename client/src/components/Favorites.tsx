@@ -3,7 +3,8 @@ import { FavoritesContext } from "../context/FavoritesContext";
 import { Accommodation } from "./Accommodation";
 
 export const Favorites = () => {
-  const { favorites, getUserFavorites } = useContext(FavoritesContext);
+  const { favorites, getUserFavorites, removeFromFavorites } =
+    useContext(FavoritesContext);
 
   useEffect(() => {
     getUserFavorites();
@@ -14,7 +15,7 @@ export const Favorites = () => {
       <div className="py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
         {favorites.map((favorite) => (
           <Accommodation
-            key={favorite._id}
+            key={favorite.accommodation._id}
             _id={favorite.accommodation._id}
             photos={favorite.accommodation.photos!}
             title={favorite.accommodation.title}

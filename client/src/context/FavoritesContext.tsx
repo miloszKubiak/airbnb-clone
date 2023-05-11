@@ -23,14 +23,17 @@ export type TFavorite = {
   >;
   user: string;
   _id: string;
+  isFavorite: boolean;
 };
 
 type FavoritesContextType = {
   favorites: TFavorite[];
   setFavorites: Dispatch<SetStateAction<TFavorite[]>>;
   getUserFavorites: () => void;
-  addToFavorites: (accommodation: string, user?: string) => void;
+  addToFavorites: (accommodation: string, user: string) => void;
   removeFromFavorites: (id: string) => void;
+  isFavorite: boolean;
+  setIsFavorite: Dispatch<SetStateAction<boolean>>;
 };
 
 type FavoritesContextProviderProps = {
@@ -45,6 +48,7 @@ export const FavoritesContextProvider = ({
   children,
 }: FavoritesContextProviderProps) => {
   const [favorites, setFavorites] = useState<TFavorite[]>([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const getUserFavorites = async () => {
     try {
@@ -66,10 +70,13 @@ export const FavoritesContextProvider = ({
     setFavorites((prev: any) => [...prev, { _id, ...data }]);
   };
 
-  const removeFromFavorites = async (id: any) => {
-    await axios.delete(`/user-favorites`, id);
-    console.log(`${id} removed from favorites`);
-    setFavorites(favorites.filter((favorite: any) => favorite !== id));
+  const removeFromFavorites = async (accommodation: any) => {
+    await axios.delete(`/user-favorites`, accommodation);
+    console.log(`${accommodation} removed from favorites`);
+    setFavorites(
+      favorites.filter((favorite: any) => favorite !== accommodation)
+    );
+    setIsFavorite(false);
   };
 
   return (
@@ -80,6 +87,8 @@ export const FavoritesContextProvider = ({
         getUserFavorites,
         addToFavorites,
         removeFromFavorites,
+        isFavorite,
+        setIsFavorite,
       }}
     >
       {children}
