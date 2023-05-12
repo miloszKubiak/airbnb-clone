@@ -87,13 +87,11 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <UserContextProvider>
-      <SearchContextProvider>
-        <FavoritesContextProvider>
-          <RouterProvider router={router} />
-        </FavoritesContextProvider>
-      </SearchContextProvider>
-    </UserContextProvider>
-  </React.StrictMode>
+  <UserContextProvider>
+    <SearchContextProvider>
+      <FavoritesContextProvider>
+        <RouterProvider router={router} />
+      </FavoritesContextProvider>
+    </SearchContextProvider>
+  </UserContextProvider>
 );

@@ -23,7 +23,7 @@ export type TFavorite = {
   >;
   user: string;
   _id: string;
-  isFavorite: boolean;
+  isFav: boolean;
 };
 
 type FavoritesContextType = {
@@ -32,8 +32,6 @@ type FavoritesContextType = {
   getUserFavorites: () => void;
   addToFavorites: (accommodation: string, user: string) => void;
   removeFromFavorites: (id: string) => void;
-  isFavorite: boolean;
-  setIsFavorite: Dispatch<SetStateAction<boolean>>;
 };
 
 type FavoritesContextProviderProps = {
@@ -48,7 +46,6 @@ export const FavoritesContextProvider = ({
   children,
 }: FavoritesContextProviderProps) => {
   const [favorites, setFavorites] = useState<TFavorite[]>([]);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   const getUserFavorites = async () => {
     try {
@@ -76,7 +73,6 @@ export const FavoritesContextProvider = ({
     setFavorites(
       favorites.filter((favorite: any) => favorite !== accommodation)
     );
-    setIsFavorite(false);
   };
 
   return (
@@ -87,8 +83,6 @@ export const FavoritesContextProvider = ({
         getUserFavorites,
         addToFavorites,
         removeFromFavorites,
-        isFavorite,
-        setIsFavorite,
       }}
     >
       {children}

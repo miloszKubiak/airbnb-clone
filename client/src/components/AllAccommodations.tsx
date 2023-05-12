@@ -25,14 +25,14 @@ export const AllAccommodations = () => {
   };
 
   useEffect(() => {
+    getAllAccommodations();
+  }, [category, page, sort]);
+
+  useEffect(() => {
     getUserFavorites();
   }, [user]);
 
   console.log(favorites);
-
-  useEffect(() => {
-    getAllAccommodations();
-  }, [category, page, sort]);
 
   if (accommodations.length === 0)
     return (
@@ -40,6 +40,16 @@ export const AllAccommodations = () => {
         <h2>There are no accommodations in category {category}.</h2>
       </div>
     );
+
+  // const isFound = favorites.find((favorite) => favorite.accommodation._id);
+  // console.log(isFound);
+  // let favoritesIDsArray = favorites.map(
+  //   (favorite) => favorite.accommodation._id
+  // );
+  // console.log(favoritesIDsArray);
+
+  // const dupa = favorites.filter((favorite) => favorite.accommodation._id);
+  // console.log(dupa);
 
   return (
     <div className="flex flex-col items-center justify-center">

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaHeart, FaStar } from "react-icons/all";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { UserContext } from "../context/UserContext";
 
@@ -43,20 +43,22 @@ export const Accommodation = ({
   averageRating,
 }: // onAddOrRemove,
 AccommodationProps) => {
-  const {
-    removeFromFavorites,
-    addToFavorites,
-    favorites,
-    isFavorite,
-    setIsFavorite,
-  } = useContext(FavoritesContext);
+  const { removeFromFavorites, addToFavorites, favorites } =
+    useContext(FavoritesContext);
   const { user } = useContext(UserContext);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const isFound = favorites.find(
+    (favorite) => favorite.accommodation._id === _id
+  );
 
   const handleAddOrRemove = async (_id: string) => {
-    if (isFavorite) {
+    if (isFound) {
       removeFromFavorites(_id);
+      setIsFavorite(false);
     } else {
       addToFavorites(_id, user!._id!);
+      setIsFavorite(true);
     }
   };
 
@@ -64,14 +66,14 @@ AccommodationProps) => {
     <div className="relative">
       <div
         className={`absolute right-0 top-0 mt-4 mr-4
-          duration-300 text-2xl text-zinc-700 hover:text-rose-400 cursor-pointer ${
-            isFavorite ? `text-red-500` : `text-blue-500`
-          }`}
+          duration-300 text-2xl text-zinc-700 hover:text-rose-400 ${
+            isFound && "text-rose-500 "
+          } cursor-pointer`}
         onClick={() => {
           // onAddOrRemove(_id!);
           setIsFavorite(!isFavorite);
           handleAddOrRemove(_id!);
-          console.log(title);
+          console.log(_id + " " + title);
           console.log(isFavorite);
         }}
         //selected, if true add to favorites else remove
