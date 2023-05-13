@@ -31,7 +31,7 @@ type AccommodationProps = {
   price: number;
   averageRating: number;
   numOfReviews: number;
-  // onAddOrRemove: (_id: string) => void;
+  onAddOrRemove: (_id: string) => void;
 };
 
 export const Accommodation = ({
@@ -41,6 +41,7 @@ export const Accommodation = ({
   address,
   price,
   averageRating,
+  onAddOrRemove,
 }: // onAddOrRemove,
 AccommodationProps) => {
   const { removeFromFavorites, addToFavorites, favorites } =
@@ -51,29 +52,27 @@ AccommodationProps) => {
   const isFound = favorites.find(
     (favorite) => favorite.accommodation._id === _id
   );
-
-  const handleAddOrRemove = async (_id: string) => {
-    if (isFound) {
-      removeFromFavorites(_id);
-      setIsFavorite(false);
-    } else {
-      addToFavorites(_id, user!._id!);
-      setIsFavorite(true);
-    }
-  };
+  console.log(isFound);
+  // const handleAddOrRemove = async (_id: string) => {
+  //   if (isFound) {
+  //     removeFromFavorites(_id);
+  //     setIsFavorite(false);
+  //   } else {
+  //     addToFavorites(_id, user!._id!);
+  //     setIsFavorite(true);
+  //   }
+  // };
 
   return (
     <div className="relative">
       <div
         className={`absolute right-0 top-0 mt-4 mr-4
           duration-300 text-2xl text-zinc-700 hover:text-rose-400 ${
-            isFound && "text-rose-500 "
+            isFound && "text-rose-400 "
           } cursor-pointer`}
         onClick={() => {
-          // onAddOrRemove(_id!);
-          setIsFavorite(!isFavorite);
-          handleAddOrRemove(_id!);
-          console.log(_id + " " + title);
+          onAddOrRemove(_id!);
+          // handleAddOrRemove(_id!);
           console.log(isFavorite);
         }}
         //selected, if true add to favorites else remove

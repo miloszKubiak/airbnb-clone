@@ -8,11 +8,23 @@ import { UserContext } from "../context/UserContext";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
-  const { favorites, getUserFavorites, addToFavorites, removeFromFavorites } =
-    useContext(FavoritesContext);
+  const {
+    favorites,
+    getUserFavorites,
+    addToFavorites,
+    removeFromFavorites,
+    selectedId,
+    setSelectedId,
+  } = useContext(FavoritesContext);
   const { user } = useContext(UserContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [numOfPages, setNumOfPages] = useState(1);
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const isFound = favorites?.find((favorite) => favorite.accommodation._id);
+  console.log(isFound);
+  console.log(favorites);
 
   const getAllAccommodations = async () => {
     let url = `/accommodations?page=${page}&sort=${sort}&category=${category}`;
@@ -24,15 +36,23 @@ export const AllAccommodations = () => {
     setNumOfPages(response.data.numOfPages);
   };
 
+  const handleAddOrRemove = async (_id: string) => {
+    if (isFound) {
+      removeFromFavorites(selectedId!);
+      setIsFavorite(false);
+    } else {
+      addToFavorites(selectedId!, user!._id!);
+      setIsFavorite(true);
+    }
+  };
+
   useEffect(() => {
     getAllAccommodations();
   }, [category, page, sort]);
 
   useEffect(() => {
     getUserFavorites();
-  }, [user]);
-
-  console.log(favorites);
+  }, [user, selectedId]);
 
   if (accommodations.length === 0)
     return (
@@ -64,7 +84,7 @@ export const AllAccommodations = () => {
             price={accommodation.price}
             averageRating={accommodation.averageRating}
             numOfReviews={accommodation.numOfReviews}
-            // onAddOrRemove={() => handleAddOrRemove(accommodation._id!)}
+            onAddOrRemove={() => handleAddOrRemove(accommodation._id!)}
           />
         ))}
       </div>

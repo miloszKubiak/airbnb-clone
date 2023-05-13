@@ -32,6 +32,8 @@ type FavoritesContextType = {
   getUserFavorites: () => void;
   addToFavorites: (accommodation: string, user: string) => void;
   removeFromFavorites: (id: string) => void;
+  selectedId: string;
+  setSelectedId: Dispatch<SetStateAction<string>>;
 };
 
 type FavoritesContextProviderProps = {
@@ -46,6 +48,7 @@ export const FavoritesContextProvider = ({
   children,
 }: FavoritesContextProviderProps) => {
   const [favorites, setFavorites] = useState<TFavorite[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const getUserFavorites = async () => {
     try {
@@ -61,18 +64,23 @@ export const FavoritesContextProvider = ({
       accommodation,
       user,
     };
+    // const _id = new Date().toISOString();
+    setSelectedId(accommodation);
     const response = await axios.post("/user-favorites", data);
     const _id = response.data.favorite._id;
     console.log(`${accommodation} added to favorites`);
     setFavorites((prev: any) => [...prev, { _id, ...data }]);
+    setSelectedId(null);
   };
 
   const removeFromFavorites = async (accommodation: any) => {
+    setSelectedId(accommodation);
     await axios.delete(`/user-favorites`, accommodation);
     console.log(`${accommodation} removed from favorites`);
     setFavorites(
       favorites.filter((favorite: any) => favorite !== accommodation)
     );
+    setSelectedId(null);
   };
 
   return (
@@ -83,6 +91,8 @@ export const FavoritesContextProvider = ({
         getUserFavorites,
         addToFavorites,
         removeFromFavorites,
+        selectedId,
+        setSelectedId,
       }}
     >
       {children}
