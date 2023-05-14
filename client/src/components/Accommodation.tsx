@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaHeart, FaStar } from "react-icons/all";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
-import { UserContext } from "../context/UserContext";
 
 export type TAccommodation = {
   _id?: string;
@@ -32,6 +31,7 @@ type AccommodationProps = {
   averageRating: number;
   numOfReviews: number;
   onAddOrRemove: (_id: string) => void;
+  onSelectedId: (_id: string) => void;
 };
 
 export const Accommodation = ({
@@ -42,40 +42,26 @@ export const Accommodation = ({
   price,
   averageRating,
   onAddOrRemove,
-}: // onAddOrRemove,
-AccommodationProps) => {
-  const { removeFromFavorites, addToFavorites, favorites } =
-    useContext(FavoritesContext);
-  const { user } = useContext(UserContext);
-  const [isFavorite, setIsFavorite] = useState(false);
+  onSelectedId,
+}: AccommodationProps) => {
+  const { favorites } = useContext(FavoritesContext);
 
   const isFound = favorites.find(
     (favorite) => favorite.accommodation._id === _id
   );
-  console.log(isFound);
-  // const handleAddOrRemove = async (_id: string) => {
-  //   if (isFound) {
-  //     removeFromFavorites(_id);
-  //     setIsFavorite(false);
-  //   } else {
-  //     addToFavorites(_id, user!._id!);
-  //     setIsFavorite(true);
-  //   }
-  // };
 
   return (
     <div className="relative">
       <div
         className={`absolute right-0 top-0 mt-4 mr-4
           duration-300 text-2xl text-zinc-700 hover:text-rose-400 ${
-            isFound && "text-rose-400 "
+            isFound && "text-rose-500 "
           } cursor-pointer`}
         onClick={() => {
           onAddOrRemove(_id!);
-          // handleAddOrRemove(_id!);
-          console.log(isFavorite);
+          onSelectedId(_id!);
+          console.log(_id);
         }}
-        //selected, if true add to favorites else remove
       >
         <FaHeart />
       </div>

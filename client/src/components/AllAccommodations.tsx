@@ -8,23 +8,16 @@ import { UserContext } from "../context/UserContext";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
-  const {
-    favorites,
-    getUserFavorites,
-    addToFavorites,
-    removeFromFavorites,
-    selectedId,
-    setSelectedId,
-  } = useContext(FavoritesContext);
+  const { favorites, getUserFavorites, addToFavorites, removeFromFavorites } =
+    useContext(FavoritesContext);
   const { user } = useContext(UserContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [numOfPages, setNumOfPages] = useState(1);
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const isFound = favorites?.find((favorite) => favorite.accommodation._id);
-  console.log(isFound);
-  console.log(favorites);
+  const favoritesIds = favorites.map((favorite) => favorite.accommodation._id);
 
   const getAllAccommodations = async () => {
     let url = `/accommodations?page=${page}&sort=${sort}&category=${category}`;
@@ -37,14 +30,19 @@ export const AllAccommodations = () => {
   };
 
   const handleAddOrRemove = async (_id: string) => {
-    if (isFound) {
-      removeFromFavorites(selectedId!);
+    if (favoritesIds.includes(_id)) {
+      console.log(`w delete requescie ${_id}`);
+      removeFromFavorites(_id);
       setIsFavorite(false);
+      setSelectedId(null);
     } else {
-      addToFavorites(selectedId!, user!._id!);
+      console.log(`w post requescie ${_id}`);
+      addToFavorites(_id, user!._id!);
       setIsFavorite(true);
+      setSelectedId(null);
     }
   };
+  console.log(selectedId);
 
   useEffect(() => {
     getAllAccommodations();
@@ -61,16 +59,6 @@ export const AllAccommodations = () => {
       </div>
     );
 
-  // const isFound = favorites.find((favorite) => favorite.accommodation._id);
-  // console.log(isFound);
-  // let favoritesIDsArray = favorites.map(
-  //   (favorite) => favorite.accommodation._id
-  // );
-  // console.log(favoritesIDsArray);
-
-  // const dupa = favorites.filter((favorite) => favorite.accommodation._id);
-  // console.log(dupa);
-
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
@@ -85,6 +73,9 @@ export const AllAccommodations = () => {
             averageRating={accommodation.averageRating}
             numOfReviews={accommodation.numOfReviews}
             onAddOrRemove={() => handleAddOrRemove(accommodation._id!)}
+            onSelectedId={() => {
+              setSelectedId(accommodation._id!);
+            }}
           />
         ))}
       </div>

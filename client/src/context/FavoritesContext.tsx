@@ -32,8 +32,8 @@ type FavoritesContextType = {
   getUserFavorites: () => void;
   addToFavorites: (accommodation: string, user: string) => void;
   removeFromFavorites: (id: string) => void;
-  selectedId: string;
-  setSelectedId: Dispatch<SetStateAction<string>>;
+  // selectedId: string | null;
+  // setSelectedId: Dispatch<SetStateAction<string | null>>;
 };
 
 type FavoritesContextProviderProps = {
@@ -48,14 +48,14 @@ export const FavoritesContextProvider = ({
   children,
 }: FavoritesContextProviderProps) => {
   const [favorites, setFavorites] = useState<TFavorite[]>([]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  // const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const getUserFavorites = async () => {
     try {
       const response = await axios.get("/user-favorites");
       setFavorites(response.data.favorites);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -64,23 +64,14 @@ export const FavoritesContextProvider = ({
       accommodation,
       user,
     };
-    // const _id = new Date().toISOString();
-    setSelectedId(accommodation);
     const response = await axios.post("/user-favorites", data);
     const _id = response.data.favorite._id;
-    console.log(`${accommodation} added to favorites`);
     setFavorites((prev: any) => [...prev, { _id, ...data }]);
-    setSelectedId(null);
   };
 
-  const removeFromFavorites = async (accommodation: any) => {
-    setSelectedId(accommodation);
-    await axios.delete(`/user-favorites`, accommodation);
-    console.log(`${accommodation} removed from favorites`);
-    setFavorites(
-      favorites.filter((favorite: any) => favorite !== accommodation)
-    );
-    setSelectedId(null);
+  const removeFromFavorites = async (id: string) => {
+    await axios.delete(`/user-favorites/${id}`);
+    setFavorites(favorites.filter((favorite: any) => favorite !== id));
   };
 
   return (
@@ -91,8 +82,8 @@ export const FavoritesContextProvider = ({
         getUserFavorites,
         addToFavorites,
         removeFromFavorites,
-        selectedId,
-        setSelectedId,
+        // selectedId,
+        // setSelectedId,
       }}
     >
       {children}

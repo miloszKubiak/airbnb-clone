@@ -40,9 +40,13 @@ export const getUserFavorites = async (req: Request, res: Response) => {
 };
 
 export const removeFromFavorites = async (req: Request, res: Response) => {
-  const { id: favoriteId } = req.body;
+  const { id: favoriteId } = req.params;
+  req.body.user = req.cookies.userId;
 
-  const favorite = await Favorites.findOne({ _id: favoriteId });
+  const favorite = await Favorites.findOne({
+    accommodation: favoriteId,
+    user: req.body.user,
+  });
 
   if (!favorite) {
     return res
