@@ -13,8 +13,6 @@ export const AllAccommodations = () => {
   const { user } = useContext(UserContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [numOfPages, setNumOfPages] = useState(1);
-
-  const [isFavorite, setIsFavorite] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const favoritesIds = favorites.map((favorite) => favorite.accommodation._id);
@@ -33,12 +31,10 @@ export const AllAccommodations = () => {
     if (favoritesIds.includes(_id)) {
       console.log(`w delete requescie ${_id}`);
       removeFromFavorites(_id);
-      setIsFavorite(false);
       setSelectedId(null);
     } else {
       console.log(`w post requescie ${_id}`);
       addToFavorites(_id, user!._id!);
-      setIsFavorite(true);
       setSelectedId(null);
     }
   };
@@ -50,7 +46,7 @@ export const AllAccommodations = () => {
 
   useEffect(() => {
     getUserFavorites();
-  }, [user, selectedId]);
+  }, [user, category, page, sort, selectedId]);
 
   if (accommodations.length === 0)
     return (

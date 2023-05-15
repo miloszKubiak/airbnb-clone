@@ -46,7 +46,7 @@ export const Accommodation = ({
 }: AccommodationProps) => {
   const { favorites } = useContext(FavoritesContext);
 
-  const isFound = favorites.find(
+  const isFavorite = favorites.find(
     (favorite) => favorite.accommodation._id === _id
   );
 
@@ -55,7 +55,7 @@ export const Accommodation = ({
       <div
         className={`absolute right-0 top-0 mt-4 mr-4
           duration-300 text-2xl text-zinc-700 hover:text-rose-400 ${
-            isFound && "text-rose-500 "
+            isFavorite && "text-rose-400 "
           } cursor-pointer`}
         onClick={() => {
           onAddOrRemove(_id!);
@@ -65,24 +65,27 @@ export const Accommodation = ({
       >
         <FaHeart />
       </div>
-      <Link to={"/accommodations/" + _id} className="flex gap-4">
-        <div className="flex flex-col gap-1 justify-between">
-          <img
-            className="object-cover aspect-square rounded-2xl"
-            src={photos?.[0]}
-            alt="photo of the place"
-          />
-          <div className="flex items-center justify-between">
-            <h2 className="text-xs sm:text-sm font-bold">{title}</h2>
-            <div className="flex items-center gap-1">
-              <p className="flex gap-1 text-xs">
-                <FaStar />
-                66
-              </p>
-              <p>{averageRating}</p>
+      <Link to={"/accommodations/" + _id} className="flex flex-col h-full">
+        <img
+          className="object-cover aspect-square rounded-2xl"
+          src={photos?.[0]}
+          alt="photo of the place"
+        />
+        <div className="h-full flex flex-col justify-between">
+          <div className="">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xs sm:text-sm font-bold">{title}</h2>
+              <div className="flex items-center gap-1">
+                <p className="flex gap-1 text-xs">
+                  <FaStar />
+                  66
+                </p>
+                <p>{averageRating}</p>
+              </div>
             </div>
+            <h3 className="text-xs">{address}</h3>
           </div>
-          <h3 className="text-xs">{address}</h3>
+
           <p className="font-bold">
             {price} € <span className="text-sm font-medium">per night</span>
           </p>
