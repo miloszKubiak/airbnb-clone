@@ -65,7 +65,7 @@ export const SingleAccommodationPage = () => {
             <div className="flex items-center gap-1">
               <Stats
                 numberOfReviews={calculatedNumberOfReviews}
-                averageRating={Number(calculatedAverageRating)}
+                averageRating={+calculatedAverageRating}
               />
               <AddressLink address={accommodation.address} />
             </div>
@@ -96,7 +96,7 @@ export const SingleAccommodationPage = () => {
             accommodation={accommodation}
             reviews={reviews}
             setReviews={setReviews}
-            averageRating={Number(calculatedAverageRating)}
+            averageRating={+calculatedAverageRating}
             numberOfReviews={calculatedNumberOfReviews}
           />
         </div>

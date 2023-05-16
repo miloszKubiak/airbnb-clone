@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 export const accommodationSchema = yup.object().shape({
   title: yup.string().required("Title is required."),
-  address: yup.string().required("Address is required."),
+  address: yup.string().max(30).required("Address is required."),
   description: yup.string().required("Description is required."),
   photos: yup.string().required("Photo is required."),
   perks: yup.array().of(yup.string()),

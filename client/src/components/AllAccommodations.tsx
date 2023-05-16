@@ -56,7 +56,7 @@ export const AllAccommodations = () => {
     );
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-between">
       <div className="py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
         {accommodations.map((accommodation) => (
           <Accommodation

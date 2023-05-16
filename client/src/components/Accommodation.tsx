@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FaHeart, FaStar } from "react-icons/all";
 import { useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
+import { Stats } from "./Stats";
 
 export type TAccommodation = {
   _id?: string;
@@ -55,7 +56,7 @@ export const Accommodation = ({
       <div
         className={`absolute right-0 top-0 mt-4 mr-4
           duration-300 text-2xl text-zinc-700 hover:text-rose-400 ${
-            isFavorite && "text-rose-400 "
+            isFavorite && "text-red-400 "
           } cursor-pointer`}
         onClick={() => {
           onAddOrRemove(_id!);
@@ -72,20 +73,18 @@ export const Accommodation = ({
           alt="photo of the place"
         />
         <div className="h-full flex flex-col justify-between">
-          <div className="">
+          <div>
             <div className="flex items-center justify-between">
-              <h2 className="text-xs sm:text-sm font-bold">{title}</h2>
+              <h2 className="text-xs md:text-sm font-bold">{title}</h2>
               <div className="flex items-center gap-1">
                 <p className="flex gap-1 text-xs">
                   <FaStar />
-                  66
                 </p>
                 <p>{averageRating}</p>
               </div>
             </div>
             <h3 className="text-xs">{address}</h3>
           </div>
-
           <p className="font-bold">
             {price} € <span className="text-sm font-medium">per night</span>
           </p>
