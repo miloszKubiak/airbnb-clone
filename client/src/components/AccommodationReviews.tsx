@@ -1,5 +1,5 @@
-import { Review, TReview } from "./Review";
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { Review } from "./Review";
+import { useContext, useState } from "react";
 import { Modal, ModalConfirm } from "./Modal";
 import { UserContext } from "../context/UserContext";
 import { BsDot, FaStar } from "react-icons/all";
@@ -7,19 +7,16 @@ import { TAccommodation } from "./Accommodation";
 import axios from "axios";
 import { AddReviewModal } from "./AddReviewModal";
 import { EditReviewModal } from "./EditReviewModal";
+import { ReviewsContext } from "../context/ReviewsContext";
 
 type AccommodationReviewsProps = {
-  reviews: TReview[];
   averageRating: number;
   numberOfReviews: number;
-  setReviews: Dispatch<SetStateAction<TReview[]>>;
   accommodation: TAccommodation;
 };
 
 export const AccommodationReviews = ({
   accommodation,
-  reviews,
-  setReviews,
   averageRating,
   numberOfReviews,
 }: AccommodationReviewsProps) => {
@@ -27,6 +24,7 @@ export const AccommodationReviews = ({
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false); //!!reviewToDelete zamiast state
   const [selectedReviewId, setSelectedReviewId] = useState<string | null>(null);
   const { user } = useContext(UserContext);
+  const { reviews, setReviews } = useContext(ReviewsContext);
 
   const deleteReview = async () => {
     await axios.delete(`/reviews/${selectedReviewId}`);
