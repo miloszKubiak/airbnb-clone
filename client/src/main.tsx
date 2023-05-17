@@ -20,6 +20,7 @@ import { Profile } from "./pages/Profile";
 import { App } from "./App";
 import { SearchContextProvider } from "./context/SearchContext";
 import { FavoritesContextProvider } from "./context/FavoritesContext";
+import { ReviewsContextProvider } from "./context/ReviewsContext";
 
 const router = createBrowserRouter([
   {
@@ -90,7 +91,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <UserContextProvider>
     <SearchContextProvider>
       <FavoritesContextProvider>
-        <RouterProvider router={router} />
+        <ReviewsContextProvider>
+          <RouterProvider router={router} />
+        </ReviewsContextProvider>
       </FavoritesContextProvider>
     </SearchContextProvider>
   </UserContextProvider>

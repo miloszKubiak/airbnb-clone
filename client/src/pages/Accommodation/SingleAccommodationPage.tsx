@@ -9,37 +9,45 @@ import {
   Stats,
 } from "../../components";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { TAccommodation } from "../../components/Accommodation";
 import { TReview } from "../../components/Review";
+import { ReviewsContext } from "../../context/ReviewsContext";
 
 export const SingleAccommodationPage = () => {
+  const {
+    reviews,
+    setReviews,
+    calculatedNumberOfReviews,
+    calculatedAverageRating,
+    getAllReviews,
+  } = useContext(ReviewsContext);
   const { id: accommodationId } = useParams();
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
   );
-  const [reviews, setReviews] = useState<TReview[]>([]);
-
-  const calculatedNumberOfReviews = reviews.length;
-  const calculatedAverageRating = (
-    reviews.reduce((total, next) => total + next.rating, 0) /
-    calculatedNumberOfReviews
-  ).toFixed(2);
+  // const [reviews, setReviews] = useState<TReview[]>([]);
+  //
+  // const calculatedNumberOfReviews = reviews.length;
+  // const calculatedAverageRating = (
+  //   reviews.reduce((total, next) => total + next.rating, 0) /
+  //   calculatedNumberOfReviews
+  // ).toFixed(2);
 
   const getAccommodation = async () => {
     const response = await axios.get(`/accommodations/${accommodationId}`);
     setAccommodation(response.data);
   };
-  const getAllReviews = async () => {
-    const response = await axios.get(
-      `/accommodations/${accommodationId}/reviews`
-    );
-    setReviews(response.data.reviews);
-  };
+  // const getAllReviews = async () => {
+  //   const response = await axios.get(
+  //     `/accommodations/${accommodationId}/reviews`
+  //   );
+  //   setReviews(response.data.reviews);
+  // };
 
   useEffect(() => {
-    getAllReviews();
+    getAllReviews(accommodationId!);
   }, []);
 
   useEffect(() => {
