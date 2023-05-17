@@ -42,7 +42,7 @@ export const AddReviewModal = ({
       const response = await axios.post(`/reviews`, data);
       const _id = response.data.review._id;
       alert("Added review.");
-      onAddReviewSuccess({ ...data, _id });
+      onAddReviewSuccess({ ...data, _id }); //poprawic, skorzystac z context
       onClose();
       console.log(`reviewID: ${_id}`);
     } catch (error: any) {

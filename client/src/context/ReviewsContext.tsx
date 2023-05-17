@@ -14,6 +14,11 @@ type ReviewsContextType = {
   calculatedNumberOfReviews: number;
   calculatedAverageRating: string;
   getAllReviews: (accommodationId: string) => void;
+  deleteReview: () => void;
+  selectedReviewId: string | null;
+  setSelectedReviewId: Dispatch<SetStateAction<string | null>>;
+  modalDeleteOpen: boolean;
+  setModalDeleteOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 type ReviewsContextProviderProps = {
@@ -29,6 +34,9 @@ export const ReviewsContextProvider = ({
 }: ReviewsContextProviderProps) => {
   const [reviews, setReviews] = useState<TReview[]>([]);
 
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false); //!!reviewToDelete zamiast state
+  const [selectedReviewId, setSelectedReviewId] = useState<string | null>(null);
+
   const calculatedNumberOfReviews = reviews.length;
   const calculatedAverageRating = (
     reviews.reduce((total, next) => total + next.rating, 0) /
@@ -42,6 +50,13 @@ export const ReviewsContextProvider = ({
     setReviews(response.data.reviews);
   };
 
+  const deleteReview = async () => {
+    await axios.delete(`/reviews/${selectedReviewId}`);
+    setModalDeleteOpen(false);
+    setSelectedReviewId(null);
+    setReviews(reviews.filter((review) => review._id !== selectedReviewId));
+  };
+
   return (
     <ReviewsContext.Provider
       value={{
@@ -50,6 +65,11 @@ export const ReviewsContextProvider = ({
         calculatedNumberOfReviews,
         calculatedAverageRating,
         getAllReviews,
+        deleteReview,
+        modalDeleteOpen,
+        setModalDeleteOpen,
+        selectedReviewId,
+        setSelectedReviewId,
       }}
     >
       {children}

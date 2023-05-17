@@ -4,7 +4,6 @@ import { Modal, ModalConfirm } from "./Modal";
 import { UserContext } from "../context/UserContext";
 import { BsDot, FaStar } from "react-icons/all";
 import { TAccommodation } from "./Accommodation";
-import axios from "axios";
 import { AddReviewModal } from "./AddReviewModal";
 import { EditReviewModal } from "./EditReviewModal";
 import { ReviewsContext } from "../context/ReviewsContext";
@@ -21,17 +20,16 @@ export const AccommodationReviews = ({
   numberOfReviews,
 }: AccommodationReviewsProps) => {
   const [reviewModalOpen, setReviewModalOpen] = useState(false); //zmienic nazwe na addoredit modal
-  const [modalDeleteOpen, setModalDeleteOpen] = useState(false); //!!reviewToDelete zamiast state
-  const [selectedReviewId, setSelectedReviewId] = useState<string | null>(null);
   const { user } = useContext(UserContext);
-  const { reviews, setReviews } = useContext(ReviewsContext);
-
-  const deleteReview = async () => {
-    await axios.delete(`/reviews/${selectedReviewId}`);
-    setModalDeleteOpen(false);
-    setSelectedReviewId(null);
-    setReviews(reviews.filter((review) => review._id !== selectedReviewId));
-  };
+  const {
+    reviews,
+    setReviews,
+    deleteReview,
+    selectedReviewId,
+    setSelectedReviewId,
+    modalDeleteOpen,
+    setModalDeleteOpen,
+  } = useContext(ReviewsContext);
 
   console.log(selectedReviewId);
 
@@ -42,8 +40,8 @@ export const AccommodationReviews = ({
           reviewModalOpen={reviewModalOpen}
           accommodation={accommodation}
           onClose={() => setReviewModalOpen(false)}
-          onAddReviewSuccess={(review) =>
-            setReviews((prev) => [...prev, review])
+          onAddReviewSuccess={
+            (review) => setReviews((prev) => [...prev, review]) // moze context?
           }
         />
         <div className="mt-10 flex flex-col gap-2 items-center justify-center">
