@@ -32,8 +32,8 @@ type FavoritesContextType = {
   getUserFavorites: () => void;
   addToFavorites: (accommodation: string, user: string) => void;
   removeFromFavorites: (id: string) => void;
-  // selectedId: string | null;
-  // setSelectedId: Dispatch<SetStateAction<string | null>>;
+  selectedId: string | null;
+  setSelectedId: Dispatch<SetStateAction<string | null>>;
 };
 
 type FavoritesContextProviderProps = {
@@ -48,7 +48,7 @@ export const FavoritesContextProvider = ({
   children,
 }: FavoritesContextProviderProps) => {
   const [favorites, setFavorites] = useState<TFavorite[]>([]);
-  // const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const getUserFavorites = async () => {
     try {
@@ -82,8 +82,8 @@ export const FavoritesContextProvider = ({
         getUserFavorites,
         addToFavorites,
         removeFromFavorites,
-        // selectedId,
-        // setSelectedId,
+        selectedId,
+        setSelectedId,
       }}
     >
       {children}

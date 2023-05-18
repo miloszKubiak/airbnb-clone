@@ -3,8 +3,13 @@ import { FavoritesContext } from "../context/FavoritesContext";
 import { Accommodation } from "./Accommodation";
 
 export const Favorites = () => {
-  const { favorites, getUserFavorites, removeFromFavorites } =
-    useContext(FavoritesContext);
+  const {
+    favorites,
+    getUserFavorites,
+    removeFromFavorites,
+    selectedId,
+    setSelectedId,
+  } = useContext(FavoritesContext);
 
   useEffect(() => {
     getUserFavorites();
@@ -23,6 +28,10 @@ export const Favorites = () => {
             price={favorite.accommodation.price}
             averageRating={favorite.accommodation.averageRating}
             numOfReviews={favorite.accommodation.numOfReviews}
+            onAddOrRemove={() =>
+              removeFromFavorites(favorite.accommodation._id!)
+            }
+            onSelectedId={() => setSelectedId(favorite.accommodation._id!)}
           />
         ))}
       </div>

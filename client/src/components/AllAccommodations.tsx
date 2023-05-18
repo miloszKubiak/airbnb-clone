@@ -8,12 +8,17 @@ import { UserContext } from "../context/UserContext";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
-  const { favorites, getUserFavorites, addToFavorites, removeFromFavorites } =
-    useContext(FavoritesContext);
+  const {
+    favorites,
+    getUserFavorites,
+    addToFavorites,
+    removeFromFavorites,
+    selectedId,
+    setSelectedId,
+  } = useContext(FavoritesContext);
   const { user } = useContext(UserContext);
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [numOfPages, setNumOfPages] = useState(1);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const favoritesIds = favorites.map((favorite) => favorite.accommodation._id);
 
