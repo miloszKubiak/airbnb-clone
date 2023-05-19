@@ -1,19 +1,26 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { Accommodation } from "./Accommodation";
+import { Pagination } from "./Pagination";
+import axios from "axios";
 
 export const Favorites = () => {
-  const {
-    favorites,
-    getUserFavorites,
-    removeFromFavorites,
-    selectedId,
-    setSelectedId,
-  } = useContext(FavoritesContext);
+  const { favorites, setFavorites, removeFromFavorites, setSelectedId } =
+    useContext(FavoritesContext);
+
+  const [page, setPage] = useState(1);
+  const [numOfPages, setNumOfPages] = useState(1);
+
+  const getUserFavoritesInBookmarks = async () => {
+    let url = `/user-favorites?page=${page}`;
+    const response = await axios.get(url);
+    setFavorites(response.data.favorites);
+    setNumOfPages(response.data.numOfPages);
+  };
 
   useEffect(() => {
-    getUserFavorites();
-  }, []);
+    getUserFavoritesInBookmarks();
+  }, [page]);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -35,6 +42,7 @@ export const Favorites = () => {
           />
         ))}
       </div>
+      <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
     </div>
   );
 };

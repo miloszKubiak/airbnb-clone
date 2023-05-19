@@ -29,13 +29,20 @@ export const getUserFavorites = async (req: Request, res: Response) => {
 
   let result = Favorites.find(queryObject).populate("accommodation");
 
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 4;
+  const skip = (page - 1) * limit;
+  result = result.skip(skip).limit(limit);
+
   const favorites = await result;
 
   const total = await Favorites.countDocuments(queryObject);
+  const numOfPages = Math.ceil(total / limit);
 
   res.status(200).json({
     total,
     favorites,
+    numOfPages,
   });
 };
 
