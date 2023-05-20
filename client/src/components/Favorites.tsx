@@ -12,9 +12,10 @@ export const Favorites = () => {
   const [numOfPages, setNumOfPages] = useState(1);
 
   const getUserFavoritesInBookmarks = async () => {
-    let url = `/user-favorites?page=${page}`;
+    let url = `/user-favorites/in-bookmark?page=${page}`;
     const response = await axios.get(url);
     setFavorites(response.data.favorites);
+    console.log(response.data.favorites);
     setNumOfPages(response.data.numOfPages);
   };
 
@@ -35,9 +36,10 @@ export const Favorites = () => {
             price={favorite.accommodation.price}
             averageRating={favorite.accommodation.averageRating}
             numOfReviews={favorite.accommodation.numOfReviews}
-            onAddOrRemove={() =>
-              removeFromFavorites(favorite.accommodation._id!)
-            }
+            onAddOrRemove={() => {
+              removeFromFavorites(favorite.accommodation._id!);
+              setPage(1);
+            }}
             onSelectedId={() => setSelectedId(favorite.accommodation._id!)}
           />
         ))}

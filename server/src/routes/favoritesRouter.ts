@@ -3,6 +3,7 @@ import { verifyToken } from "../middleware/jwt";
 import {
   addToFavorites,
   getUserFavorites,
+  getUserFavoritesInBookmarks,
   removeFromFavorites,
 } from "../controllers/favoritesController";
 
@@ -12,6 +13,8 @@ router
   .route("/")
   .get(verifyToken, getUserFavorites)
   .post(verifyToken, addToFavorites);
+
+router.route("/in-bookmark").get(verifyToken, getUserFavoritesInBookmarks);
 
 router.route("/:id").delete(verifyToken, removeFromFavorites);
 

@@ -49,7 +49,9 @@ export const Accommodation = ({
 }: AccommodationProps) => {
   const { favorites } = useContext(FavoritesContext);
 
-  const isFavorite = favorites.find(
+  const [favorite, setFavorite] = useState(false);
+
+  const isFavorite = favorites?.find(
     (favorite) => favorite.accommodation._id === _id
   );
 
@@ -57,13 +59,13 @@ export const Accommodation = ({
     <div className="relative">
       <div
         className={`absolute right-0 top-0 mt-4 mr-4
-          duration-300 text-2xl text-zinc-700 hover:text-rose-400 ${
-            isFavorite && "text-red-400 "
+          duration-300 text-2xl text-zinc-700 hover:text-rose-300 ${
+            isFavorite && "text-rose-400 "
           } cursor-pointer`}
         onClick={() => {
           onAddOrRemove(_id!);
           onSelectedId(_id!);
-          console.log(_id);
+          setFavorite(!favorite);
         }}
       >
         <FaHeart />

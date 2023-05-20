@@ -74,6 +74,8 @@ export const FavoritesContextProvider = ({
     setFavorites(favorites.filter((favorite: any) => favorite !== id));
   };
 
+  console.log(favorites);
+
   return (
     <FavoritesContext.Provider
       value={{

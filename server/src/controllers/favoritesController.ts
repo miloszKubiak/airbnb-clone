@@ -29,8 +29,28 @@ export const getUserFavorites = async (req: Request, res: Response) => {
 
   let result = Favorites.find(queryObject).populate("accommodation");
 
+  const favorites = await result;
+
+  const total = await Favorites.countDocuments(queryObject);
+
+  res.status(200).json({
+    total,
+    favorites,
+  });
+};
+
+export const getUserFavoritesInBookmarks = async (
+  req: Request,
+  res: Response
+) => {
+  const queryObject = {
+    user: req.cookies.userId,
+  };
+
+  let result = Favorites.find(queryObject).populate("accommodation");
+
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 4;
+  const limit = Number(req.query.limit) || 6;
   const skip = (page - 1) * limit;
   result = result.skip(skip).limit(limit);
 

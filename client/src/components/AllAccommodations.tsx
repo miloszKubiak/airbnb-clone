@@ -5,8 +5,6 @@ import axios from "axios";
 import { Accommodation, TAccommodation } from "./Accommodation";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { UserContext } from "../context/UserContext";
-import { ReviewsContext } from "../context/ReviewsContext";
-import { TReview } from "./Review";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
@@ -37,16 +35,15 @@ export const AllAccommodations = () => {
 
   const handleAddOrRemove = async (_id: string) => {
     if (favoritesIds.includes(_id)) {
-      console.log(`w delete requescie ${_id}`);
       removeFromFavorites(_id);
+      getUserFavorites();
       setSelectedId(null);
     } else {
-      console.log(`w post requescie ${_id}`);
       addToFavorites(_id, user!._id!);
+      getUserFavorites();
       setSelectedId(null);
     }
   };
-  console.log(selectedId);
 
   useEffect(() => {
     getAllAccommodations();
