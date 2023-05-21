@@ -1,7 +1,7 @@
 import { TAccommodation } from "./Accommodation";
 import { TUser, UserContext } from "../context/UserContext";
 import { useContext } from "react";
-import { FaStar } from "react-icons/all";
+import { format } from "date-fns";
 
 export type TReview = {
   _id?: string;
@@ -39,10 +39,11 @@ export const Review = ({
 
   return (
     <>
-      <div className="px-3 py-2 relative bg-rose-200">
+      <div className="px-3 py-2 relative bg-zinc-100 rounded-xl">
         {user?._id === userId && (
-          <div className="bg-emerald-200 p-1 absolute flex gap-4 top-0 right-0">
+          <div className="px-3 py-1 absolute flex gap-4 top-0 right-0 rounded-tr-lg">
             <button
+              className=""
               onClick={() => {
                 onModalEditOpen();
                 onReviewToDelete(reviewId);
@@ -52,6 +53,7 @@ export const Review = ({
               edit
             </button>
             <button
+              className="font-bold text-rose-500 text-xl"
               onClick={() => {
                 onModalOpen();
                 onReviewToDelete(reviewId);
@@ -63,9 +65,8 @@ export const Review = ({
           </div>
         )}
         <div>
-          <p>{reviewId}</p>
-          <p>{userName}</p>
-          <p>{createdAt}</p>
+          <p className="font-bold">{userName}</p>
+          <p>{format(new Date(createdAt), "dd-MM-yyyy")}</p>
           <p>{comment}</p>
           <p>{rating}</p>
         </div>
