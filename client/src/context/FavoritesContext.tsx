@@ -30,10 +30,15 @@ type FavoritesContextType = {
   favorites: TFavorite[];
   setFavorites: Dispatch<SetStateAction<TFavorite[]>>;
   getUserFavorites: () => void;
+  getUserFavoritesInBookmarks: (page: number) => void;
   addToFavorites: (accommodation: string, user: string) => void;
   removeFromFavorites: (id: string) => void;
   selectedId: string | null;
   setSelectedId: Dispatch<SetStateAction<string | null>>;
+  favoritesNumOfPages: number | 1;
+  setFavoritesNumOfPages: Dispatch<SetStateAction<number | 1>>;
+  favoritesPage: number | 1;
+  setFavoritesPage: Dispatch<SetStateAction<number | 1>>;
 };
 
 type FavoritesContextProviderProps = {
@@ -49,6 +54,8 @@ export const FavoritesContextProvider = ({
 }: FavoritesContextProviderProps) => {
   const [favorites, setFavorites] = useState<TFavorite[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [favoritesNumOfPages, setFavoritesNumOfPages] = useState(1);
+  const [favoritesPage, setFavoritesPage] = useState(1);
 
   const getUserFavorites = async () => {
     try {
@@ -57,6 +64,13 @@ export const FavoritesContextProvider = ({
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const getUserFavoritesInBookmarks = async (page: number) => {
+    let url = `/user-favorites/in-bookmark?page=${page}`;
+    const response = await axios.get(url);
+    setFavorites(response.data.favorites);
+    setFavoritesNumOfPages(response.data.numOfPages);
   };
 
   const addToFavorites = async (accommodation: string, user: string) => {
@@ -72,9 +86,8 @@ export const FavoritesContextProvider = ({
   const removeFromFavorites = async (id: string) => {
     await axios.delete(`/user-favorites/${id}`);
     setFavorites(favorites.filter((favorite: any) => favorite !== id));
+    getUserFavoritesInBookmarks(favoritesPage);
   };
-
-  console.log(favorites);
 
   return (
     <FavoritesContext.Provider
@@ -82,10 +95,15 @@ export const FavoritesContextProvider = ({
         favorites,
         setFavorites,
         getUserFavorites,
+        getUserFavoritesInBookmarks,
         addToFavorites,
         removeFromFavorites,
         selectedId,
         setSelectedId,
+        favoritesNumOfPages,
+        setFavoritesNumOfPages,
+        favoritesPage,
+        setFavoritesPage,
       }}
     >
       {children}

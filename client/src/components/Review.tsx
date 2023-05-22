@@ -53,7 +53,7 @@ export const Review = ({
               edit
             </button>
             <button
-              className="font-bold text-rose-500 text-xl"
+              className="font-bold text-rose-500 text-xl hover:text-rose-300 duration-300"
               onClick={() => {
                 onModalOpen();
                 onReviewToDelete(reviewId);
@@ -66,7 +66,7 @@ export const Review = ({
         )}
         <div>
           <p className="font-bold">{userName}</p>
-          <p>{format(new Date(createdAt), "dd-MM-yyyy")}</p>
+          <p className="text-xs">{format(new Date(createdAt), "dd-MM-yyyy")}</p>
           <p>{comment}</p>
           <p>{rating}</p>
         </div>

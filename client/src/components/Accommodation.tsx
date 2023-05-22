@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaHeart, FaStar } from "react-icons/all";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
-import { Stats } from "./Stats";
-import { ReviewsContext } from "../context/ReviewsContext";
-import { TReview } from "./Review";
 
 export type TAccommodation = {
   _id?: string;
@@ -59,7 +56,7 @@ export const Accommodation = ({
     <div className="relative">
       <div
         className={`absolute right-0 top-0 mt-4 mr-4
-          duration-300 text-2xl text-zinc-700 hover:text-rose-300 ${
+          duration-300 text-2xl hover:text-rose-300 ${
             isFavorite && "text-rose-400 "
           } cursor-pointer`}
         onClick={() => {

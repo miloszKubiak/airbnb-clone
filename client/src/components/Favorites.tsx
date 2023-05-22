@@ -5,23 +5,38 @@ import { Pagination } from "./Pagination";
 import axios from "axios";
 
 export const Favorites = () => {
-  const { favorites, setFavorites, removeFromFavorites, setSelectedId } =
-    useContext(FavoritesContext);
+  const {
+    favorites,
+    setFavorites,
+    removeFromFavorites,
+    getUserFavoritesInBookmarks,
+    favoritesNumOfPages,
+    setSelectedId,
+    favoritesPage,
+    setFavoritesPage,
+  } = useContext(FavoritesContext);
 
-  const [page, setPage] = useState(1);
-  const [numOfPages, setNumOfPages] = useState(1);
+  // const [page, setPage] = useState(1);
+  // const [numOfPages, setNumOfPages] = useState(1);
 
-  const getUserFavoritesInBookmarks = async () => {
-    let url = `/user-favorites/in-bookmark?page=${page}`;
-    const response = await axios.get(url);
-    setFavorites(response.data.favorites);
-    console.log(response.data.favorites);
-    setNumOfPages(response.data.numOfPages);
-  };
+  // const getUserFavoritesInBookmarks = async () => {
+  //   let url = `/user-favorites/in-bookmark?page=${page}`;
+  //   const response = await axios.get(url);
+  //   setFavorites(response.data.favorites);
+  //   setNumOfPages(response.data.numOfPages);
+  // };
 
   useEffect(() => {
-    getUserFavoritesInBookmarks();
-  }, [page]);
+    getUserFavoritesInBookmarks(favoritesPage);
+  }, [favoritesPage]);
+
+  if (favorites.length === 0) {
+    return (
+      <div className="h-screen flex items-center justify-center font-bold text-xl">
+        <h2>There are no favorites in bookmarks</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -38,13 +53,19 @@ export const Favorites = () => {
             numOfReviews={favorite.accommodation.numOfReviews}
             onAddOrRemove={() => {
               removeFromFavorites(favorite.accommodation._id!);
-              setPage(1);
+              // setPage(1);
             }}
             onSelectedId={() => setSelectedId(favorite.accommodation._id!)}
           />
         ))}
       </div>
-      <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
+      {favoritesNumOfPages >= 2 && (
+        <Pagination
+          page={favoritesPage}
+          setPage={setFavoritesPage}
+          numOfPages={favoritesNumOfPages}
+        />
+      )}
     </div>
   );
 };
