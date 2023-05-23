@@ -155,7 +155,7 @@ export const AccommodationForm = () => {
             placeholder="add link to the photo..."
             {...register("photos")}
           />
-          <p className="error">{errors.address?.message}</p>
+          <p className="error">{errors.photos?.message}</p>
         </div>
         <div className="my-4 px-4">
           <h2 className="text-xl font-bold">Description</h2>

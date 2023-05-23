@@ -67,11 +67,11 @@ export const AccommodationReviews = ({
         onAddReviewSuccess={(review) => setReviews((prev) => [...prev, review])}
         reviewModalOpen={reviewModalOpen}
       />
-      <EditReviewModal
-        onClose={() => setReviewModalOpen(false)}
-        reviewModalOpen={reviewModalOpen}
-        reviewId={selectedReviewId}
-      />
+      {/*<EditReviewModal*/}
+      {/*  onClose={() => setReviewModalOpen(false)}*/}
+      {/*  reviewModalOpen={reviewModalOpen}*/}
+      {/*  reviewId={selectedReviewId}*/}
+      {/*/>*/}
       <Modal isOpen={modalDeleteOpen}>
         <ModalConfirm
           onClose={() => {

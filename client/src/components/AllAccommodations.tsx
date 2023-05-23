@@ -23,6 +23,12 @@ export const AllAccommodations = () => {
 
   const favoritesIds = favorites.map((favorite) => favorite.accommodation._id);
 
+  // const calculatedNumberOfReviews = reviews.length;
+  // const calculatedAverageRating = (
+  //   reviews.reduce((total, next) => total + next.rating, 0) /
+  //   calculatedNumberOfReviews
+  // ).toFixed(2);
+
   const getAllAccommodations = async () => {
     let url = `/accommodations?page=${page}&sort=${sort}&category=${category}`;
     if (search) {
@@ -52,6 +58,8 @@ export const AllAccommodations = () => {
   useEffect(() => {
     getUserFavorites();
   }, [user, category, page, sort, selectedId]);
+
+  console.log(accommodations);
 
   if (accommodations.length === 0)
     return (

@@ -76,15 +76,15 @@ export const Accommodation = ({
         <div className="h-full flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <h2 className="text-xs md:text-sm font-bold">{title}</h2>
-              <div className="flex items-center gap-1">
-                <p className="flex gap-1 text-xs">
-                  <FaStar />
-                </p>
-                <p>{averageRating || 0}</p>
-              </div>
+              {/*<h2 className="text-xs md:text-sm font-bold">{title}</h2>*/}
+              {/*<div className="flex items-center gap-1">*/}
+              {/*  <p className="flex gap-1 text-xs">*/}
+              {/*    <FaStar />*/}
+              {/*  </p>*/}
+              {/*  <p>{averageRating || 0}</p>*/}
+              {/*</div>*/}
             </div>
-            <h3 className="text-xs">{address}</h3>
+            <h3 className="text-xs font-bold">{address}</h3>
           </div>
           <p className="font-bold">
             {price} € <span className="text-sm font-medium">per night</span>
