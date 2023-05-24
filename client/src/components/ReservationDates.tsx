@@ -16,7 +16,7 @@ export const ReservationDates = ({
 }: ReservationDatesProps) => {
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 text-xs sm:text-sm">
         <p>
           <FaCloudMoon />
         </p>
@@ -25,7 +25,7 @@ export const ReservationDates = ({
           {numberOfNights > 1 ? "s" : ""}
         </p>
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 text-xs sm:text-sm">
         <p>
           <GoPerson />
         </p>

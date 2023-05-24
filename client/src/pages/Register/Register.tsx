@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "./Register.schema";
 import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
 
 axios.defaults.baseURL = "http://127.0.0.1:4000"; // to do - add to env file.
 
@@ -30,15 +31,16 @@ export const Register = () => {
         email,
         password,
       });
-      alert("Registration successful. Redirecting to the login page.");
+      toast.success("Registration successful. Redirecting to the login page.");
       navigate("/login");
     } catch (error) {
-      alert("Registration failed. Please try again later.");
+      toast.error("Registration failed. Please try again later.");
     }
   };
 
   return (
     <div className="mt-5 grow flex items-center justify-around">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="mb-60">
         <h1 className="text-3xl text-center text-indigo-500 mb-5">Register</h1>
         <form

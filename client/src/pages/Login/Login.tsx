@@ -6,6 +6,7 @@ import { TFormValues } from "../Register/Register";
 import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+import { toast, Toaster } from "react-hot-toast";
 
 axios.defaults.baseURL = "http://127.0.0.1:4000"; // to do - add to env file.
 axios.defaults.withCredentials = true;
@@ -23,15 +24,16 @@ export const Login = () => {
     try {
       const { data } = await axios.post("/auth/login", { email, password });
       setUser(data);
-      alert("Login successful");
+      toast.success("Login successful");
       navigate("/");
     } catch (error) {
-      alert("Wrong credentials");
+      toast.error("Wrong credentials");
     }
   };
 
   return (
     <div className="mt-5 grow flex items-center justify-around">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="mb-60">
         <h1 className="text-3xl text-center text-indigo-500 mb-5">Login</h1>
         <form

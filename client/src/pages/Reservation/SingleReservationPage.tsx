@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Modal } from "../../components/Modal";
 import { ModalConfirm } from "../../components/Modal";
+import { toast, Toaster } from "react-hot-toast";
 
 export const SingleReservationPage = () => {
   const { id: reservationId } = useParams();
@@ -19,9 +20,9 @@ export const SingleReservationPage = () => {
         status: "canceled",
       });
       setModalCancelOpen(false);
-      alert("Reservation canceled successful");
+      toast.success("Reservation canceled successful");
     } catch (error) {
-      alert("Something went wrong.");
+      toast.error("Something went wrong.");
     }
   };
 
@@ -32,9 +33,9 @@ export const SingleReservationPage = () => {
       });
       setPaid(true);
       setModalPayOpen(false);
-      alert("Reservation pay successful");
+      toast.success("Reservation pay successful");
     } catch (error) {
-      alert("Something went wrong.");
+      toast.error("Something went wrong.");
     }
   };
 
@@ -76,9 +77,10 @@ export const SingleReservationPage = () => {
         />
       </Modal>
       <div>
+        <Toaster position="top-center" reverseOrder={false} />
         <div className="mt-10 py-6 flex gap-4 justify-between">
           <div className="flex flex-col justify-center">
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-md sm:text-3xl font-bold">
               {reservation.accommodation?.title}
             </h1>
             <AddressLink address={reservation.accommodation?.address} />

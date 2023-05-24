@@ -40,14 +40,16 @@ export const AllAccommodations = () => {
   };
 
   const handleAddOrRemove = async (_id: string) => {
-    if (favoritesIds.includes(_id)) {
-      removeFromFavorites(_id);
-      getUserFavorites();
-      setSelectedId(null);
-    } else {
-      addToFavorites(_id, user!._id!);
-      getUserFavorites();
-      setSelectedId(null);
+    if (user) {
+      if (favoritesIds.includes(_id)) {
+        removeFromFavorites(_id);
+        getUserFavorites();
+        setSelectedId(null);
+      } else {
+        addToFavorites(_id, user!._id!);
+        getUserFavorites();
+        setSelectedId(null);
+      }
     }
   };
 
@@ -56,10 +58,10 @@ export const AllAccommodations = () => {
   }, [category, page, sort]);
 
   useEffect(() => {
-    getUserFavorites();
+    if (user) {
+      getUserFavorites();
+    }
   }, [user, category, page, sort, selectedId]);
-
-  console.log(accommodations);
 
   if (accommodations.length === 0)
     return (

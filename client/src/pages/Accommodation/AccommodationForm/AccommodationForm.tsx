@@ -15,6 +15,7 @@ import { useContext, useEffect } from "react";
 import axios from "axios";
 import { UserContext } from "../../../context/UserContext";
 import { categories } from "../../../utils/categories";
+import { toast } from "react-hot-toast";
 
 export type TAccommodationFormValues = {
   ownerName?: string;
@@ -99,19 +100,19 @@ export const AccommodationForm = () => {
       //edit
       try {
         await axios.patch(`/accommodations/${id}`, { id, ...formData });
-        alert("Edit place successful!");
+        toast.success("Edit place successful!");
         navigate("/account/my-accommodations");
       } catch (error) {
-        alert("Something went wrong!");
+        toast.error("Something went wrong!");
       }
     } else {
       //add
       try {
         await axios.post("/accommodations", formData);
-        alert("Added new place!");
+        toast.success("Added new place!");
         navigate("/account/my-accommodations");
       } catch (error) {
-        alert("Something went wrong!");
+        toast.error("Something went wrong!");
       }
     }
   };

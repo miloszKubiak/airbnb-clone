@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
 
 type ReserveWidgetProps = {
   price: number;
@@ -44,15 +45,16 @@ export const ReservationWidget = ({
         price: numberOfNights * price + tax + cleaningPrice,
         user: user?._id,
       });
-      alert("The reservation was successful!");
+      toast.success("The reservation was successful!");
       navigate(`/account/my-reservations`);
     } catch (error) {
-      alert("Something went wrong!");
+      toast.error("Something went wrong!");
     }
   };
 
   return (
     <div className="flex min-w-[50%] flex-col justify-center p-4 bg-white border-2 border-zinc-300 rounded-2xl">
+      <Toaster position="top-center" reverseOrder={false} />
       <p className="text-left">
         <span className="font-bold text-xl">{price} €</span> / night
       </p>
