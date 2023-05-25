@@ -15,26 +15,29 @@ export const ReservationDates = ({
   checkOut,
 }: ReservationDatesProps) => {
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex items-center gap-1 text-xs sm:text-sm">
-        <p>
-          <FaCloudMoon />
-        </p>
-        <p>
-          {numberOfNights} night
-          {numberOfNights > 1 ? "s" : ""}
-        </p>
+    <div className="flex flex-col gap-1 sm:gap-2">
+      <div className="flex items-center gap-3 text-xs sm:text-[15px]">
+        <div className="flex gap-1 items-center">
+          <p>
+            <FaCloudMoon />
+          </p>
+          <p>
+            {numberOfNights} night
+            {numberOfNights > 1 ? "s" : ""}
+          </p>
+        </div>
+        <div className="flex gap-1 items-center">
+          <p>
+            <GoPerson />
+          </p>
+          <p>
+            {numberOfGuests} guest
+            {Number(numberOfGuests) > 1 ? "s" : ""}
+          </p>
+        </div>
       </div>
-      <div className="flex items-center gap-1 text-xs sm:text-sm">
-        <p>
-          <GoPerson />
-        </p>
-        <p>
-          {numberOfGuests} guest
-          {Number(numberOfGuests) > 1 ? "s" : ""}
-        </p>
-      </div>
-      <div className="flex flex-col sm:flex-row sm:gap-1 text-[8px] sm:text-[10px] md:text-[14px]">
+      <div className="flex items-center gap-1 text-xs sm:text-sm"></div>
+      <div className="flex gap-2 flex-col sm:flex-row text-xs sm:text-[15px]">
         <p className="flex items-center gap-1">
           <FaRegCalendarAlt />
           <span>{format(new Date(checkIn), "dd-MM-yyyy")}</span>

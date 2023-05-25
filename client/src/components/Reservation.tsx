@@ -65,8 +65,8 @@ export const Reservation = ({
           alt="main photo of the place"
         />
       </div>
-      <div className="ml-2 py-2 flex flex-col justify-between h-full text-[8px] sm:text-[10px] md:text-[12px] basis-1/2">
-        <h2 className="font-bold">{accommodation.title}</h2>
+      <div className="ml-2 py-2 flex flex-col justify-between h-full basis-1/2">
+        <h2 className="font-bold text-sm">{accommodation.title}</h2>
         <ReservationDates
           numberOfNights={numberOfNights}
           numberOfGuests={numberOfGuests}

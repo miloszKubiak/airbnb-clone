@@ -6,7 +6,7 @@ type PriceProps = {
 
 export const Price = ({ price }: PriceProps) => {
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1 text-xs sm:text-sm">
       <p>
         <FaMoneyBillWave />
       </p>

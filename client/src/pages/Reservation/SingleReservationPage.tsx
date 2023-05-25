@@ -79,11 +79,13 @@ export const SingleReservationPage = () => {
       <div>
         <Toaster position="top-center" reverseOrder={false} />
         <div className="mt-10 py-6 flex gap-4 justify-between">
-          <div className="flex flex-col justify-center">
-            <h1 className="text-md sm:text-3xl font-bold">
-              {reservation.accommodation?.title}
-            </h1>
-            <AddressLink address={reservation.accommodation?.address} />
+          <div className="flex flex-col gap-2 justify-start">
+            <div>
+              <h1 className="text-md sm:text-3xl font-bold">
+                {reservation.accommodation?.title}
+              </h1>
+              <AddressLink address={reservation.accommodation?.address} />
+            </div>
             <ReservationDates
               numberOfNights={reservation.numberOfNights}
               numberOfGuests={reservation.numberOfGuests}
@@ -91,21 +93,24 @@ export const SingleReservationPage = () => {
               checkOut={reservation.checkOut}
             />
           </div>
-          <div className="flex flex-col justify-center items-center gap-4">
-            <h1 className="font-bold text-xl">
-              Total price: {reservation.price} €
+          <div className="flex flex-col justify-start items-center gap-4">
+            <h1 className="flex flex-col  text-sm sm:text-xl">
+              Total price:{" "}
+              <span className="font-bold text-center">
+                {reservation.price} €
+              </span>
             </h1>
             {reservation.status === "waiting" && (
-              <div className="flex flex-col gap-4 items-center">
+              <div className="w-full flex flex-col gap-4 items-center">
                 <button
-                  className="px-3 py-2 bg-rose-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
+                  className="w-full px-3 py-2 bg-rose-500 text-white font-bold rounded-md text-[10px] sm:text-sm"
                   onClick={() => setModalCancelOpen(true)}
                   disabled={modalCancelOpen}
                 >
-                  Cancel reservation
+                  Cancel
                 </button>
                 <button
-                  className="w-full px-3 py-2 bg-emerald-500 text-white font-bold rounded-md text-[6px] sm:text-sm"
+                  className="w-full px-3 py-2 bg-emerald-500 text-white font-bold rounded-md text-[10px] sm:text-sm"
                   onClick={() => setModalPayOpen(true)}
                   disabled={modalPayOpen}
                 >
@@ -115,7 +120,7 @@ export const SingleReservationPage = () => {
             )}
             {/*<Status status={reservation.status} />*/}
             <h2
-              className={`status status-${reservation.status} text-[6px] sm:text-sm`}
+              className={`status status-${reservation.status} text-[10px] w-full sm:text-sm text-center`}
             >
               Status: {reservation.status.toUpperCase()}
             </h2>
