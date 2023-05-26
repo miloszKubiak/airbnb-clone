@@ -7,6 +7,7 @@ import {
   PhotosGallery,
   ReservationWidget,
   Stats,
+  Loader,
 } from "../../components";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -21,10 +22,13 @@ export const SingleAccommodationPage = () => {
   const [accommodation, setAccommodation] = useState<TAccommodation | null>(
     null
   );
+  const [loading, setLoading] = useState(false);
 
   const getAccommodation = async () => {
+    setLoading(true);
     const response = await axios.get(`/accommodations/${accommodationId}`);
     setAccommodation(response.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -36,6 +40,8 @@ export const SingleAccommodationPage = () => {
   }, [accommodationId]);
 
   if (!accommodationId) return <Navigate to={"/"} />;
+
+  if (loading) return <Loader />;
 
   if (!accommodation)
     return (

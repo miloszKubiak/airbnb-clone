@@ -2,15 +2,19 @@ import { Reservation, TReservation } from "./Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination } from "./Pagination";
+import { Loader } from "./Loader";
 
 export const AllUserReservations = () => {
   const [userReservations, setUserReservations] = useState<TReservation[]>([]);
   const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const getUserReservations = async () => {
+    setLoading(true);
     let url = `/reservations?page=${page}`;
     const response = await axios.get(url);
+    setLoading(false);
     setUserReservations(response.data.reservations);
     setNumOfPages(response.data.numOfPages);
   };
@@ -18,6 +22,8 @@ export const AllUserReservations = () => {
   useEffect(() => {
     getUserReservations();
   }, [page]);
+
+  if (loading) return <Loader />;
 
   if (userReservations.length <= 0)
     return (

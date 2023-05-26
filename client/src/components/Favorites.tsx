@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { Accommodation } from "./Accommodation";
 import { Pagination } from "./Pagination";
-import axios from "axios";
 
 export const Favorites = () => {
   const {

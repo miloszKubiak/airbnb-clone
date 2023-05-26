@@ -5,6 +5,7 @@ import axios from "axios";
 import { Accommodation, TAccommodation } from "./Accommodation";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { UserContext } from "../context/UserContext";
+import { Loader } from "./Loader";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
@@ -20,21 +21,18 @@ export const AllAccommodations = () => {
 
   const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
   const [numOfPages, setNumOfPages] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const favoritesIds = favorites.map((favorite) => favorite.accommodation._id);
 
-  // const calculatedNumberOfReviews = reviews.length;
-  // const calculatedAverageRating = (
-  //   reviews.reduce((total, next) => total + next.rating, 0) /
-  //   calculatedNumberOfReviews
-  // ).toFixed(2);
-
   const getAllAccommodations = async () => {
+    setLoading(true);
     let url = `/accommodations?page=${page}&sort=${sort}&category=${category}`;
     if (search) {
       url = url + `&search=${search}`;
     }
     const response = await axios.get(url);
+    setLoading(false);
     setAccommodations(response.data.accommodations);
     setNumOfPages(response.data.numOfPages);
   };
@@ -62,6 +60,8 @@ export const AllAccommodations = () => {
       getUserFavorites();
     }
   }, [user, category, page, sort, selectedId]);
+
+  if (loading) return <Loader />;
 
   if (accommodations.length === 0)
     return (

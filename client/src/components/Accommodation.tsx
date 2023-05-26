@@ -46,7 +46,7 @@ export const Accommodation = ({
 }: AccommodationProps) => {
   const { favorites } = useContext(FavoritesContext);
 
-  const [favorite, setFavorite] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   const isFavorite = favorites?.find(
     (favorite) => favorite.accommodation._id === _id
@@ -62,7 +62,7 @@ export const Accommodation = ({
         onClick={() => {
           onAddOrRemove(_id!);
           onSelectedId(_id!);
-          setFavorite(!favorite);
+          setToggle(!toggle);
         }}
       >
         <FaHeart />

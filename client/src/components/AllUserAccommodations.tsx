@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination } from "./Pagination";
 import { TAccommodation } from "./Accommodation";
+import { toast } from "react-hot-toast";
+import { Loader } from "./Loader";
 
 export const AllUserAccommodations = () => {
   const [userAccommodations, setUserAccommodations] = useState<
@@ -12,10 +14,13 @@ export const AllUserAccommodations = () => {
   >([]);
   const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const getUserAccommodations = async () => {
+    setLoading(true);
     let url = `/accommodations/user-accommodations?page=${page}`;
     const response = await axios.get(url);
+    setLoading(false);
     setUserAccommodations(response.data.accommodations);
     setNumOfPages(response.data.numOfPages);
   };
@@ -25,12 +30,14 @@ export const AllUserAccommodations = () => {
     setUserAccommodations(
       userAccommodations.filter((accommodation) => accommodation._id !== id)
     );
-    alert("Accommodation deleted successfully!");
+    toast.success("Accommodation deleted successfully!");
   };
 
   useEffect(() => {
     getUserAccommodations();
   }, [page]);
+
+  if (loading) return <Loader />;
 
   if (userAccommodations!.length <= 0)
     return (
