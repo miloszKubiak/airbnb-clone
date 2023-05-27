@@ -2,12 +2,12 @@ import {
   AddressLink,
   AccommodationReviews,
   Description,
-  Location,
   Perks,
   PhotosGallery,
   ReservationWidget,
   Stats,
   Loader,
+  Map,
 } from "../../components";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -86,7 +86,7 @@ export const SingleAccommodationPage = () => {
             </div>
           </div>
           <Perks perks={accommodation.perks} />
-          <Location />
+          <Map />
           <AccommodationReviews
             accommodation={accommodation}
             averageRating={+calculatedAverageRating}

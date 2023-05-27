@@ -21,7 +21,7 @@ export { Categories } from "./Categories";
 export { CategoryItem } from "./CategoryItem";
 export { FiltersBar } from "./FiltersBar";
 export { RefundedReservation } from "./RefundedReservation";
-export { Location } from "./Location";
+export { Map } from "./Map";
 export { Accommodation } from "./Accommodation";
 export { Favorites } from "./Favorites";
 export { Review } from "./Review";

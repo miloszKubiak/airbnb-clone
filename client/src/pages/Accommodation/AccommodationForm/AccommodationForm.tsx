@@ -226,12 +226,12 @@ export const AccommodationForm = () => {
             cleaning the room between guests.
           </p>
           <div className="mt-2 grid gap-2 sm:grid-cols-3 items-center">
-            <div>
+            <div className="flex flex-col items-center">
               <h3 className="text-sm">Check in time</h3>
               <input type="text" {...register("checkIn")} />
               <p className="error">{errors.checkIn?.message}</p>
             </div>
-            <div>
+            <div className="flex flex-col items-center">
               <h3 className="text-sm">Check out time</h3>
               <input type="text" {...register("checkOut")} />
               <p className="error">{errors.checkOut?.message}</p>
