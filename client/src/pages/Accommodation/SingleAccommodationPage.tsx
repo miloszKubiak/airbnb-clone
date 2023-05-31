@@ -23,6 +23,7 @@ export const SingleAccommodationPage = () => {
     null
   );
   const [loading, setLoading] = useState(false);
+  const addressLink = "https://maps.google.com/?q=" + accommodation?.address;
 
   const getAccommodation = async () => {
     setLoading(true);
