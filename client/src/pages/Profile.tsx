@@ -1,4 +1,4 @@
-import { AccountNavbar } from "../components";
+import { AccountNavbar, Loader } from "../components";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -23,13 +23,13 @@ export const Profile = () => {
     setFavorites([]);
   };
 
-  if (!ready) return <div>"Loading..."</div>;
+  if (!ready) return <Loader />;
   if (ready && !user) return <Navigate to={"/login"} />;
 
   return (
     <div>
       <AccountNavbar />
-      <div className="text-center max-w-lg mx-auto mt-10">
+      <div className="bg-emerald-200 h-full text-center max-w-lg mx-auto mt-10">
         <p>
           Logged in as <span className="font-bold">{user?.name}</span> (
           {user?.email})

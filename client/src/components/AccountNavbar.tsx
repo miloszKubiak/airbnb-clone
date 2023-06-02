@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { FaBookmark, FaHeart, FaHome, FaUser, MdPlace } from "react-icons/all";
+import { FaHeart, FaHome, FaUser, MdPlace } from "react-icons/all";
 
 export const AccountNavbar = () => {
   const { pathname } = useLocation();
@@ -10,7 +10,8 @@ export const AccountNavbar = () => {
   }
 
   const linkClasses = (type = "") => {
-    let classes = "inline-flex items-center gap-2 py-2 px-6";
+    let classes =
+      "inline-flex items-center gap-2 py-2 px-6 text-3xl sm:text-base";
     if (type === subpage) {
       classes += " text-white bg-indigo-500 rounded-full";
     } else {
@@ -21,28 +22,28 @@ export const AccountNavbar = () => {
 
   return (
     <div>
-      <nav className="mt-10 w-full flex flex-col sm:flex-row justify-center items-center gap-4">
+      <nav className="mt-10 w-full flex justify-center items-center gap-3">
         <Link to={"/account"} className={linkClasses("profile")}>
           <FaUser />
-          My profile
+          <p className="hidden sm:block">My profile</p>
         </Link>
         <Link
           to={"/account/my-reservations"}
           className={linkClasses("my-reservations")}
         >
           <MdPlace />
-          My reservations
+          <p className="hidden sm:block">My reservations</p>
         </Link>
         <Link
           to={"/account/my-accommodations"}
           className={linkClasses("my-accommodations")}
         >
           <FaHome />
-          My accommodations
+          <p className="hidden sm:block">My accommodations</p>
         </Link>
         <Link to={"/account/favorites"} className={linkClasses("favorites")}>
           <FaHeart />
-          Favorites
+          <p className="hidden sm:block">Favorites</p>
         </Link>
       </nav>
     </div>

@@ -6,7 +6,7 @@ export const PhotosGallery = ({ photos }: any) => {
 
   if (showPhotos) {
     return (
-      <div className="absolute inset-0 bg-white text-white min-h-screen">
+      <div className="absolute inset-0 bg-white text-white min-h-screen z-50">
         <div className="fixed bg-white w-full py-4">
           <button
             className="text-center text-black p-2 ml-4 rounded-full text-xl hover:bg-zinc-300 duration-300"
