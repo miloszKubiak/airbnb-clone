@@ -31,3 +31,4 @@ export { AddReviewModal } from "./AddReviewModal";
 export { EditReviewModal } from "./EditReviewModal";
 export { Loader } from "./Loader";
 export { Stars } from "./Stars";
+export { ReviewInfo } from "./ReviewInfo";

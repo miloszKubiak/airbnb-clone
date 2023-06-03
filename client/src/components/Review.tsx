@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { format } from "date-fns";
 import { FaStar } from "react-icons/all";
 import { Stars } from "./Stars";
+import { ReviewInfo } from "./ReviewInfo";
 
 export type TReview = {
   _id?: string;
@@ -66,12 +67,12 @@ export const Review = ({
             </button>
           </div>
         )}
-        <div>
-          <p className="font-bold">{userName}</p>
-          <p className="text-xs">{format(new Date(createdAt), "dd-MM-yyyy")}</p>
-          <p>{comment}</p>
-          <Stars rating={rating} />
-        </div>
+        <ReviewInfo
+          userName={userName}
+          createdAt={createdAt}
+          comment={comment}
+          rating={rating}
+        />
       </div>
     </>
   );
