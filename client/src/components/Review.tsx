@@ -3,6 +3,7 @@ import { TUser, UserContext } from "../context/UserContext";
 import { useContext } from "react";
 import { format } from "date-fns";
 import { FaStar } from "react-icons/all";
+import { Stars } from "./Stars";
 
 export type TReview = {
   _id?: string;
@@ -69,10 +70,7 @@ export const Review = ({
           <p className="font-bold">{userName}</p>
           <p className="text-xs">{format(new Date(createdAt), "dd-MM-yyyy")}</p>
           <p>{comment}</p>
-          <p>{rating}</p>
-          <p className="flex text-yellow-400">
-            {Array(rating).fill(<FaStar />)}
-          </p>
+          <Stars rating={rating} />
         </div>
       </div>
     </>

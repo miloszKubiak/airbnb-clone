@@ -7,6 +7,7 @@ import { TAccommodation } from "./Accommodation";
 import { AddReviewModal } from "./AddReviewModal";
 import { EditReviewModal } from "./EditReviewModal";
 import { ReviewsContext } from "../context/ReviewsContext";
+import { Toaster } from "react-hot-toast";
 
 type AccommodationReviewsProps = {
   averageRating: number;
@@ -94,6 +95,7 @@ export const AccommodationReviews = ({
         <p>{numberOfReviews} reviews</p>
       </div>
       <div className="flex flex-col gap-4 items-center">
+        <Toaster position="top-center" reverseOrder={false} />
         <div className="w-full mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {reviews?.map((review) => (
             <Review

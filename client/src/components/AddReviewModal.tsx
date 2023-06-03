@@ -5,6 +5,7 @@ import axios from "axios";
 import { ReviewForm, TReviewFormValues } from "./ReviewForm/ReviewForm";
 import { TAccommodation } from "./Accommodation";
 import { Modal } from "./Modal";
+import { toast, Toaster } from "react-hot-toast";
 
 type AddReviewProps = {
   accommodation: TAccommodation;
@@ -41,18 +42,19 @@ export const AddReviewModal = ({
     try {
       const response = await axios.post(`/reviews`, data);
       const _id = response.data.review._id;
-      alert("Added review.");
+      toast.success("Added review.");
       onAddReviewSuccess({ ...data, _id }); //poprawic, skorzystac z context
       onClose();
       console.log(`reviewID: ${_id}`);
     } catch (error: any) {
-      alert(error.response.data.msg);
+      toast.error(error.response.data.msg);
       onClose();
     }
   };
   return (
     <>
       <Modal isOpen={reviewModalOpen}>
+        <Toaster position="top-center" reverseOrder={false} />
         <ReviewForm onClose={onClose} onSubmit={handleAddReview} />
       </Modal>
     </>

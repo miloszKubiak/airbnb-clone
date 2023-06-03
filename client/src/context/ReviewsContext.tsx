@@ -7,6 +7,7 @@ import {
 } from "react";
 import { TReview } from "../components/Review";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 type ReviewsContextType = {
   reviews: TReview[];
@@ -54,6 +55,7 @@ export const ReviewsContextProvider = ({
     await axios.delete(`/reviews/${selectedReviewId}`);
     setModalDeleteOpen(false);
     setSelectedReviewId(null);
+    toast.error("Review deleted.");
     setReviews(reviews.filter((review) => review._id !== selectedReviewId));
   };
 

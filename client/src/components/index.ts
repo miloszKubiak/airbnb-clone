@@ -30,3 +30,4 @@ export { Stats } from "./Stats";
 export { AddReviewModal } from "./AddReviewModal";
 export { EditReviewModal } from "./EditReviewModal";
 export { Loader } from "./Loader";
+export { Stars } from "./Stars";
