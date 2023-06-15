@@ -21,6 +21,10 @@ import { App } from "./App";
 import { SearchContextProvider } from "./context/SearchContext";
 import { FavoritesContextProvider } from "./context/FavoritesContext";
 import { ReviewsContextProvider } from "./context/ReviewsContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -88,13 +92,16 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <UserContextProvider>
-    <SearchContextProvider>
-      <FavoritesContextProvider>
-        <ReviewsContextProvider>
-          <RouterProvider router={router} />
-        </ReviewsContextProvider>
-      </FavoritesContextProvider>
-    </SearchContextProvider>
-  </UserContextProvider>
+  <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={true} />
+    <UserContextProvider>
+      <SearchContextProvider>
+        <FavoritesContextProvider>
+          <ReviewsContextProvider>
+            <RouterProvider router={router} />
+          </ReviewsContextProvider>
+        </FavoritesContextProvider>
+      </SearchContextProvider>
+    </UserContextProvider>
+  </QueryClientProvider>
 );

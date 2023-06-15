@@ -29,7 +29,7 @@ export const Profile = () => {
   return (
     <div>
       <AccountNavbar />
-      <div className="bg-emerald-200 h-full text-center max-w-lg mx-auto mt-10">
+      <div className="h-full text-center max-w-lg mx-auto mt-10">
         <p>
           Logged in as <span className="font-bold">{user?.name}</span> (
           {user?.email})
