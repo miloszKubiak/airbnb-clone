@@ -1,0 +1,1 @@
+export { getUserAccommodations } from "./getUserAccommodations";
