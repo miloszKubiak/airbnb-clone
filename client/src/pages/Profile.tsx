@@ -5,6 +5,8 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { UserAccommodationsPage } from "./Accommodation/UserAccommodationsPage";
 import { FavoritesContext } from "../context/FavoritesContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 export const Profile = () => {
   const { ready, user, setUser } = useContext(UserContext);
@@ -16,12 +18,22 @@ export const Profile = () => {
     subpage = "profile";
   }
 
-  const logout = async () => {
-    await axios.post("/auth/logout");
-    navigate("/");
-    setUser(null);
-    setFavorites([]);
-  };
+  const queryClient = useQueryClient();
+
+  const { mutate: logoutUser } = useMutation({
+    mutationFn: async () => await axios.post("/auth/logout"),
+    onSuccess: () => {
+      queryClient.resetQueries();
+      navigate("/");
+      toast.success("Logged out");
+      setUser(null);
+      setFavorites([]);
+    },
+    onError: (error) => {
+      toast.error("Something went wrong..");
+      console.error(error);
+    },
+  });
 
   if (!ready) return <Loader />;
   if (ready && !user) return <Navigate to={"/login"} />;
@@ -34,7 +46,7 @@ export const Profile = () => {
           Logged in as <span className="font-bold">{user?.name}</span> (
           {user?.email})
         </p>
-        <button onClick={logout} className="primary max-w-xs mt-6">
+        <button onClick={() => logoutUser()} className="primary max-w-xs mt-6">
           Logout
         </button>
       </div>

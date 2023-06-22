@@ -2,28 +2,15 @@ import { Link } from "react-router-dom";
 import { GoPlus } from "react-icons/all";
 import { UserAccommodation } from "./UserAccommodation";
 import { useState } from "react";
-import axios from "axios";
 import { Pagination } from "./Pagination";
-import { TAccommodation } from "./Accommodation";
 import { Loader } from "./Loader";
 import { useQuery } from "@tanstack/react-query";
 import { getUserAccommodations } from "../api/accommodations";
 
 export const AllUserAccommodations = () => {
-  // const [userAccommodations, setUserAccommodations] = useState<
-  //   TAccommodation[]
-  // >([]);
   const [page, setPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
-  // const { isLoading, isError, data } = useQuery({
-  //   queryKey: ["accommodations"],
-  //   queryFn: async () => {
-  //     const { data } = await axios.get("/accommodations/user-accommodations");
-  //     setUserAccommodations(data.accommodations);
-  //     setNumOfPages(data.numOfPages);
-  //     return data;
-  //   },
-  // });
+
   const { isLoading, isError, data } = useQuery({
     queryKey: ["accommodations"],
     queryFn: getUserAccommodations,

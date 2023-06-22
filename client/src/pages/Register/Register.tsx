@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "./Register.schema";
 import axios from "axios";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 axios.defaults.baseURL = "http://127.0.0.1:4000"; // to do - add to env file.
 
@@ -40,7 +40,6 @@ export const Register = () => {
 
   return (
     <div className="mt-5 grow flex items-center justify-around">
-      <Toaster position="top-center" reverseOrder={false} />
       <div className="mb-60">
         <h1 className="text-3xl text-center text-indigo-500 mb-5">Register</h1>
         <form
