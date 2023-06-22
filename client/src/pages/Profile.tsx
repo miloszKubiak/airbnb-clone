@@ -2,11 +2,11 @@ import { AccountNavbar, Loader } from "../components";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { UserAccommodationsPage } from "./Accommodation/UserAccommodationsPage";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { logoutUser } from "../api/auth";
 
 export const Profile = () => {
   const { ready, user, setUser } = useContext(UserContext);
@@ -20,8 +20,8 @@ export const Profile = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutate: logoutUser } = useMutation({
-    mutationFn: async () => await axios.post("/auth/logout"),
+  const { mutate: logout } = useMutation({
+    mutationFn: logoutUser,
     onSuccess: () => {
       queryClient.resetQueries();
       navigate("/");
@@ -46,7 +46,7 @@ export const Profile = () => {
           Logged in as <span className="font-bold">{user?.name}</span> (
           {user?.email})
         </p>
-        <button onClick={() => logoutUser()} className="primary max-w-xs mt-6">
+        <button onClick={() => logout()} className="primary max-w-xs mt-6">
           Logout
         </button>
       </div>

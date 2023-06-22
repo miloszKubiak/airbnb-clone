@@ -1,7 +1,18 @@
 import axios from "axios";
 import { TAccommodation } from "../../components/Accommodation";
 
-export const getUserAccommodations = async (): Promise<TAccommodation[]> => {
-  const response = await axios.get("/accommodations/user-accommodations");
-  return response.data.accommodations;
+type UserAccommodationsResponse = {
+  accommodations: TAccommodation[];
+  numOfPages: number;
+  totalAccommodations: number;
+};
+
+export const getUserAccommodations = async (
+  pageParam = 1
+): Promise<UserAccommodationsResponse> => {
+  const { data } = await axios.get(
+    `/accommodations/user-accommodations?page=${pageParam}`
+  );
+  // if (data === undefined) throw new Error();
+  return data;
 };

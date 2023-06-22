@@ -9,12 +9,14 @@ import { getUserAccommodations } from "../api/accommodations";
 
 export const AllUserAccommodations = () => {
   const [page, setPage] = useState(1);
-  const [numOfPages, setNumOfPages] = useState(1);
 
   const { isLoading, isError, data } = useQuery({
-    queryKey: ["accommodations"],
-    queryFn: getUserAccommodations,
+    queryKey: ["accommodations", page],
+    queryFn: () => getUserAccommodations(page),
+    keepPreviousData: true,
   });
+
+  const numOfPages = data?.numOfPages || 1;
 
   const handleDelete = async (id: string) => {
     console.log("delete");
@@ -29,7 +31,7 @@ export const AllUserAccommodations = () => {
       </div>
     );
 
-  if (data.length <= 0)
+  if (data.accommodations.length <= 0)
     return (
       <div className="mt-10 flex flex-col gap-4 justify-center items-center">
         <Link className="link-primary" to={"/account/accommodations/new"}>
@@ -47,7 +49,7 @@ export const AllUserAccommodations = () => {
         Add new
       </Link>
       <div className="mt-8 flex flex-col gap-4">
-        {data.map((accommodation) => (
+        {data.accommodations.map((accommodation) => (
           <UserAccommodation
             key={accommodation._id}
             _id={accommodation._id!}
