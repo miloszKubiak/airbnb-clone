@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Pagination } from "./Pagination";
 import { SearchContext } from "../context/SearchContext";
-import axios from "axios";
-import { Accommodation, TAccommodation } from "./Accommodation";
+import { Accommodation } from "./Accommodation";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { UserContext } from "../context/UserContext";
 import { Loader } from "./Loader";
+import { useQuery } from "@tanstack/react-query";
+import { getAllAccommodations } from "../api/accommodations";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
@@ -19,23 +20,15 @@ export const AllAccommodations = () => {
   } = useContext(FavoritesContext);
   const { user } = useContext(UserContext);
 
-  const [accommodations, setAccommodations] = useState<TAccommodation[]>([]);
-  const [numOfPages, setNumOfPages] = useState(1);
-  const [loading, setLoading] = useState(false);
-
   const favoritesIds = favorites.map((favorite) => favorite.accommodation._id);
 
-  const getAllAccommodations = async () => {
-    setLoading(true);
-    let url = `/accommodations?page=${page}&sort=${sort}&category=${category}`;
-    if (search) {
-      url = url + `&search=${search}`;
-    }
-    const response = await axios.get(url);
-    setLoading(false);
-    setAccommodations(response.data.accommodations);
-    setNumOfPages(response.data.numOfPages);
-  };
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ["accommodations", page, sort, category],
+    queryFn: () => getAllAccommodations(page, sort, category, search),
+    keepPreviousData: true,
+  });
+
+  const numOfPages = data?.numOfPages || 1;
 
   const handleAddOrRemove = async (_id: string) => {
     if (user) {
@@ -52,18 +45,21 @@ export const AllAccommodations = () => {
   };
 
   useEffect(() => {
-    getAllAccommodations();
-  }, [category, page, sort]);
-
-  useEffect(() => {
     if (user) {
       getUserFavorites();
     }
   }, [user, category, page, sort, selectedId]);
 
-  if (loading) return <Loader />;
+  if (isLoading) return <Loader />;
 
-  if (accommodations.length === 0)
+  if (isError)
+    return (
+      <div className="mt-20 flex justify-center items-center">
+        <p>There was an error...</p>
+      </div>
+    );
+
+  if (data?.accommodations.length === 0)
     return (
       <div className="h-screen flex items-center justify-center font-bold text-xl">
         <h2>There are no accommodations in category {category}.</h2>
@@ -73,7 +69,7 @@ export const AllAccommodations = () => {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="py-4 min-w-full gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
-        {accommodations.map((accommodation) => (
+        {data?.accommodations.map((accommodation) => (
           <Accommodation
             key={accommodation._id}
             _id={accommodation._id!}
