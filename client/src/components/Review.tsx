@@ -1,19 +1,6 @@
-import { TAccommodation } from "./Accommodation";
-import { TUser, UserContext } from "../context/UserContext";
+import { UserContext } from "../context/UserContext";
 import { useContext } from "react";
-import { format } from "date-fns";
-import { FaStar } from "react-icons/all";
-import { Stars } from "./Stars";
 import { ReviewInfo } from "./ReviewInfo";
-
-export type TReview = {
-  _id?: string;
-  accommodation: Pick<TAccommodation, "_id" | "title">;
-  comment: string;
-  rating: number;
-  user: Pick<TUser, "_id" | "name">;
-  createdAt: string;
-};
 
 type ReviewProps = {
   userName: string;

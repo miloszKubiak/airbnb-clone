@@ -3,11 +3,13 @@ import { useContext, useState } from "react";
 import { Modal, ModalConfirm } from "./Modal";
 import { UserContext } from "../context/UserContext";
 import { BsDot, FaStar } from "react-icons/all";
-import { TAccommodation } from "./Accommodation";
 import { AddReviewModal } from "./AddReviewModal";
-import { EditReviewModal } from "./EditReviewModal";
 import { ReviewsContext } from "../context/ReviewsContext";
 import { Toaster } from "react-hot-toast";
+import { TAccommodation } from "../types/accommodation";
+import { useQuery } from "@tanstack/react-query";
+import { getAllReviews } from "../api/reviews";
+import { EditReviewModal } from "./EditReviewModal";
 
 type AccommodationReviewsProps = {
   averageRating: number;
@@ -32,6 +34,17 @@ export const AccommodationReviews = ({
     setModalDeleteOpen,
   } = useContext(ReviewsContext);
 
+  // const { isLoading, isError, data } = useQuery({
+  //   queryKey: ["reviews"],
+  //   queryFn: () => getAllReviews(accommodation),
+  // });
+
+  // if (isError)
+  //   return (
+  //     <div className="mt-20 flex justify-center items-center">
+  //       <p>There was an error...</p>
+  //     </div>
+  //   );
   console.log(selectedReviewId);
 
   if (reviews.length === 0) {

@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { TReview } from "./Review";
 import axios from "axios";
 import { ReviewForm, TReviewFormValues } from "./ReviewForm/ReviewForm";
-import { TAccommodation } from "./Accommodation";
 import { Modal } from "./Modal";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import { TAccommodation } from "../types/accommodation";
+import { TReview } from "../types/review";
 
 type AddReviewProps = {
   accommodation: TAccommodation;
@@ -54,7 +54,6 @@ export const AddReviewModal = ({
   return (
     <>
       <Modal isOpen={reviewModalOpen}>
-        <Toaster position="top-center" reverseOrder={false} />
         <ReviewForm onClose={onClose} onSubmit={handleAddReview} />
       </Modal>
     </>

@@ -5,9 +5,9 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { TReview } from "../components/Review";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { TReview } from "../types/review";
 
 type ReviewsContextType = {
   reviews: TReview[];
@@ -48,6 +48,7 @@ export const ReviewsContextProvider = ({
     const response = await axios.get(
       `/accommodations/${accommodationId}/reviews`
     );
+    console.log(response.data);
     setReviews(response.data.reviews);
   };
 

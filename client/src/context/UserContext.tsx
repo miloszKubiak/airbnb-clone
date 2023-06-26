@@ -7,13 +7,7 @@ import {
   useState,
 } from "react";
 import axios from "axios";
-
-export type TUser = {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-};
+import { TUser } from "../types/user";
 
 type UserContextType = {
   user: TUser | null;
