@@ -1,11 +1,11 @@
 import { AccountNavbar, AddressLink, ReservationDates } from "../../components";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { TReservation } from "../../components/Reservation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Modal } from "../../components/Modal";
 import { ModalConfirm } from "../../components/Modal";
 import { toast, Toaster } from "react-hot-toast";
+import { TReservation } from "../../types/reservation";
 
 export const SingleReservationPage = () => {
   const { id: reservationId } = useParams();

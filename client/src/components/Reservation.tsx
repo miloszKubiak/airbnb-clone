@@ -3,18 +3,7 @@ import { ReservationDates } from "./ReservationDates";
 import { Price } from "./Price";
 import { Status } from "./Status";
 import { RefundedReservation } from "./RefundedReservation";
-import { TAccommodation } from "./Accommodation";
-
-export type TReservation = {
-  _id: string;
-  checkIn: Date;
-  checkOut: Date;
-  numberOfGuests: string;
-  numberOfNights: number;
-  price: number;
-  accommodation: TAccommodation;
-  status: string;
-};
+import { TAccommodation } from "../types/accommodation";
 
 type ReservationProps = {
   _id: string;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TAccommodation } from "../../components/Accommodation";
+import { TAccommodation } from "../../types/accommodation";
 
 type UserAccommodationsResponse = {
   accommodations: TAccommodation[];
@@ -13,6 +13,7 @@ export const getUserAccommodations = async (
   const { data } = await axios.get(
     `/accommodations/user-accommodations?page=${pageParam}`
   );
+  console.log(data);
   // if (data === undefined) throw new Error();
   return data;
 };

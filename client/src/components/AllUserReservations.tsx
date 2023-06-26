@@ -1,45 +1,19 @@
-import { Reservation, TReservation } from "./Reservation";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Reservation } from "./Reservation";
+import { useState } from "react";
 import { Pagination } from "./Pagination";
 import { Loader } from "./Loader";
 import { useQuery } from "@tanstack/react-query";
+import { getUserReservations } from "../api/reservations";
 
 export const AllUserReservations = () => {
+  const [page, setPage] = useState(1);
+
   const { isLoading, isError, data } = useQuery({
-    queryKey: ["reservations"],
-    queryFn: async () => {
-      const { data } = await axios.get("/reservations");
-      return data;
-    },
+    queryKey: ["reservations", page],
+    queryFn: () => getUserReservations(page),
   });
 
-  // const [userReservations, setUserReservations] = useState<TReservation[]>([]);
-  const [page, setPage] = useState(1);
-  const [numOfPages, setNumOfPages] = useState(1);
-  // const [loading, setLoading] = useState(false);
-
-  // const getUserReservations = async () => {
-  //   setLoading(true);
-  //   let url = `/reservations?page=${page}`;
-  //   const response = await axios.get(url);
-  //   setLoading(false);
-  //   setUserReservations(response.data.reservations);
-  //   setNumOfPages(response.data.numOfPages);
-  // };
-  //
-  // useEffect(() => {
-  //   getUserReservations();
-  // }, [page]);
-
-  // if (loading) return <Loader />;
-  //
-  // if (userReservations.length <= 0)
-  //   return (
-  //     <div className="mt-20 flex justify-center items-center">
-  //       <p>There are no reservations...</p>
-  //     </div>
-  //   );
+  const numOfPages = data?.numOfPages || 1;
 
   if (isLoading) return <Loader />;
 
@@ -60,7 +34,7 @@ export const AllUserReservations = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center gap-2">
-        {data?.reservations.map((reservation: any) => (
+        {data?.reservations.map((reservation) => (
           <Reservation
             key={reservation._id}
             _id={reservation._id}

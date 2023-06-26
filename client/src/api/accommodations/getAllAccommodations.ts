@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TAccommodation } from "../../components/Accommodation";
+import { TAccommodation } from "../../types/accommodation";
 
 type AllAccommodationsResponse = {
   accommodations: TAccommodation[];

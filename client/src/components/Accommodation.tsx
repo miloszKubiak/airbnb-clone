@@ -3,25 +3,6 @@ import { FaHeart, FaStar } from "react-icons/all";
 import { useContext, useState } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 
-export type TAccommodation = {
-  _id?: string;
-  owner?: string;
-  ownerName?: string;
-  title: string;
-  address: string;
-  description: string;
-  photos?: string[];
-  perks: string[];
-  extraInfo: string;
-  checkIn: string;
-  checkOut: string;
-  maxGuests: number;
-  price: number;
-  category: string;
-  averageRating: number;
-  numOfReviews: number;
-};
-
 type AccommodationProps = {
   _id?: string;
   photos: string[];
@@ -37,10 +18,8 @@ type AccommodationProps = {
 export const Accommodation = ({
   _id,
   photos,
-  title,
   address,
   price,
-  averageRating,
   onAddOrRemove,
   onSelectedId,
 }: AccommodationProps) => {
