@@ -11,6 +11,7 @@ export const AllUserReservations = () => {
   const { isLoading, isError, data } = useQuery({
     queryKey: ["reservations", page],
     queryFn: () => getUserReservations(page),
+    keepPreviousData: true,
   });
 
   const numOfPages = data?.numOfPages || 1;

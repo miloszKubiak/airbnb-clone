@@ -3,7 +3,10 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Loader } from "./Loader";
+import { TReservationRequest } from "../types/reservation";
 
 type ReserveWidgetProps = {
   price: number;
@@ -19,12 +22,10 @@ export const ReservationWidget = ({
 }: ReserveWidgetProps) => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
-  const tax = 50;
-  const cleaningPrice = 100;
-
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [numberOfGuests, setNumberOfGuests] = useState(1);
+  const queryClient = useQueryClient();
 
   let numberOfNights = 0;
   if (checkIn && checkOut) {
@@ -34,27 +35,37 @@ export const ReservationWidget = ({
     );
   }
 
-  const handleReserve = async () => {
-    try {
-      await axios.post("/reservations", {
+  const tax = 50;
+  const cleaningPrice = 100;
+  let fullPrice = numberOfNights * price + tax + cleaningPrice;
+
+  const { mutate: addReservation, isLoading } = useMutation({
+    mutationFn: async () => {
+      const payload: TReservationRequest = {
         checkIn,
         checkOut,
         numberOfGuests,
         numberOfNights,
         accommodation: id,
-        price: numberOfNights * price + tax + cleaningPrice,
+        price: fullPrice,
         user: user?._id,
-      });
+      };
+      await axios.post("/reservations", payload);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reservations"] });
       toast.success("The reservation was successful!");
       navigate(`/account/my-reservations`);
-    } catch (error) {
-      toast.error("Something went wrong!");
-    }
-  };
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="flex min-w-[50%] flex-col justify-center p-4 bg-white border-2 border-zinc-300 rounded-2xl">
-      <Toaster position="top-center" reverseOrder={false} />
       <p className="text-left">
         <span className="font-bold text-xl">{price} €</span> / night
       </p>
@@ -91,7 +102,7 @@ export const ReservationWidget = ({
         />
         <button
           className="primary disabled:bg-zinc-300 w-full text-xl"
-          onClick={handleReserve}
+          onClick={() => addReservation()}
           disabled={numberOfNights <= 0 || !user}
         >
           Reserve

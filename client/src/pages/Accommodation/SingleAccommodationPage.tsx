@@ -12,8 +12,8 @@ import {
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { TAccommodation } from "../../components/Accommodation";
 import { ReviewsContext } from "../../context/ReviewsContext";
+import { TAccommodation } from "../../types/accommodation";
 
 export const SingleAccommodationPage = () => {
   const { calculatedNumberOfReviews, calculatedAverageRating, getAllReviews } =

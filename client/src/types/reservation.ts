@@ -10,3 +10,13 @@ export type TReservation = {
   accommodation: TAccommodation;
   status: string;
 };
+
+export type TReservationRequest = {
+  checkIn: string;
+  checkOut: string;
+  numberOfGuests: number;
+  numberOfNights: number;
+  accommodation: string | undefined;
+  price: number;
+  user: string | undefined;
+};
