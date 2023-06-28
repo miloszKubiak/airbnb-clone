@@ -18,11 +18,8 @@ export const getUserAccommodations = async (
   return data;
 };
 
-export const useGetUserAccommodations = (page: number) => {
-  const { isLoading, isError, data } = useQuery({
+export const useGetUserAccommodations = (page: number) =>
+  useQuery({
     queryKey: ["accommodations", page],
     queryFn: () => getUserAccommodations(page),
   });
-
-  return { isLoading, isError, data };
-};

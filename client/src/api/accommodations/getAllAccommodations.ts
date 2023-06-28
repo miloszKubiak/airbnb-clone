@@ -28,11 +28,8 @@ export const useGetAllAccommodations = (
   sort: string,
   category: string,
   search: string
-) => {
-  const { isLoading, data, isError } = useQuery({
+) =>
+  useQuery({
     queryKey: ["accommodations", page, sort, category, search],
     queryFn: () => getAllAccommodations(page, sort, category, search),
   });
-
-  return { isLoading, isError, data };
-};
