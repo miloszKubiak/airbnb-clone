@@ -37,7 +37,7 @@ export const ReservationWidget = ({
 
   const tax = 50;
   const cleaningPrice = 100;
-  let fullPrice = numberOfNights * price + tax + cleaningPrice;
+  const fullPrice = numberOfNights * price + tax + cleaningPrice;
 
   const { mutate: addReservation, isLoading } = useMutation({
     mutationFn: async () => {

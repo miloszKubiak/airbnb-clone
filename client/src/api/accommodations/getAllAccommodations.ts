@@ -1,5 +1,6 @@
 import axios from "axios";
 import { TAccommodation } from "../../types/accommodation";
+import { useQuery } from "@tanstack/react-query";
 
 type AllAccommodationsResponse = {
   accommodations: TAccommodation[];
@@ -18,6 +19,20 @@ export const getAllAccommodations = async (
     url = url + `&search=${search}`;
   }
   const { data } = await axios.get(url);
-  // if (data === undefined) throw new Error();
+
   return data;
+};
+
+export const useGetAllAccommodations = (
+  page: number,
+  sort: string,
+  category: string,
+  search: string
+) => {
+  const { isLoading, data, isError } = useQuery({
+    queryKey: ["accommodations", page, sort, category, search],
+    queryFn: () => getAllAccommodations(page, sort, category, search),
+  });
+
+  return { isLoading, isError, data };
 };

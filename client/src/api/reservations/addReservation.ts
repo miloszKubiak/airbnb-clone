@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//póki co nieuzywane
 export const addReservation = async (
   checkIn: string,
   checkOut: string,

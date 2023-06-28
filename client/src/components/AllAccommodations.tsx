@@ -5,8 +5,7 @@ import { Accommodation } from "./Accommodation";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { UserContext } from "../context/UserContext";
 import { Loader } from "./Loader";
-import { useQuery } from "@tanstack/react-query";
-import { getAllAccommodations } from "../api/accommodations";
+import { useGetAllAccommodations } from "../api/accommodations";
 
 export const AllAccommodations = () => {
   const { search, sort, category, page, setPage } = useContext(SearchContext);
@@ -22,11 +21,12 @@ export const AllAccommodations = () => {
 
   const favoritesIds = favorites.map((favorite) => favorite.accommodation._id);
 
-  const { isLoading, isError, data } = useQuery({
-    queryKey: ["accommodations", page, sort, category],
-    queryFn: () => getAllAccommodations(page, sort, category, search),
-    keepPreviousData: true,
-  });
+  const { isLoading, isError, data } = useGetAllAccommodations(
+    page,
+    sort,
+    category,
+    search
+  );
 
   const numOfPages = data?.numOfPages || 1;
 
