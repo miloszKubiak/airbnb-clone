@@ -5,16 +5,20 @@ import { useState } from "react";
 import { Pagination } from "./Pagination";
 import { Loader } from "./Loader";
 import { useQuery } from "@tanstack/react-query";
-import { getUserAccommodations } from "../api/accommodations";
+import {
+  getUserAccommodations,
+  useGetUserAccommodations,
+} from "../api/accommodations";
 
 export const AllUserAccommodations = () => {
   const [page, setPage] = useState(1);
 
-  const { isLoading, isError, data } = useQuery({
-    queryKey: ["accommodations", page],
-    queryFn: () => getUserAccommodations(page),
-    keepPreviousData: true,
-  });
+  const { isLoading, isError, data } = useGetUserAccommodations(page);
+  // const { isLoading, isError, data } = useQuery({
+  //   queryKey: ["accommodations", page],
+  //   queryFn: () => getUserAccommodations(page),
+  //   keepPreviousData: true,
+  // });
 
   const numOfPages = data?.numOfPages || 1;
 
@@ -28,6 +32,13 @@ export const AllUserAccommodations = () => {
     return (
       <div className="mt-20 flex justify-center items-center">
         <p>There was an error...</p>
+      </div>
+    );
+
+  if (!data)
+    return (
+      <div className="mt-20 flex justify-center items-center">
+        <p>There are no accommodations...</p>
       </div>
     );
 
