@@ -34,7 +34,9 @@ export const addNewAccommodation = async (req: Request, res: Response) => {
 
   const accommodation = await Accommodation.create(req.body);
 
-  res.status(201).json({ accommodation });
+  res
+    .status(201)
+    .json({ accommodation, msg: "Accommodation added succesfully!" });
 };
 
 export const getUserAccommodations = async (req: Request, res: Response) => {
