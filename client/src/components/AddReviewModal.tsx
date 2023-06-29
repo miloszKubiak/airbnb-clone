@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
-import { ReviewForm, TReviewFormValues } from "./ReviewForm/ReviewForm";
-import { Modal } from "./Modal";
+import { ReviewForm, TReviewFormValues } from "./reviewForm/ReviewForm";
+import { Modal } from "./modal";
 import { toast } from "react-hot-toast";
 import { TAccommodation } from "../types/accommodation";
 import { TReview } from "../types/review";

@@ -2,7 +2,7 @@ import { AccountNavbar, Loader } from "../components";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { UserAccommodationsPage } from "./Accommodation/UserAccommodationsPage";
+import { UserAccommodationsPage } from "./accommodation/UserAccommodationsPage";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";

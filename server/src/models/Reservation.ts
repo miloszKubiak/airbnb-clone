@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const ReservationSchema = new mongoose.Schema({
   accommodation: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Accommodation",
+    ref: "accommodation",
     required: true,
   },
   user: {
@@ -23,6 +23,6 @@ const ReservationSchema = new mongoose.Schema({
   },
 });
 
-const ReservationModel = mongoose.model("Reservation", ReservationSchema);
+const ReservationModel = mongoose.model("reservation", ReservationSchema);
 
 export default ReservationModel;

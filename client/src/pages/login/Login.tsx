@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginSchema } from "./Login.schema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TFormValues } from "../Register/Register";
+import { TFormValues } from "../register/Register";
 import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
@@ -24,7 +24,7 @@ export const Login = () => {
     try {
       const { data } = await axios.post("/auth/login", { email, password });
       setUser(data);
-      toast.success("Login successful");
+      toast.success("login successful");
       navigate("/");
     } catch (error) {
       toast.error("Wrong credentials");

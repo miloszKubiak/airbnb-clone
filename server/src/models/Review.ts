@@ -9,7 +9,7 @@ const ReviewSchema = new mongoose.Schema(
     },
     accommodation: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Accommodation",
+      ref: "accommodation",
       required: true,
     },
     comment: {

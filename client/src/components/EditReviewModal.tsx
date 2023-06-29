@@ -1,8 +1,8 @@
-import { ReviewForm } from "./ReviewForm/ReviewForm";
-import { Modal } from "./Modal";
-import { TReview } from "./Review";
+import { ReviewForm } from "./reviewForm/ReviewForm";
+import { Modal } from "./modal";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { TReview } from "../types/review";
 
 type EditReviewModalProps = {
   onClose: () => void;

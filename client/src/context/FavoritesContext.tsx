@@ -3,11 +3,10 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
-  useEffect,
   useState,
 } from "react";
 import axios from "axios";
-import { TAccommodation } from "../components/Accommodation";
+import { TAccommodation } from "../types/accommodation";
 
 export type TFavorite = {
   accommodation: Pick<

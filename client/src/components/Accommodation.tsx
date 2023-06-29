@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaHeart, FaStar } from "react-icons/all";
+import { FaHeart } from "react-icons/all";
 import { useContext, useState } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 

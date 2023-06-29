@@ -1,6 +1,6 @@
 import { Review } from "./Review";
 import { useContext, useState } from "react";
-import { Modal, ModalConfirm } from "./Modal";
+import { Modal, ModalConfirm } from "./modal";
 import { UserContext } from "../context/UserContext";
 import { BsDot, FaStar } from "react-icons/all";
 import { AddReviewModal } from "./AddReviewModal";

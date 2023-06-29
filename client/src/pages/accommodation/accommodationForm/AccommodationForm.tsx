@@ -1,4 +1,4 @@
-import { AccountNavbar, FileInput } from "../../../components";
+import { AccountNavbar } from "../../../components";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BsDoorClosed,

@@ -2,8 +2,8 @@ import { AccountNavbar, AddressLink, ReservationDates } from "../../components";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Modal } from "../../components/Modal";
-import { ModalConfirm } from "../../components/Modal";
+import { Modal } from "../../components/modal";
+import { ModalConfirm } from "../../components/modal";
 import { toast, Toaster } from "react-hot-toast";
 import { TReservation } from "../../types/reservation";
 
@@ -20,7 +20,7 @@ export const SingleReservationPage = () => {
         status: "canceled",
       });
       setModalCancelOpen(false);
-      toast.success("Reservation canceled successful");
+      toast.success("reservation canceled successful");
     } catch (error) {
       toast.error("Something went wrong.");
     }
@@ -33,7 +33,7 @@ export const SingleReservationPage = () => {
       });
       setPaid(true);
       setModalPayOpen(false);
-      toast.success("Reservation pay successful");
+      toast.success("reservation pay successful");
     } catch (error) {
       toast.error("Something went wrong.");
     }
