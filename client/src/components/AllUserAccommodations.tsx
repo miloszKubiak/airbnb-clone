@@ -4,18 +4,18 @@ import { UserAccommodation } from "./UserAccommodation";
 import { useState } from "react";
 import { Pagination } from "./Pagination";
 import { Loader } from "./Loader";
-import { useGetUserAccommodations } from "../api/accommodations";
+import {
+  useDeleteAccommodation,
+  useGetUserAccommodations,
+} from "../api/accommodations";
 
 export const AllUserAccommodations = () => {
   const [page, setPage] = useState(1);
-
   const { isLoading, isError, data } = useGetUserAccommodations(page);
+  const { mutate: deleteAccommodation, isLoading: deleteAccommodationLoading } =
+    useDeleteAccommodation();
 
   const numOfPages = data?.numOfPages || 1;
-
-  const handleDelete = async (id: string) => {
-    console.log("delete");
-  };
 
   if (isLoading) return <Loader />;
 
@@ -58,7 +58,8 @@ export const AllUserAccommodations = () => {
             title={accommodation.title}
             description={accommodation.description}
             photos={accommodation.photos!}
-            onDelete={() => handleDelete(accommodation._id!)}
+            onDelete={() => deleteAccommodation(accommodation._id!)}
+            disabled={deleteAccommodationLoading}
           />
         ))}
       </div>

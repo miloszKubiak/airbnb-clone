@@ -6,6 +6,7 @@ type UserAccommodationProps = {
   description: string;
   photos: string[];
   onDelete: (_id: string) => void;
+  disabled: boolean;
 };
 
 export const UserAccommodation = ({
@@ -14,6 +15,7 @@ export const UserAccommodation = ({
   title,
   description,
   onDelete,
+  disabled,
 }: UserAccommodationProps) => {
   return (
     <div className="bg-gray-100 p-4 rounded-2xl" key={_id}>
@@ -45,7 +47,11 @@ export const UserAccommodation = ({
         >
           Edit
         </Link>
-        <button onClick={() => onDelete(_id)} className="delete">
+        <button
+          disabled={disabled}
+          onClick={() => onDelete(_id)}
+          className="delete"
+        >
           Delete
         </button>
       </div>

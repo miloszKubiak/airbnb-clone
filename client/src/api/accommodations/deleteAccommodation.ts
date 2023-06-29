@@ -1,9 +1,20 @@
 import axios from "axios";
-
-export const deleteAccommodation = async (accommodationId: string) => {
-  return await axios.delete(`/accommodations/${accommodationId}`);
-};
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 export const useDeleteAccommodation = () => {
-  return {};
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (accommodationId: string) => {
+      return axios.delete(`/accommodations/${accommodationId}`);
+    },
+    onSuccess: (response) => {
+      queryClient.invalidateQueries({ queryKey: ["accommodations"] });
+      toast.success(response.data.msg);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 };
