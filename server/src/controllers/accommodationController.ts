@@ -36,7 +36,7 @@ export const addNewAccommodation = async (req: Request, res: Response) => {
 
   res
     .status(201)
-    .json({ accommodation, msg: "Accommodation added succesfully!" });
+    .json({ accommodation, msg: "Accommodation added successfully!" });
 };
 
 export const getUserAccommodations = async (req: Request, res: Response) => {
@@ -126,7 +126,9 @@ export const updateAccommodation = async (req: Request, res: Response) => {
     { new: true, runValidators: true }
   );
 
-  res.status(200).json({ updatedAccommodation });
+  res
+    .status(200)
+    .json({ updatedAccommodation, msg: "Accommodation edited successfully!" });
 };
 
 export const deleteAccommodation = async (req: Request, res: Response) => {

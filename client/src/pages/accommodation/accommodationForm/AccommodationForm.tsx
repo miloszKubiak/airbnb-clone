@@ -15,15 +15,17 @@ import { useContext, useEffect } from "react";
 import axios from "axios";
 import { UserContext } from "../../../context/UserContext";
 import { categories } from "../../../utils/categories";
-import { toast } from "react-hot-toast";
-import { useCreateAccommodation } from "../../../api/accommodations";
+import {
+  useCreateAccommodation,
+  useEditAccommodation,
+} from "../../../api/accommodations";
 import { TAccommodationFormValues } from "../../../types/accommodation";
 
 export const AccommodationForm = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const { mutate: createAccommodation, isLoading } = useCreateAccommodation();
+  const { mutate: editAccommodation } = useEditAccommodation();
 
   useEffect(() => {
     if (!id) return;
@@ -40,6 +42,7 @@ export const AccommodationForm = () => {
     formState: { errors },
   } = useForm<TAccommodationFormValues>({
     resolver: yupResolver(accommodationSchema),
+    //wczytac getem accommodation i do default values przypisac wartosci wczytane
     defaultValues: {
       title: "",
       address: "",
@@ -82,58 +85,12 @@ export const AccommodationForm = () => {
       maxGuests,
       price,
     };
-    //dodac edytowanie jeszcze
-    createAccommodation(formData);
+    if (id) {
+      editAccommodation({ accommodationId: id, accommodation: formData });
+    } else {
+      createAccommodation(formData);
+    }
   };
-
-  // const handleSaveAccommodation = async ({
-  //   title,
-  //   address,
-  //   description,
-  //   photos,
-  //   perks,
-  //   category,
-  //   extraInfo,
-  //   checkIn,
-  //   checkOut,
-  //   maxGuests,
-  //   price,
-  // }: TAccommodationFormValues) => {
-  //   const formData = {
-  //     ownerName: user?.name,
-  //     title,
-  //     address,
-  //     description,
-  //     photos,
-  //     perks,
-  //     category,
-  //     extraInfo,
-  //     checkIn,
-  //     checkOut,
-  //     maxGuests,
-  //     price,
-  //   };
-  //
-  //   if (id) {
-  //     //edit
-  //     try {
-  //       await axios.patch(`/accommodations/${id}`, { id, ...formData });
-  //       toast.success("Edit place successful!");
-  //       navigate("/account/my-accommodations");
-  //     } catch (error) {
-  //       toast.error("Something went wrong!");
-  //     }
-  //   } else {
-  //     //add
-  //     try {
-  //       await axios.post("/accommodations", formData);
-  //       toast.success("Added new place!");
-  //       navigate("/account/my-accommodations");
-  //     } catch (error) {
-  //       toast.error("Something went wrong!");
-  //     }
-  //   }
-  // };
 
   return (
     <div>

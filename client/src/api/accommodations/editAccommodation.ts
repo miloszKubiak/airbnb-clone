@@ -1,16 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { TAccommodationFormValues } from "../../types/accommodation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { TAccommodationFormValues } from "../../types/accommodation";
 
-export const useCreateAccommodation = () => {
+type editAccommodationProps = {
+  accommodationId: string;
+  accommodation: TAccommodationFormValues;
+};
+
+export const useEditAccommodation = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (accommodation: TAccommodationFormValues) =>
-      axios.post("/accommodations", accommodation),
+    mutationFn: ({ accommodationId, accommodation }: editAccommodationProps) =>
+      axios.patch(`/accommodations/${accommodationId}`, {
+        accommodationId,
+        ...accommodation,
+      }),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["accommodations"] });
       toast.success(response.data.msg);
