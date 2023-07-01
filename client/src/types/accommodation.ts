@@ -6,15 +6,15 @@ export type TAccommodation = {
   address: string;
   description: string;
   photos?: string[];
-  perks: string[];
-  extraInfo: string;
+  perks?: string[];
+  extraInfo?: string;
   checkIn: string;
   checkOut: string;
   maxGuests: number;
   price: number;
   category: string;
-  averageRating: number;
-  numOfReviews: number;
+  averageRating?: number;
+  numOfReviews?: number;
 };
 
 export type TAccommodationFormValues = {

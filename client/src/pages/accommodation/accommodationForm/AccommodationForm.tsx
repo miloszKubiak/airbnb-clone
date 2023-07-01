@@ -16,15 +16,18 @@ import axios from "axios";
 import { UserContext } from "../../../context/UserContext";
 import { categories } from "../../../utils/categories";
 import {
+  getAccommodation,
   useCreateAccommodation,
   useEditAccommodation,
+  useGetAccommodation,
 } from "../../../api/accommodations";
 import { TAccommodationFormValues } from "../../../types/accommodation";
 
 export const AccommodationForm = () => {
   const { id } = useParams();
   const { user } = useContext(UserContext);
-  const { mutate: createAccommodation, isLoading } = useCreateAccommodation();
+  const { mutate: createAccommodation, isLoading: createAccommodationLoading } =
+    useCreateAccommodation();
   const { mutate: editAccommodation } = useEditAccommodation();
 
   useEffect(() => {
@@ -56,6 +59,19 @@ export const AccommodationForm = () => {
       maxGuests: 1,
       price: 1,
     },
+    // defaultValues: {
+    //   title: data?.title,
+    //   address: data?.address,
+    //   description: data?.description,
+    //   photos: data?.photos,
+    //   perks: data?.perks,
+    //   category: data?.category,
+    //   extraInfo: data?.extraInfo,
+    //   checkIn: data?.checkIn,
+    //   checkOut: data?.checkOut,
+    //   maxGuests: data?.maxGuests,
+    //   price: data?.price,
+    // },
   });
 
   const handleSaveAccommodation = async ({
@@ -86,7 +102,7 @@ export const AccommodationForm = () => {
       price,
     };
     if (id) {
-      editAccommodation({ accommodationId: id, accommodation: formData });
+      editAccommodation({ id: id, accommodation: formData });
     } else {
       createAccommodation(formData);
     }
@@ -236,6 +252,7 @@ export const AccommodationForm = () => {
           <button
             type="submit"
             className="w-6/12 text-xl mt-2 p-2 rounded-full text-white bg-indigo-500"
+            disabled={createAccommodationLoading}
           >
             Save
           </button>

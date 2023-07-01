@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 type editAccommodationProps = {
-  accommodationId: string;
+  id: string;
   accommodation: TAccommodationFormValues;
 };
 
@@ -14,9 +14,8 @@ export const useEditAccommodation = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: ({ accommodationId, accommodation }: editAccommodationProps) =>
-      axios.patch(`/accommodations/${accommodationId}`, {
-        accommodationId,
+    mutationFn: ({ id, accommodation }: editAccommodationProps) =>
+      axios.patch(`/accommodations/${id}`, {
         ...accommodation,
       }),
     onSuccess: (response) => {
